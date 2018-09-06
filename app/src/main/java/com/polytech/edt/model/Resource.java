@@ -1,6 +1,8 @@
 package com.polytech.edt.model;
 
-
+/**
+ * Resource
+ */
 public enum Resource {
 
     //region Constants
@@ -18,7 +20,7 @@ public enum Resource {
 
     //region Constructors
 
-    private Resource(int id) {
+    Resource(int id) {
         this.id = id;
     }
 

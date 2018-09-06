@@ -6,20 +6,17 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * Calendar url
+ */
 public class CalendarUrl {
 
     //region Fields
-
-    private String host = "http://ade.polytech.u-psud.fr:8080/jsp/custom/modules/plannings/anonymous_cal.jsp";
 
     public static final String HOST = "ade.polytech.u-psud.fr";
     public static final String URL_PATH = "/jsp/custom/modules/plannings/anonymous_cal.jsp";
@@ -63,14 +60,6 @@ public class CalendarUrl {
             // Add a day
             calendar.add(Calendar.DATE, 1);
         }
-    }
-
-    //endregion
-
-    //region GET
-
-    public int scope() {
-        return scope;
     }
 
     //endregion

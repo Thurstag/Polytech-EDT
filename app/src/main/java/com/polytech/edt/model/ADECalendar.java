@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * Calendar
+ */
 public class ADECalendar {
 
     //region Fields
@@ -59,7 +62,7 @@ public class ADECalendar {
      */
     public ADECalendar load() throws IOException, ParserException, ParseException {
         // Fecth & decode calendar
-        Calendar calendar = new CalendarBuilder().build(fetchCalendar());
+        Calendar calendar = new CalendarBuilder().build(fetchCalendar());   // TODO:Warning ! Calendar can be malformed
 
         // Load events
         Set<ADEEvent> set = new TreeSet<>();
