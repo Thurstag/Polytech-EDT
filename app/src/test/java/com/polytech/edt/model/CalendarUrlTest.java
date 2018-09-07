@@ -1,4 +1,4 @@
-package com.polytech.edt;
+package com.polytech.edt.model;
 
 import com.polytech.edt.model.CalendarUrl;
 import com.polytech.edt.model.Resource;

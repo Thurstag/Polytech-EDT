@@ -8,7 +8,7 @@ public enum Resource {
     //region Constants
 
     APP3_TC_GROUP_C(2128);
-    // TODO: Add more !
+    // TODO: Add more ! Or find a way to get them
 
     //endregion
 

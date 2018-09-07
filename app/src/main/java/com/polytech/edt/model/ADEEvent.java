@@ -2,10 +2,15 @@ package com.polytech.edt.model;
 
 import android.support.annotation.NonNull;
 
+import com.alamkanak.weekview.WeekViewEvent;
+
 import net.fortuna.ical4j.model.component.VEvent;
+
+import org.apache.commons.lang.time.DateUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -13,7 +18,7 @@ import java.util.TimeZone;
 /**
  * Event
  */
-public class ADEEvent implements Comparable<ADEEvent> {
+public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent> {
 
     //region Fields
 
@@ -25,8 +30,6 @@ public class ADEEvent implements Comparable<ADEEvent> {
 
     private final Date startDate;
     private final Date endDate;
-    private String label;
-    private String location;
 
     //endregion
 
@@ -43,30 +46,38 @@ public class ADEEvent implements Comparable<ADEEvent> {
      * @throws ParseException Date parsing error
      */
     ADEEvent(VEvent event) throws ParseException {
-        this.label = event.getProperty(LABEL).getValue();
+        this.setName(event.getProperty(LABEL).getValue());
         this.startDate = dateFormat.parse(event.getProperty(START_DATE).getValue());
         this.endDate = dateFormat.parse(event.getProperty(END_DATE).getValue());
-        this.location = event.getProperty(LOCATION).getValue();
+        this.setLocation(event.getProperty(LOCATION).getValue());
     }
 
     //endregion
 
     //region GET
 
-    public Date startDate() {
-        return startDate;
+    public int month() {
+        return getEndTime().get(Calendar.MONTH);
     }
 
-    public Date endDate() {
-        return endDate;
+    @Override
+    public Calendar getStartTime() {
+        Calendar c = Calendar.getInstance();
+        c.setTime(startDate);
+        return c;
     }
 
-    public String label() {
-        return label;
+    @Override
+    public Calendar getEndTime() {
+        Calendar c = Calendar.getInstance();
+        c.setTime(endDate);
+        return c;
     }
 
-    public String location() {
-        return location;
+    private String span() {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.FRANCE);
+
+        return format.format(getStartTime().getTime()) + " - " + format.format(getEndTime().getTime());
     }
 
     //endregion
@@ -75,16 +86,7 @@ public class ADEEvent implements Comparable<ADEEvent> {
 
     @Override
     public int compareTo(@NonNull ADEEvent event) {
-        if (event.startDate == this.startDate) {
-            return 0;
-        }
-        if (event.startDate.after(this.startDate)) {
-            return -1;
-        }
-        if (event.startDate.before(this.startDate)) {
-            return 1;
-        }
-        return 0;
+        return getStartTime().compareTo(event.getStartTime());
     }
 
     //endregion

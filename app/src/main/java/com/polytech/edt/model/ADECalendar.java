@@ -34,7 +34,7 @@ public class ADECalendar {
      * Constructor
      *
      * @param resources Resource list
-     * @param scope     Scope (in days)
+     * @param scope     Scope (in weeks)
      */
     public ADECalendar(List<Resource> resources, int scope) throws MalformedURLException {
         url = new CalendarUrl(resources, scope).url();
@@ -62,7 +62,7 @@ public class ADECalendar {
      */
     public ADECalendar load() throws IOException, ParserException, ParseException {
         // Fecth & decode calendar
-        Calendar calendar = new CalendarBuilder().build(fetchCalendar());   // TODO:Warning ! Calendar can be malformed
+        Calendar calendar = new CalendarBuilder().build(fetchCalendar());
 
         // Load events
         Set<ADEEvent> set = new TreeSet<>();
@@ -81,7 +81,7 @@ public class ADECalendar {
      * @return Calendar
      * @throws IOException Download error
      */
-    public BufferedInputStream fetchCalendar() throws IOException {
+    BufferedInputStream fetchCalendar() throws IOException {
         return new BufferedInputStream(this.url.openStream());
     }
 

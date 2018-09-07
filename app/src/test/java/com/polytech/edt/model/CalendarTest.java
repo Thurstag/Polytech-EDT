@@ -1,8 +1,4 @@
-package com.polytech.edt;
-
-import com.polytech.edt.model.ADECalendar;
-import com.polytech.edt.model.ADEEvent;
-import com.polytech.edt.model.Resource;
+package com.polytech.edt.model;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -15,7 +11,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
@@ -95,17 +90,17 @@ public class CalendarTest {
         when(mock.load()).thenCallRealMethod();
         mock = mock.load();
 
-        Calendar calendar = GregorianCalendar.getInstance();
+        Calendar calendar;
         int i = 0;
-        for (ADEEvent event : mock.events()) {
-            calendar.setTime(event.startDate());
+        for (WeekViewEvent event : mock.events()) {
+            calendar = event.getStartTime();
             Assert.assertEquals(starts.get(i), String.format("%1$2s", calendar.get(Calendar.HOUR_OF_DAY)).replace(" ", "0") + ":" + String.format("%1$2s", calendar.get(Calendar.MINUTE)).replace(" ", "0") + ":" + String.format("%1$2s", calendar.get(Calendar.SECOND)).replace(" ", "0"));
 
-            calendar.setTime(event.endDate());
+            calendar = event.getEndTime();
             Assert.assertEquals(ends.get(i), String.format("%1$2s", calendar.get(Calendar.HOUR_OF_DAY)).replace(" ", "0") + ":" + String.format("%1$2s", calendar.get(Calendar.MINUTE)).replace(" ", "0") + ":" + String.format("%1$2s", calendar.get(Calendar.SECOND)).replace(" ", "0"));
 
-            Assert.assertEquals(labels.get(i), event.label());
-            Assert.assertEquals(locations.get(i), event.location());
+            Assert.assertEquals(labels.get(i), event.getName());
+            Assert.assertEquals(locations.get(i), event.getLocation());
 
             i++;
         }

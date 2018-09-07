@@ -35,7 +35,7 @@ public class CalendarUrl {
      * Constructor
      *
      * @param resources Resource list
-     * @param scope     Scope (in days)
+     * @param scope     Scope (in weeks)
      */
     public CalendarUrl(List<Resource> resources, int scope) {
         this.resources = resources;
@@ -76,7 +76,7 @@ public class CalendarUrl {
         parameters.add(new BasicNameValuePair("resources", StringUtils.join(this.resources, ',')));
         parameters.add(new BasicNameValuePair("projectId", CalendarUrl.PROJECT_ID + ""));
         parameters.add(new BasicNameValuePair("calType", CalendarUrl.TYPE));
-        parameters.add(new BasicNameValuePair("nbDays", this.scope + ""));
+        parameters.add(new BasicNameValuePair("nbWeeks", this.scope + ""));
 
         return new URL("http", CalendarUrl.HOST, CalendarUrl.PORT, CalendarUrl.URL_PATH + "?" + URLEncodedUtils.format(parameters, "UTF-8"));
     }
