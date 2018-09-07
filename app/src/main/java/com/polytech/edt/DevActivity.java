@@ -1,5 +1,8 @@
 package com.polytech.edt;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.app.Activity;
@@ -15,12 +18,14 @@ import com.polytech.edt.model.ADECalendar;
 import com.polytech.edt.model.ADEEvent;
 import com.polytech.edt.model.Resource;
 
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  * Class used to develop activities
@@ -30,6 +35,8 @@ public class DevActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final DevActivity self = this;
         setContentView(R.layout.activity_dev);
 
         // Get a reference for the week view in the layout.
@@ -84,7 +91,28 @@ public class DevActivity extends Activity {
         mWeekView.setOnEventClickListener(new WeekView.EventClickListener() {
             @Override
             public void onEventClick(WeekViewEvent event, RectF eventRect) {
+                ADEEvent e;
 
+                if (event instanceof ADEEvent) {
+                    e = (ADEEvent)event;
+                }
+                else {
+                    // TODO: Add warning
+                    return;
+                }
+
+                AlertDialog alertDialog = new AlertDialog.Builder(self).create();
+                alertDialog.setTitle(e.getName() + " (" + e.span() + ")");
+
+                alertDialog.setMessage(e.getLocation() + "\n" + e.description());
+
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
             }
         });
     }
