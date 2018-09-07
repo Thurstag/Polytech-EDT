@@ -1,8 +1,5 @@
 package com.polytech.edt.model;
 
-import com.polytech.edt.model.CalendarUrl;
-import com.polytech.edt.model.Resource;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.junit.Assert;
@@ -49,7 +46,7 @@ public class CalendarUrlTest {
         Assert.assertEquals(1, parameters.stream().filter(new Predicate<NameValuePair>() {
             @Override
             public boolean test(NameValuePair nameValuePair) {
-                return nameValuePair.getName().equals("nbDays") && nameValuePair.getValue().equals(scope + "");
+                return nameValuePair.getName().equals("nbWeeks") && nameValuePair.getValue().equals(scope + "");
             }
         }).count());
     }

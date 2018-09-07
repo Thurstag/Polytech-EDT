@@ -1,5 +1,7 @@
 package com.polytech.edt.model;
 
+import com.alamkanak.weekview.WeekViewEvent;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;

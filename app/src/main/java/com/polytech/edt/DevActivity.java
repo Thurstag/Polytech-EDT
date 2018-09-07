@@ -2,14 +2,15 @@ package com.polytech.edt;
 
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.app.Activity;
 import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
+import com.alamkanak.weekview.WeekViewLoader;
 import com.polytech.edt.model.ADECalendar;
 import com.polytech.edt.model.ADEEvent;
 import com.polytech.edt.model.Resource;
@@ -18,20 +19,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * Class used to develop activities
  */
-public class DevActivity extends AppCompatActivity {
+public class DevActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout.activity_dev);
+        setContentView(R.layout.activity_dev);
 
         // Get a reference for the week view in the layout.
-        final WeekView mWeekView = findViewById(R.id.weekViewFrag);
+        final WeekView mWeekView = findViewById(R.id.weekView);
 
         // Avoid thread restrictions
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -52,7 +54,7 @@ public class DevActivity extends AppCompatActivity {
             public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
                 List<WeekViewEvent> events = new ArrayList<>();
 
-                for(ADEEvent event : c.events()) {
+                for (ADEEvent event : c.events()) {
                     if (event.month() == (newMonth)) {
                         events.add(event);
                     }
