@@ -1,20 +1,22 @@
 package com.polytech.edt;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
-import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 import com.polytech.edt.model.ADECalendar;
 import com.polytech.edt.model.ADEEvent;
 import com.polytech.edt.model.ADEResource;
+import com.polytech.edt.model.ADEWeekView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import java.util.Locale;
 /**
  * Class used to develop activities
  */
-public class DevActivity extends Activity {
+public class DevActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,14 @@ public class DevActivity extends Activity {
         final DevActivity self = this;
         setContentView(R.layout.activity_dev);
 
+        // Find the toolbar view inside the activity layout
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // Make sure the toolbar exists in the activity and is not null
+        setSupportActionBar(toolbar);
+
         // Get a reference for the week view in the layout.
-        final WeekView mWeekView = findViewById(R.id.weekView);
+        final ADEWeekView mWeekView = findViewById(R.id.weekView);
 
         // Avoid thread restrictions
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -84,7 +92,7 @@ public class DevActivity extends Activity {
         });
 
         // Implement click callback
-        mWeekView.setOnEventClickListener(new WeekView.EventClickListener() {
+        mWeekView.setOnEventClickListener(new ADEWeekView.EventClickListener() {
             @Override
             public void onEventClick(WeekViewEvent event, RectF eventRect) {
                 ADEEvent e;
@@ -111,5 +119,16 @@ public class DevActivity extends Activity {
                 alertDialog.show();
             }
         });
+
+        // Go to the first event
+        mWeekView.goToDate(c.events().get(0).getStartTime());
+    }
+
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
 }

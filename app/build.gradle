@@ -43,6 +43,8 @@ dependencies {
     implementation 'org.apache.httpcomponents:httpclient:4.5.6'
     implementation 'org.mnode.ical4j:ical4j:1.0.3'
     implementation 'com.github.alamkanak:android-week-view:1.2.6'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:27.1.1'
 
     // TEST DEPENDENCIES
     testImplementation 'junit:junit:4.12'
