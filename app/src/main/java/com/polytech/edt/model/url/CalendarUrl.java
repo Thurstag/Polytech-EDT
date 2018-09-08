@@ -59,8 +59,15 @@ public class CalendarUrl implements ADEUrl {
         // Calculate scope
         Calendar calendar = Calendar.getInstance();
 
+        // Today is saturday
+        if (calendar.get(Calendar.DAY_OF_WEEK) == 7) {
+            auto = false;
+            scope = 1;
+            return;
+        }
+
         // While day of week isn't Saturday
-        while (calendar.get(Calendar.DAY_OF_WEEK) < 6) {
+        while (calendar.get(Calendar.DAY_OF_WEEK) != 7) {
             scope++;
 
             // Add a day

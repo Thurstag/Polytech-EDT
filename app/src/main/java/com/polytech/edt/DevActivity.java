@@ -45,7 +45,7 @@ public class DevActivity extends Activity {
         // Fetch calendar
         final ADECalendar c;
         try {
-            c = new ADECalendar(Collections.singletonList(new ADEResource(2128)), 5).load();
+            c = new ADECalendar(Collections.singletonList(new ADEResource(2128))).load();
         } catch (Exception e) {
             Log.e("ERROR", e.getMessage(), e);
             return;
