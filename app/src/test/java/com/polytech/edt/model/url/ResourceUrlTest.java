@@ -1,6 +1,4 @@
-package com.polytech.edt.model;
-
-import com.polytech.edt.model.url.ResourceUrl;
+package com.polytech.edt.model.url;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;

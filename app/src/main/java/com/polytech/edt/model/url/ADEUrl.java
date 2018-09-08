@@ -1,4 +1,4 @@
-package com.polytech.edt.model;
+package com.polytech.edt.model.url;
 
 import java.net.MalformedURLException;
 import java.net.URL;

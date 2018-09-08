@@ -7,8 +7,6 @@ import com.alamkanak.weekview.WeekViewEvent;
 
 import net.fortuna.ical4j.model.component.VEvent;
 
-import org.apache.commons.lang.time.DateUtils;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

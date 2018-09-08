@@ -1,7 +1,5 @@
 package com.polytech.edt.model.url;
 
-import com.polytech.edt.model.ADEUrl;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;

@@ -1,5 +1,6 @@
-package com.polytech.edt.model;
+package com.polytech.edt.model.url;
 
+import com.polytech.edt.model.ADEResource;
 import com.polytech.edt.model.url.CalendarUrl;
 
 import org.apache.http.NameValuePair;

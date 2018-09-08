@@ -83,18 +83,19 @@ public class CalendarTest {
     @Test
     public void loadTest() throws Exception {
         // Simple load
-        new ADECalendar(Collections.singletonList(new ADEResource(2128))).load();
+        ADECalendar c = new ADECalendar(Collections.singletonList(new ADEResource(2128))).load();
+        Assert.assertNotNull(c);
 
         // Mocked load
-        ADECalendar mock = mock(ADECalendar.class);
-        when(mock.fetchCalendar()).thenReturn(new BufferedInputStream(buffer));
-        when(mock.events()).thenCallRealMethod();
-        when(mock.load()).thenCallRealMethod();
-        mock = mock.load();
+        c = mock(ADECalendar.class);
+        when(c.fetchCalendar()).thenReturn(new BufferedInputStream(buffer));
+        when(c.events()).thenCallRealMethod();
+        when(c.load()).thenCallRealMethod();
+        c = c.load();
 
         Calendar calendar;
         int i = 0;
-        for (WeekViewEvent event : mock.events()) {
+        for (WeekViewEvent event : c.events()) {
             calendar = event.getStartTime();
             Assert.assertEquals(starts.get(i), String.format("%1$2s", calendar.get(Calendar.HOUR_OF_DAY)).replace(" ", "0") + ":" + String.format("%1$2s", calendar.get(Calendar.MINUTE)).replace(" ", "0") + ":" + String.format("%1$2s", calendar.get(Calendar.SECOND)).replace(" ", "0"));
 

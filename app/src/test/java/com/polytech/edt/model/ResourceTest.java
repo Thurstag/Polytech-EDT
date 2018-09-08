@@ -24,24 +24,25 @@ public class ResourceTest {
     @Test
     public void loadTest() throws Exception {
         // Simple load
-        new ADEResource(2128).load();
+        ADEResource resource = new ADEResource(2128).load();
+        Assert.assertNotNull(resource);
 
         // Mocked load
-        ADEResource mock = mock(ADEResource.class);
-        when(mock.fetchResource()).thenReturn(new BufferedInputStream(buffer));
-        when(mock.id()).thenCallRealMethod();
-        when(mock.name()).thenCallRealMethod();
-        when(mock.path()).thenCallRealMethod();
-        when(mock.load()).thenCallRealMethod();
-        mock = mock.load();
+        resource = mock(ADEResource.class);
+        when(resource.fetchResource()).thenReturn(new BufferedInputStream(buffer));
+        when(resource.id()).thenCallRealMethod();
+        when(resource.name()).thenCallRealMethod();
+        when(resource.path()).thenCallRealMethod();
+        when(resource.load()).thenCallRealMethod();
+        resource = resource.load();
 
-        Assert.assertEquals(2128, mock.id());
-        Assert.assertEquals("APP3 TC GrC", mock.name());
-        Assert.assertEquals("Polytech Paris-Sud.FISA.FISA 3A.FISA 3A TC.", mock.path());
+        Assert.assertEquals(2128, resource.id());
+        Assert.assertEquals("APP3 TC GrC", resource.name());
+        Assert.assertEquals("Polytech Paris-Sud.FISA.FISA 3A.FISA 3A TC.", resource.path());
     }
 
     @Test
-    public void resourcesTest() throws Exception {
-        Assert.assertEquals(1537, ADEResource.resources().size());
+    public void resourcesTest() {
+        Assert.assertEquals(483, ADEResource.resources().size());
     }
 }

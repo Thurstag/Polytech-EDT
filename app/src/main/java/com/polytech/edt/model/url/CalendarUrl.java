@@ -1,7 +1,6 @@
 package com.polytech.edt.model.url;
 
 import com.polytech.edt.model.ADEResource;
-import com.polytech.edt.model.ADEUrl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
