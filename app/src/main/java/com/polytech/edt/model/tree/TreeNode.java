@@ -51,7 +51,7 @@ public class TreeNode<T, V> implements Node<T, V> {
     }
 
     @Override
-    public V content() throws Exception {
+    public V content() {
         return content;
     }
 

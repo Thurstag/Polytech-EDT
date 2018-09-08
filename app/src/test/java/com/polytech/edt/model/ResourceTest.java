@@ -40,9 +40,4 @@ public class ResourceTest {
         Assert.assertEquals("APP3 TC GrC", resource.name());
         Assert.assertEquals("Polytech Paris-Sud.FISA.FISA 3A.FISA 3A TC.", resource.path());
     }
-
-    @Test
-    public void resourcesTest() {
-        Assert.assertEquals(483, ADEResource.resources().size());
-    }
 }
