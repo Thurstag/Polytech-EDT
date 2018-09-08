@@ -1,11 +1,10 @@
 package com.polytech.edt;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Bundle;
-import android.app.Activity;
 import android.os.StrictMode;
 import android.util.Log;
 
@@ -13,19 +12,16 @@ import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
-import com.alamkanak.weekview.WeekViewLoader;
 import com.polytech.edt.model.ADECalendar;
 import com.polytech.edt.model.ADEEvent;
-import com.polytech.edt.model.Resource;
+import com.polytech.edt.model.ADEResource;
 
-import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
 /**
  * Class used to develop activities
@@ -49,7 +45,7 @@ public class DevActivity extends Activity {
         // Fetch calendar
         final ADECalendar c;
         try {
-            c = new ADECalendar(Collections.singletonList(Resource.APP3_TC_GROUP_C), 1).load();
+            c = new ADECalendar(Collections.singletonList(new ADEResource(2128)), 5).load();
         } catch (Exception e) {
             Log.e("ERROR", e.getMessage(), e);
             return;

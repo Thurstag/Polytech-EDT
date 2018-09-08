@@ -75,15 +75,15 @@ public class CalendarTest {
         locations.add("620 - A200");
         locations.add("620 - Amphi");
         locations.add("620 - A200");
-        locations.add("");
+        locations.add("UNDEFINED");
         locations.add("620 - A104");
-        locations.add("");
+        locations.add("UNDEFINED");
     }
 
     @Test
     public void loadTest() throws Exception {
         // Simple load
-        new ADECalendar(Collections.singletonList(Resource.APP3_TC_GROUP_C)).load();
+        new ADECalendar(Collections.singletonList(new ADEResource(2128))).load();
 
         // Mocked load
         ADECalendar mock = mock(ADECalendar.class);

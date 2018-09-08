@@ -1,4 +1,7 @@
-package com.polytech.edt.model;
+package com.polytech.edt.model.url;
+
+import com.polytech.edt.model.ADEResource;
+import com.polytech.edt.model.ADEUrl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
@@ -14,7 +17,7 @@ import java.util.List;
 /**
  * Calendar url
  */
-public class CalendarUrl {
+public class CalendarUrl implements ADEUrl {
 
     //region Fields
 
@@ -24,8 +27,9 @@ public class CalendarUrl {
     public static final String TYPE = "ical";
     public static final int PROJECT_ID = 2;
 
-    private List<Resource> resources;
+    private List<ADEResource> resources;
     private int scope;
+    private boolean auto;
 
     //endregion
 
@@ -37,9 +41,10 @@ public class CalendarUrl {
      * @param resources Resource list
      * @param scope     Scope (in weeks)
      */
-    public CalendarUrl(List<Resource> resources, int scope) {
+    public CalendarUrl(List<ADEResource> resources, int scope) {
         this.resources = resources;
         this.scope = scope;
+        this.auto = false;
     }
 
     /**
@@ -47,8 +52,9 @@ public class CalendarUrl {
      *
      * @param resources Resource list
      */
-    public CalendarUrl(List<Resource> resources) {
+    public CalendarUrl(List<ADEResource> resources) {
         this(resources, 0);
+        this.auto = true;
 
         // Calculate scope
         Calendar calendar = Calendar.getInstance();
@@ -76,7 +82,7 @@ public class CalendarUrl {
         parameters.add(new BasicNameValuePair("resources", StringUtils.join(this.resources, ',')));
         parameters.add(new BasicNameValuePair("projectId", CalendarUrl.PROJECT_ID + ""));
         parameters.add(new BasicNameValuePair("calType", CalendarUrl.TYPE));
-        parameters.add(new BasicNameValuePair("nbWeeks", this.scope + ""));
+        parameters.add(new BasicNameValuePair(auto ? "nbDays" : "nbWeeks", this.scope + ""));
 
         return new URL("http", CalendarUrl.HOST, CalendarUrl.PORT, CalendarUrl.URL_PATH + "?" + URLEncodedUtils.format(parameters, "UTF-8"));
     }
