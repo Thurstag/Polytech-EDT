@@ -1,0 +1,80 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+
+    <aapt:attr name="android:drawable">
+        <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="254.6dp"
+            android:height="193.6dp"
+            android:viewportHeight="193.6"
+            android:viewportWidth="254.6">
+
+            <group
+                android:name="logo"
+                android:pivotX="80"
+                android:pivotY="80">
+                <path
+                    android:name="logo_path"
+                    android:fillAlpha="0"
+                    android:fillColor="@color/polytechBlue"
+                    android:pathData="M78.2,19c-28.3,0-51.9,20.1-57.3,46.9h23.9c1.8-5.1,4.7-9.7,8.4-13.4c6.4-6.4,15.2-10.3,25-10.3 c9.8,0,18.5,3.9,25,10.3c6.4,6.4,10.3,15.2,10.3,25c0,9.8-3.9,18.5-10.3,25c-6.4,6.4-15.2,10.3-25,10.3c-9.8,0-18.5-3.9-25-10.3 c-3.7-3.7-6.6-8.2-8.3-13.3l-23.9,0v0v29.8c0,25.1,21.7,23.6,21.7,23.6l0-18.7c9.8,7.5,22.1,12,35.5,12c32.3,0,58.4-26.1,58.4-58.4 C136.6,45.2,110.5,19,78.2,19" />
+            </group>
+
+            <group android:name="text">
+                <path
+                    android:name="letter_path_1"
+                    android:fillAlpha="0"
+                    android:fillColor="@color/polytechGrey"
+                    android:pathData="M 218.1 174.4 L 218.1 141.9 L 205.1 141.9 L 205.1 135.1 L 238.8 135.1 L 238.8 141.9 L 225.8 141.9 L 225.8 172.8 L 225.8 174.4 Z" />
+                <path
+                    android:name="letter_path_2"
+                    android:fillAlpha="0"
+                    android:fillColor="@color/polytechGrey"
+                    android:pathData="M 122.2 174.4 L 122.2 135.1 L 151.2 135.1 L 151.2 141.9 L 129.9 141.9 L 129.9 151 L 150.3 151 L 150.3 157.5 L 129.9 157.5 L 129.9 167.6 L 151.2 167.6 L 151.2 174.4 Z" />
+
+                <path
+                    android:name="letter_path_3"
+                    android:fillAlpha="0"
+                    android:fillColor="@color/polytechGrey"
+                    android:pathData="M163,174.5v-39.6h19.4c5.5,0,9.4,1.2,11.6,3.7c2.2,2.4,3.3,6.6,3.3,12.7c0,9.9-0.9,16.2-2.7,19 c-1.8,2.8-5.8,4.2-12,4.2H163z M170.5,168.2h10.7c3.6,0,5.9-0.8,7-2.5c1-1.7,1.6-5.3,1.6-10.9c0-5.9-0.5-9.6-1.4-11.2 c-0.9-1.6-3.2-2.3-6.6-2.3h-11.2V168.2z" />
+            </group>
+        </vector>
+    </aapt:attr>
+
+    <!-- Logo rotation -->
+    <target android:name="logo">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="500"
+                    android:propertyName="rotation"
+                    android:startOffset="500"
+                    android:valueFrom="0"
+                    android:valueTo="360" />
+            </set>
+        </aapt:attr>
+    </target>
+    <!-- Logo fade in -->
+    <target android:name="logo_path">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="250"
+                    android:propertyName="fillAlpha"
+                    android:startOffset="500"
+                    android:valueFrom="0"
+                    android:valueTo="1" />
+            </set>
+        </aapt:attr>
+    </target>
+
+    <!-- Logo letter fade in -->
+    <target
+        android:name="letter_path_1"
+        android:animation="@anim/logo_letter_fade_in" />
+    <target
+        android:name="letter_path_2"
+        android:animation="@anim/logo_letter_fade_in" />
+    <target
+        android:name="letter_path_3"
+        android:animation="@anim/logo_letter_fade_in" />
+</animated-vector>

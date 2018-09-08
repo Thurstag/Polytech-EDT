@@ -59,7 +59,7 @@ public class CalendarUrl implements ADEUrl {
         Calendar calendar = Calendar.getInstance();
 
         // Today is saturday
-        if (calendar.get(Calendar.DAY_OF_WEEK) == 7) {
+        if (calendar.get(Calendar.DAY_OF_WEEK) == 7 || calendar.get(Calendar.DAY_OF_WEEK) == 1) {
             auto = false;
             scope = 1;
             return;
