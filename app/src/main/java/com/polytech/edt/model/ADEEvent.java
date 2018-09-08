@@ -38,7 +38,7 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent> {
     //region Constructors
 
     static {
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-2:00"));
     }
 
     /**
