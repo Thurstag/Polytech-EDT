@@ -13,9 +13,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Calendar
@@ -67,13 +66,14 @@ public class ADECalendar implements ADELoadable<ADECalendar> {
         Calendar calendar = new CalendarBuilder().build(fetchCalendar());
 
         // Load events
-        Set<ADEEvent> set = new TreeSet<>();
+        List<ADEEvent> list = new ArrayList<>();
         for (Object component : calendar.getComponents()) {
             if (component instanceof VEvent) {
-                set.add(new ADEEvent((VEvent) component));
+                list.add(new ADEEvent((VEvent) component));
             }
         }
-        events = new ArrayList<>(set);
+        Collections.sort(list);
+        events = list;
         return this;
     }
 
