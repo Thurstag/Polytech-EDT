@@ -81,6 +81,6 @@ public class WeekViewUtil {
     }
 
     public static boolean isAllDay(WeekViewEvent event) {
-        return event.getStartTime().get(Calendar.HOUR) <= ADEWeekView.MIN_HOUR && event.getEndTime().get(Calendar.HOUR) >= ADEWeekView.MAX_HOUR;
+        return event.getStartTime().get(Calendar.HOUR_OF_DAY) <= ADEWeekView.MIN_HOUR && event.getEndTime().get(Calendar.HOUR_OF_DAY) >= ADEWeekView.MAX_HOUR;
     }
 }

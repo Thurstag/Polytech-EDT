@@ -51,9 +51,9 @@ public class CalendarTest {
         ends.add("12:30:00");
         ends.add("17:30:00");
         ends.add("12:30:00");
-        ends.add("20:00:00");
+        ends.add("19:00:00");
         ends.add("12:30:00");
-        ends.add("20:00:00");
+        ends.add("19:00:00");
 
         labels.add("Communication professionnelle");
         labels.add("Algèbre");

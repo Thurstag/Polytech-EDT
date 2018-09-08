@@ -38,7 +38,7 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent> {
     //region Constructors
 
     static {
-        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-2:00"));
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
     }
 
     /**
@@ -99,6 +99,11 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent> {
     public Calendar getStartTime() {
         Calendar c = Calendar.getInstance();
         c.setTime(startDate);
+
+        if (c.get(Calendar.HOUR_OF_DAY) <= ADEWeekView.MIN_HOUR) {
+            c.set(Calendar.HOUR_OF_DAY, ADEWeekView.MIN_HOUR);
+        }
+
         return c;
     }
 
@@ -106,6 +111,11 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent> {
     public Calendar getEndTime() {
         Calendar c = Calendar.getInstance();
         c.setTime(endDate);
+
+        if (c.get(Calendar.HOUR_OF_DAY) >= ADEWeekView.MAX_HOUR) {
+            c.set(Calendar.HOUR_OF_DAY, ADEWeekView.MAX_HOUR - 1);
+        }
+
         return c;
     }
 
