@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +27,9 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
+        // Get progress bar and hide it
         progressBar = findViewById(R.id.loading_progress_bar);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -33,8 +37,28 @@ public class LoadingActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        // Start logo animation
+        // Start animation
         ((AnimatedVectorDrawable) ((ImageView) findViewById(R.id.loading_logo)).getDrawable()).start();
+
+        // Define a callback on animation end
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    Log.w("WARNING", e.getMessage(), e);
+                }
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+                });
+                return null;
+            }
+        }.execute();
 
         // Download resources
         new AsyncTask<Void, Void, Void>() {
@@ -62,6 +86,7 @@ public class LoadingActivity extends AppCompatActivity {
                     }
                 } catch (Exception e) {
                     Log.e("ERROR", e.getMessage(), e);
+                    // TODO: Exit application ???
                 }
                 return null;
             }

@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
 
+    <color name="polytechDarkBlue">#00ADE8</color>
     <color name="polytechBlue">#00ADE8</color>
     <color name="polytechGrey">#696A6D</color>
 </resources>

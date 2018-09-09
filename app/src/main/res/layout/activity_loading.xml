@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/loading_logo"
-            android:layout_width="209dp"
-            android:layout_height="122dp"
+            android:layout_width="287dp"
+            android:layout_height="110dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="7dp"
@@ -32,12 +32,13 @@
             app:layout_constraintVertical_bias="0.251" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/rightCorner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="-2dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="216dp"
+            android:contentDescription="@string/app_name"
             android:rotation="180"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,9 +49,10 @@
             app:srcCompat="@drawable/background_corner" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/leftCorner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
             app:srcCompat="@drawable/background_corner" />
 
         <ProgressBar
