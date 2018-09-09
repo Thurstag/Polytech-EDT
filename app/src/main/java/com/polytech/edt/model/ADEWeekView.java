@@ -974,7 +974,7 @@ public class ADEWeekView extends View {
             mEventRects = new ArrayList<EventRect>();
         }
         if (mWeekViewLoader == null && !isInEditMode()) {
-            throw new IllegalStateException("You must provide a MonthChangeListener");
+            throw new IllegalStateException("You must provide a ADEMonthChangeListener");
         }
 
         // If a refresh was requested then reset some variables.

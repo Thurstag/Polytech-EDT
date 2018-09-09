@@ -100,13 +100,11 @@ public class LoadingActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                // TODO: Create an activity for calendar
-
                 // Stop progress bar
                 progressBar.setVisibility(View.GONE);
 
                 // Go to the main activity
-                startActivity(new Intent(LoadingActivity.this, DevActivity.class));
+                startActivity(new Intent(LoadingActivity.this, Calendar.class));
 
                 // Define a transition
                 overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_slide_out);
