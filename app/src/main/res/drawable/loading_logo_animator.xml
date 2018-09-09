@@ -118,13 +118,13 @@
     <!-- EDT letters fade in -->
     <target
         android:name="edt_letter_path_1"
-        android:animation="@anim/logo_letter_fade_in" />
+        android:animation="@anim/logo_letter_fade_in_2" />
     <target
         android:name="edt_letter_path_2"
-        android:animation="@anim/logo_letter_fade_in" />
+        android:animation="@anim/logo_letter_fade_in_2" />
     <target
         android:name="edt_letter_path_3"
-        android:animation="@anim/logo_letter_fade_in" />
+        android:animation="@anim/logo_letter_fade_in_2" />
 
     <!-- Polytech letters fade in -->
     <target

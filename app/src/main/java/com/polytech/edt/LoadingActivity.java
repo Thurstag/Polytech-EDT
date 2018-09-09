@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.polytech.edt.io.FileIO;
 import com.polytech.edt.model.ADEResource;
 
 import java.util.ArrayList;
@@ -22,6 +25,8 @@ public class LoadingActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
 
+    ObjectMapper mapper = new ObjectMapper();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +34,7 @@ public class LoadingActivity extends AppCompatActivity {
 
         // Get progress bar and hide it
         progressBar = findViewById(R.id.loading_progress_bar);
-        progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -38,7 +43,8 @@ public class LoadingActivity extends AppCompatActivity {
         super.onStart();
 
         // Start animation
-        ((AnimatedVectorDrawable) ((ImageView) findViewById(R.id.loading_logo)).getDrawable()).start();
+        AnimatedVectorDrawable animator = ((AnimatedVectorDrawable) ((ImageView) findViewById(R.id.loading_logo)).getDrawable());
+        animator.start();
 
         // Define a callback on animation end
         new AsyncTask<Void, Void, Void>() {
@@ -46,36 +52,37 @@ public class LoadingActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
-                    Thread.sleep(1500);
+                    Thread.sleep(1750);
                 } catch (InterruptedException e) {
-                    Log.w("WARNING", e.getMessage(), e);
+                    Log.w("WARNING", "", e);
                 }
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setVisibility(View.VISIBLE);
-                    }
-                });
-                return null;
-            }
-        }.execute();
 
-        // Download resources
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
                 try {
                     List<ADEResource> resources;
 
+                    // Read file
+                    String resourcesFile = FileIO.read(getApplicationContext(), "resources.json");
+
                     // Load/Store resources
-                    if (false) {
-                        // TODO: From a file (JSON)
-                        resources = new ArrayList<>();
+                    if (resourcesFile != null) {
+                        // Decode file
+                        resources = mapper.readValue(resourcesFile.getBytes(), new TypeReference<ArrayList<ADEResource>>() {
+                        });
                     }
                     else {
+                        // Show progress bar
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.VISIBLE);
+                            }
+                        });
+
+                        // Fetch resources
                         resources = ADEResource.resources();
 
-                        // TODO: Save in file
+                        // Encode to json & save into a file
+                        FileIO.write(getApplicationContext(), "resources.json", mapper.writeValueAsString(resources));
                     }
 
                     // TODO: Store resources
@@ -85,7 +92,7 @@ public class LoadingActivity extends AppCompatActivity {
                         // TODO: Load calendar and store it
                     }
                 } catch (Exception e) {
-                    Log.e("ERROR", e.getMessage(), e);
+                    Log.e("ERROR", "", e);
                     // TODO: Exit application ???
                 }
                 return null;
@@ -101,6 +108,7 @@ public class LoadingActivity extends AppCompatActivity {
                 // Go to the main activity
                 startActivity(new Intent(LoadingActivity.this, DevActivity.class));
 
+                // Define a transition
                 overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_slide_out);
             }
         }.execute();

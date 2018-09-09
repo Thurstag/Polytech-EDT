@@ -11,11 +11,25 @@ public class ADEResourceTree extends TreeNode<String, List<ADEResource>> {
 
     /**
      * Constructor
+     *
+     * @param resources Resources
      */
-    public ADEResourceTree() throws Exception {
+    public ADEResourceTree(List<ADEResource> resources) throws Exception {
         super(null, null);
 
-        build();
+        if (resources == null) {
+            build(ADEResource.resources());
+        }
+        else {
+            build(resources);
+        }
+    }
+
+    /**
+     * Constructor
+     */
+    public ADEResourceTree() throws Exception {
+        this(null);
     }
 
     //endregion
@@ -25,10 +39,7 @@ public class ADEResourceTree extends TreeNode<String, List<ADEResource>> {
     /**
      * Method to build tree
      */
-    private void build() throws Exception {
-        // Get resources
-        List<ADEResource> resources = ADEResource.resources();
-
+    private void build(List<ADEResource> resources) throws Exception {
         // Add resources
         for (ADEResource resource : resources) {
             // Check path

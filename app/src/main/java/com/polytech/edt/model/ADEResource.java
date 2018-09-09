@@ -1,5 +1,7 @@
 package com.polytech.edt.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.polytech.edt.model.url.ResourceUrl;
 
 import net.fortuna.ical4j.data.ParserException;
@@ -38,8 +40,14 @@ public class ADEResource implements ADELoadable<ADEResource> {
     private static List<String> idList;
 
     private URL url;
+
+    @JsonProperty
     private int id;
+
+    @JsonProperty
     private String name;
+
+    @JsonProperty
     private String path;
 
     //endregion
@@ -55,7 +63,8 @@ public class ADEResource implements ADELoadable<ADEResource> {
      *
      * @param id ID
      */
-    public ADEResource(int id) throws MalformedURLException {
+    @JsonCreator
+    public ADEResource(@JsonProperty("id") int id) throws MalformedURLException {
         this.id = id;
         this.url = new ResourceUrl(id).url();
     }
