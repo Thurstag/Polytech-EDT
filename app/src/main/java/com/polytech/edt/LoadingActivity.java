@@ -51,6 +51,14 @@ public class LoadingActivity extends AppCompatActivity {
 
             @Override
             protected Void doInBackground(Void... voids) {
+                // Show progress bar
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+                });
+
                 try {
                     Thread.sleep(1750);
                 } catch (InterruptedException e) {
@@ -70,14 +78,6 @@ public class LoadingActivity extends AppCompatActivity {
                         });
                     }
                     else {
-                        // Show progress bar
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressBar.setVisibility(View.VISIBLE);
-                            }
-                        });
-
                         // Fetch resources
                         resources = ADEResource.resources();
 
