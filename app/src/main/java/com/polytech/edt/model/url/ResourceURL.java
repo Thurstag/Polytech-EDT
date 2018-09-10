@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResourceUrl implements ADEUrl {
+public class ResourceURL implements ADEURL {
 
     //region Fields
 
@@ -34,7 +34,7 @@ public class ResourceUrl implements ADEUrl {
      * @param id ID
      * @param detail Detail
      */
-    public ResourceUrl(Integer id, int detail) {
+    public ResourceURL(Integer id, int detail) {
         this.id = id;
         this.detail = detail;
     }
@@ -44,14 +44,14 @@ public class ResourceUrl implements ADEUrl {
      *
      * @param id ID
      */
-    public ResourceUrl(Integer id) {
-        this(id, ResourceUrl.DETAIL);
+    public ResourceURL(Integer id) {
+        this(id, ResourceURL.DETAIL);
     }
 
     /**
      * Constructor
      */
-    public ResourceUrl() {
+    public ResourceURL() {
         this(null);
     }
 
@@ -66,15 +66,15 @@ public class ResourceUrl implements ADEUrl {
         List<NameValuePair> parameters = new ArrayList<>();
 
         // Build parameters
-        parameters.add(new BasicNameValuePair("function", ResourceUrl.FUNCTION));
+        parameters.add(new BasicNameValuePair("function", ResourceURL.FUNCTION));
         if (id != null) {
             parameters.add(new BasicNameValuePair("id", id.toString()));
         }
-        parameters.add(new BasicNameValuePair("data", ResourceUrl.TOKEN));
-        parameters.add(new BasicNameValuePair("projectId", ResourceUrl.PROJECT_ID + ""));
+        parameters.add(new BasicNameValuePair("data", ResourceURL.TOKEN));
+        parameters.add(new BasicNameValuePair("projectId", ResourceURL.PROJECT_ID + ""));
         parameters.add(new BasicNameValuePair("detail", detail + ""));
 
-        return new URL("http", ResourceUrl.HOST, ResourceUrl.PORT, ResourceUrl.URL_PATH + "?" + URLEncodedUtils.format(parameters, "UTF-8"));
+        return new URL("http", ResourceURL.HOST, ResourceURL.PORT, ResourceURL.URL_PATH + "?" + URLEncodedUtils.format(parameters, "UTF-8"));
     }
 
     //endregion

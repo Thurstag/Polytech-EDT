@@ -10,13 +10,12 @@ import org.apache.http.message.BasicNameValuePair;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
  * Calendar url
  */
-public class CalendarUrl implements ADEUrl {
+public class CalendarURL implements ADEURL {
 
     //region Fields
 
@@ -28,7 +27,6 @@ public class CalendarUrl implements ADEUrl {
 
     private List<ADEResource> resources;
     private int scope;
-    private boolean auto;
 
     //endregion
 
@@ -40,10 +38,9 @@ public class CalendarUrl implements ADEUrl {
      * @param resources Resource list
      * @param scope     Scope (in weeks)
      */
-    public CalendarUrl(List<ADEResource> resources, int scope) {
+    public CalendarURL(List<ADEResource> resources, int scope) {
         this.resources = resources;
         this.scope = scope;
-        this.auto = false;
     }
 
     /**
@@ -51,27 +48,8 @@ public class CalendarUrl implements ADEUrl {
      *
      * @param resources Resource list
      */
-    public CalendarUrl(List<ADEResource> resources) {
-        this(resources, 0);
-        this.auto = true;
-
-        // Calculate scope
-        Calendar calendar = Calendar.getInstance();
-
-        // Today is saturday
-        if (calendar.get(Calendar.DAY_OF_WEEK) == 7 || calendar.get(Calendar.DAY_OF_WEEK) == 1) {
-            auto = false;
-            scope = 1;
-            return;
-        }
-
-        // While day of week isn't Saturday
-        while (calendar.get(Calendar.DAY_OF_WEEK) != 7) {
-            scope++;
-
-            // Add a day
-            calendar.add(Calendar.DATE, 1);
-        }
+    public CalendarURL(List<ADEResource> resources) {
+        this(resources, 1);
     }
 
     //endregion
@@ -86,11 +64,11 @@ public class CalendarUrl implements ADEUrl {
 
         // Build parameters
         parameters.add(new BasicNameValuePair("resources", StringUtils.join(this.resources, ',')));
-        parameters.add(new BasicNameValuePair("projectId", CalendarUrl.PROJECT_ID + ""));
-        parameters.add(new BasicNameValuePair("calType", CalendarUrl.TYPE));
-        parameters.add(new BasicNameValuePair(auto ? "nbDays" : "nbWeeks", this.scope + ""));
+        parameters.add(new BasicNameValuePair("projectId", CalendarURL.PROJECT_ID + ""));
+        parameters.add(new BasicNameValuePair("calType", CalendarURL.TYPE));
+        parameters.add(new BasicNameValuePair("nbWeeks", this.scope + ""));
 
-        return new URL("http", CalendarUrl.HOST, CalendarUrl.PORT, CalendarUrl.URL_PATH + "?" + URLEncodedUtils.format(parameters, "UTF-8"));
+        return new URL("http", CalendarURL.HOST, CalendarURL.PORT, CalendarURL.URL_PATH + "?" + URLEncodedUtils.format(parameters, "UTF-8"));
     }
 
     //endregion

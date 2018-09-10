@@ -1,6 +1,6 @@
 package com.polytech.edt.model;
 
-import com.polytech.edt.model.url.CalendarUrl;
+import com.polytech.edt.model.url.CalendarURL;
 
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.ParserException;
@@ -38,7 +38,7 @@ public class ADECalendar implements ADELoadable<ADECalendar> {
      * @param scope     Scope (in weeks)
      */
     public ADECalendar(List<ADEResource> resources, int scope) throws MalformedURLException {
-        url = new CalendarUrl(resources, scope).url();
+        url = new CalendarURL(resources, scope).url();
     }
 
     /**
@@ -47,7 +47,7 @@ public class ADECalendar implements ADELoadable<ADECalendar> {
      * @param resources Resource list
      */
     public ADECalendar(List<ADEResource> resources) throws MalformedURLException {
-        url = new CalendarUrl(resources).url();
+        url = new CalendarURL(resources).url();
     }
 
     //endregion
