@@ -3,28 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item
-        android:iconTint="@color/polytechGrey"
-        android:title="@string/navMenu">
+    <item android:title="@string/menu">
         <menu>
             <item
                 android:id="@+id/nav_calendar"
                 android:icon="@drawable/ic_event_note"
-                android:iconTint="@color/polytechGrey"
-                android:title="@string/navCalendar" />
+                android:title="@string/calendar" />
             <item
                 android:id="@+id/nav_group"
                 android:icon="@drawable/ic_people"
-                android:title="@string/navGroups" />
+                android:title="@string/groups" />
         </menu>
     </item>
 
-    <item android:title="@string/navOther">
+    <item android:title="@string/other">
         <menu>
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="@string/navSettings" />
+                android:title="@string/settings" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info"
+                android:title="@string/about" />
         </menu>
     </item>
 </menu>

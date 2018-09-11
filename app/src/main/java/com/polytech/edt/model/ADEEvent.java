@@ -7,6 +7,7 @@ import com.alamkanak.weekview.WeekViewEvent;
 
 import net.fortuna.ical4j.model.component.VEvent;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,7 +19,7 @@ import java.util.regex.Pattern;
 /**
  * Event
  */
-public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent> {
+public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Serializable {
 
     //region Fields
 

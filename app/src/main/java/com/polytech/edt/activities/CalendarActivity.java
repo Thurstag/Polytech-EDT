@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.polytech.edt.R;
+import com.polytech.edt.fragments.AboutFragment;
 import com.polytech.edt.fragments.CalendarFragment;
 import com.polytech.edt.fragments.GroupsFragment;
 import com.polytech.edt.fragments.NamedFragment;
@@ -32,6 +33,8 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
     Fragment fragment;
     ADECalendar calendar;
     Toolbar toolbar;
+    Menu menu;
+    private boolean hideToolBarMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +84,8 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
     /**
      * Method to change fragment
      *
-     * @param _class Fragment class
+     * @param _class          Fragment class
+     * @param parameters      Parameters
      * @return Fragment
      */
     private Fragment changeFragment(Class<? extends NamedFragment> _class, Map<String, Serializable> parameters) throws InstantiationException, IllegalAccessException {
@@ -118,8 +122,14 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.calendar_scope, menu);
+
+        // Hide or not
+        if (hideToolBarMenu && menu != null) {
+            for (int i = 0; i < menu.size(); i++) {
+                menu.getItem(i).setVisible(false);
+            }
+        }
         return true;
     }
 
@@ -162,6 +172,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
                         args.put("calendar", calendar);
 
                         fragment = changeFragment(CalendarFragment.class, args);
+                        hideToolBarMenu = false;
                     } catch (Exception e) {
                         LOGGER.error(e);
                     }
@@ -173,12 +184,28 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
                     // Change fragment
                     try {
                         fragment = changeFragment(GroupsFragment.class, new HashMap<String, Serializable>());
+                        hideToolBarMenu = true;
+                    } catch (Exception e) {
+                        LOGGER.error(e);
+                    }
+                }
+                break;
+
+            case R.id.nav_about:
+                if (!(fragment instanceof AboutFragment)) {
+                    // Change fragment
+                    try {
+                        fragment = changeFragment(AboutFragment.class, new HashMap<String, Serializable>());
+                        hideToolBarMenu = true;
                     } catch (Exception e) {
                         LOGGER.error(e);
                     }
                 }
                 break;
         }
+
+        // Update menu status
+        invalidateOptionsMenu();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
