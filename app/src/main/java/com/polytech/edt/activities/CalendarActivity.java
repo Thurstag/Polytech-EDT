@@ -16,6 +16,8 @@ import android.view.MenuItem;
 
 import com.polytech.edt.R;
 import com.polytech.edt.fragments.CalendarFragment;
+import com.polytech.edt.fragments.GroupsFragment;
+import com.polytech.edt.fragments.NamedFragment;
 import com.polytech.edt.model.ADECalendar;
 import com.polytech.edt.model.ADEResource;
 import com.polytech.edt.util.LOGGER;
@@ -28,6 +30,8 @@ import java.util.Map;
 public class CalendarActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Fragment fragment;
+    ADECalendar calendar;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +39,12 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.activity_calendar);
 
         // Set up toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Set up navigation Drawer
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -55,7 +58,6 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         StrictMode.setThreadPolicy(policy);
 
         // Fetch calendar
-        ADECalendar calendar;
         try {
             calendar = new ADECalendar(Collections.singletonList(new ADEResource(2128))).load();
         } catch (Exception e) {
@@ -82,8 +84,8 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
      * @param _class Fragment class
      * @return Fragment
      */
-    private Fragment changeFragment(Class<? extends Fragment> _class, Map<String, Serializable> parameters) throws InstantiationException, IllegalAccessException {
-        Fragment fragment = _class.newInstance();
+    private Fragment changeFragment(Class<? extends NamedFragment> _class, Map<String, Serializable> parameters) throws InstantiationException, IllegalAccessException {
+        NamedFragment fragment = _class.newInstance();
         Bundle bundle = new Bundle();
 
         // Add arguments
@@ -96,6 +98,9 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.calendar_fragment_container, fragment);
         ft.commit();
+
+        // Change toolbar's name
+        getSupportActionBar().setTitle(getResources().getString(fragment.name()));
 
         return fragment;
     }
@@ -145,11 +150,34 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
+    @SuppressWarnings("StatementWithEmptyBody")
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.nav_calendar:
+                if (!(fragment instanceof CalendarFragment)) {
+                    // Change fragment
+                    try {
+                        Map<String, Serializable> args = new HashMap<>();
+                        args.put("calendar", calendar);
 
+                        fragment = changeFragment(CalendarFragment.class, args);
+                    } catch (Exception e) {
+                        LOGGER.error(e);
+                    }
+                }
+                break;
+
+            case R.id.nav_group:
+                if (!(fragment instanceof GroupsFragment)) {
+                    // Change fragment
+                    try {
+                        fragment = changeFragment(GroupsFragment.class, new HashMap<String, Serializable>());
+                    } catch (Exception e) {
+                        LOGGER.error(e);
+                    }
+                }
+                break;
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

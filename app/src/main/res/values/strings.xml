@@ -3,6 +3,7 @@
     <string name="app_short_name">EDT</string>
     <string name="title_activity_dev">DevActivity</string>
 
+    <!-- Scope choice -->
     <string name="menu_day_scope">1 Day</string>
     <string name="menu_days_scope">3 Days</string>
     <string name="menu_week_scope">1 Week</string>
@@ -13,4 +14,15 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Navigation viewer -->
+    <string name="navCalendar">Calendar</string>
+    <string name="navGroups">Groups</string>
+    <string name="navSettings">Settings</string>
+    <string name="navMenu">Menu</string>
+    <string name="navOther">Other</string>
+
+    <!-- Words -->
+    <string name="calendar">Calendar</string>
+    <string name="groups">Groups</string>
 </resources>

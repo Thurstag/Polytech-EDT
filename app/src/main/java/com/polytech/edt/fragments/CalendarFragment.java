@@ -18,7 +18,7 @@ import com.polytech.edt.util.LOGGER;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CalendarFragment extends Fragment {
+public class CalendarFragment extends NamedFragment {
 
     private ADEWeekView weekView;
     private ADECalendar calendar;
@@ -79,5 +79,10 @@ public class CalendarFragment extends Fragment {
     public void changeVisibility(int i) {
         weekView.setNumberOfVisibleDays(i);
         goToFirstEvent();
+    }
+
+    @Override
+    public int name() {
+        return R.string.calendar;
     }
 }
