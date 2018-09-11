@@ -14,8 +14,6 @@ import java.util.Map;
 
 public class AboutListAdaptater extends SimpleAdapter {
 
-    private static String GIT_COMMIT_URL = "https://github.com/Thurstag/Polytech---EDT/commit/";
-
     /**
      * Constructor
      *
@@ -46,8 +44,8 @@ public class AboutListAdaptater extends SimpleAdapter {
         String[][] data = new String[][]{
                 {"Version", BuildConfig.VERSION_NAME},
                 {"Build date", format.format(BuildConfig.BUILD_DATE)},
-                {"Git repository", "https://github.com"}, // TODO: On click redirect
-                {"Git revision", BuildConfig.GIT_COMMIT_SHA}, // TODO: On click redirect
+                {"Git repository", "https://github.com"},
+                {"Git revision", BuildConfig.GIT_COMMIT_SHA},
                 {"Developers", "Thomas Capodano & Sasha Berthout"},
                 {"License", "GNU General Public License v3.0"},
         };
