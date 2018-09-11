@@ -1,7 +1,8 @@
 package com.polytech.edt.io;
 
 import android.content.Context;
-import android.util.Log;
+
+import com.polytech.edt.util.LOGGER;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -18,7 +19,7 @@ public class FileIO {
             outputStreamWriter.write(content);
             outputStreamWriter.close();
         } catch (IOException e) {
-            Log.e("ERROR", "", e);
+            LOGGER.error(e);
         }
     }
 
@@ -40,7 +41,7 @@ public class FileIO {
             }
         } catch (FileNotFoundException ignored) {
         } catch (IOException e) {
-            Log.e("ERROR", "", e);
+            LOGGER.error(e);
         }
         return null;
     }

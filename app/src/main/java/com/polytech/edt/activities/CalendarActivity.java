@@ -1,31 +1,33 @@
-package com.polytech.edt;
+package com.polytech.edt.activities;
 
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.polytech.edt.calendar.ADEDateTimeInterpreter;
-import com.polytech.edt.calendar.ADEEventClickListener;
-import com.polytech.edt.calendar.ADEMonthChangeListener;
+import com.polytech.edt.R;
+import com.polytech.edt.fragments.CalendarFragment;
 import com.polytech.edt.model.ADECalendar;
 import com.polytech.edt.model.ADEResource;
-import com.polytech.edt.model.ADEWeekView;
+import com.polytech.edt.util.LOGGER;
 
+import java.io.Serializable;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Calendar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class CalendarActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ADEWeekView weekView;
-    private ADECalendar calendar;
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +45,9 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        // Set up navigation view
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        // Get a reference for the week view in the layout.
-        weekView = findViewById(R.id.weekView);
 
         // Avoid thread restrictions
         // TODO: Remove this in final version
@@ -55,36 +55,49 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         StrictMode.setThreadPolicy(policy);
 
         // Fetch calendar
+        ADECalendar calendar;
         try {
             calendar = new ADECalendar(Collections.singletonList(new ADEResource(2128))).load();
         } catch (Exception e) {
-            Log.e("ERROR", e.getMessage(), e);
-            // TODO: Exit app ?
+            LOGGER.error(e);
+            // TODO: Use fatal ?
             return;
         }
 
-        // Implement month listener
-        weekView.setMonthChangeListener(new ADEMonthChangeListener(calendar));
+        // Choose calendar fragment
+        try {
+            Map<String, Serializable> args = new HashMap<String, Serializable>();
+            args.put("calendar", calendar);
 
-        // Change DateTimeInterpreter
-        weekView.setDateTimeInterpreter(new ADEDateTimeInterpreter(weekView));
-
-        // Implement click callback
-        weekView.setOnEventClickListener(new ADEEventClickListener(this));
-
-        // Go to the first event
-        goToFirstEvent();
+            fragment = changeFragment(CalendarFragment.class, args);
+        } catch (Exception e) {
+            LOGGER.error(e);
+            // TODO: Use fatal ?
+        }
     }
 
     /**
-     * Method to go to the first event
+     * Method to change fragment
+     *
+     * @param _class Fragment class
+     * @return Fragment
      */
-    private void goToFirstEvent() {
-        if (calendar == null) {
-            // TODO: Add a warning
-            return;
+    private Fragment changeFragment(Class<? extends Fragment> _class, Map<String, Serializable> parameters) throws InstantiationException, IllegalAccessException {
+        Fragment fragment = _class.newInstance();
+        Bundle bundle = new Bundle();
+
+        // Add arguments
+        for (String key : parameters.keySet()) {
+            bundle.putSerializable(key, parameters.get(key));
         }
-        weekView.goToDate(calendar.events().get(0).getStartTime());
+        fragment.setArguments(bundle);
+
+        // Change
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.calendar_fragment_container, fragment);
+        ft.commit();
+
+        return fragment;
     }
 
     @Override
@@ -107,20 +120,23 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Check fragment
+        if (!(fragment instanceof CalendarFragment)) {
+            LOGGER.warning("Current fragment is not a CalendarFragment");
+        }
+
+        // Switch on item clicked
         switch (item.getItemId()) {
 
             /* Toolbar menu */
             case R.id.menu_item_day_scope:
-                weekView.setNumberOfVisibleDays(1);
-                goToFirstEvent();
+                ((CalendarFragment) fragment).changeVisibility(1);
                 break;
             case R.id.menu_item_days_scope:
-                weekView.setNumberOfVisibleDays(3);
-                goToFirstEvent();
+                ((CalendarFragment) fragment).changeVisibility(3);
                 break;
             case R.id.menu_item_week_scope:
-                weekView.setNumberOfVisibleDays(7);
-                goToFirstEvent();
+                ((CalendarFragment) fragment).changeVisibility(7);
                 break;
         }
 

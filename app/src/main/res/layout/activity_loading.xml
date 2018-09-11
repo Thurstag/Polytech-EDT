@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:noHistory="true"
-    tools:context=".LoadingActivity">
+    tools:context=".activities.LoadingActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"

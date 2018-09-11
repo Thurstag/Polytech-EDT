@@ -53,6 +53,11 @@ import static com.polytech.edt.util.WeekViewUtil.splitWeekViewEvents;
 import static com.polytech.edt.util.WeekViewUtil.today;
 import static org.apache.commons.lang3.time.DateUtils.isSameDay;
 
+/**
+ * ADEWeekView class
+ * <p>
+ * Based on Raquib-ul Alam's work
+ */
 public class ADEWeekView extends View {
 
     @Deprecated

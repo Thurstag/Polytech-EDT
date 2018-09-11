@@ -9,6 +9,7 @@ import net.fortuna.ical4j.model.component.VEvent;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
@@ -19,7 +20,7 @@ import java.util.List;
 /**
  * Calendar
  */
-public class ADECalendar implements ADELoadable<ADECalendar> {
+public class ADECalendar implements ADELoadable<ADECalendar>, Serializable {
 
     //region Fields
 

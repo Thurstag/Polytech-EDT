@@ -5,20 +5,21 @@ import android.content.DialogInterface;
 import android.graphics.RectF;
 
 import com.alamkanak.weekview.WeekViewEvent;
-import com.polytech.edt.Calendar;
+import com.polytech.edt.fragments.CalendarFragment;
 import com.polytech.edt.model.ADEEvent;
 import com.polytech.edt.model.ADEWeekView;
+import com.polytech.edt.util.LOGGER;
 
 public class ADEEventClickListener implements ADEWeekView.EventClickListener {
 
-    private Calendar calendar;
+    private CalendarFragment calendar;
 
     /**
      * Constructor
      *
      * @param calendar Calendar
      */
-    public ADEEventClickListener(Calendar calendar) {
+    public ADEEventClickListener(CalendarFragment calendar) {
         this.calendar = calendar;
     }
 
@@ -30,11 +31,11 @@ public class ADEEventClickListener implements ADEWeekView.EventClickListener {
             e = (ADEEvent) event;
         }
         else {
-            // TODO: Add warning
+            LOGGER.warning("Event isn't an ADEEvent");
             return;
         }
 
-        AlertDialog alertDialog = new AlertDialog.Builder(calendar).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(calendar.getContext()).create();
         alertDialog.setTitle(e.getName() + " (" + e.span() + ")");
 
         alertDialog.setMessage(e.getLocation() + "\n" + e.description());
