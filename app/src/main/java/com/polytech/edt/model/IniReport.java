@@ -32,11 +32,11 @@ public class IniReport {
         for (String category : new TreeSet<>(map.keySet())) {
             builder.append("[" + category + "]\n");
             for (String key : new TreeSet<>(map.get(category).keySet())) {
-                if (map.get(category).get(key).length() < 15) {
-                    builder.append(key + ": " + map.get(category).get(key));
+                if (map.get(category).get(key).length() < 30) {
+                    builder.append("- " + key + ": " + map.get(category).get(key));
                 }
                 else {
-                    builder.append(key + ":\n" + map.get(category).get(key));
+                    builder.append("- " + key + ":\n" + map.get(category).get(key));
                 }
                 builder.append("\n");
             }
