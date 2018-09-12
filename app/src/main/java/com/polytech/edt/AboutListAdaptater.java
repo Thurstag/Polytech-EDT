@@ -38,16 +38,15 @@ public class AboutListAdaptater extends SimpleAdapter {
 
     private static List<? extends Map<String, ?>> data() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss", Locale.FRANCE);
-
-        // TODO: Store keys in string.xml
+        
         List<Map<String, String>> list = new ArrayList<>();
         String[][] data = new String[][]{
-                {"Version", BuildConfig.VERSION_NAME},
-                {"Build date", format.format(BuildConfig.BUILD_DATE)},
-                {"Git repository", "https://github.com"},
-                {"Git revision", BuildConfig.GIT_COMMIT_SHA},
-                {"Developers", "Thomas Capodano & Sasha Berthout"},
-                {"License", "GNU General Public License v3.0"},
+                {App.context.getString(R.string.version), BuildConfig.VERSION_NAME},
+                {App.context.getString(R.string.build_date), format.format(BuildConfig.BUILD_DATE)},
+                {App.context.getString(R.string.git_repo), "https://github.com"},
+                {App.context.getString(R.string.git_revision), BuildConfig.GIT_COMMIT_SHA},
+                {App.context.getString(R.string.devs), "Thomas Capodano & Sasha Berthout"},
+                {App.context.getString(R.string.license), "GNU General Public License v3.0"}
         };
 
         for (String[] d : data) {

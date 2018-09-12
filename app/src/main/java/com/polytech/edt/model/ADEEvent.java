@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 
 import com.alamkanak.weekview.WeekViewEvent;
+import com.polytech.edt.App;
+import com.polytech.edt.R;
 
 import net.fortuna.ical4j.model.component.VEvent;
 
@@ -49,6 +51,8 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Ser
      * @throws ParseException Date parsing error
      */
     ADEEvent(VEvent event) throws ParseException {
+        String undefined = App.context.getString(R.string.undefined);
+
         setName(event.getProperty(LABEL).getValue());
         startDate = dateFormat.parse(event.getProperty(START_DATE).getValue());
         endDate = dateFormat.parse(event.getProperty(END_DATE).getValue());
@@ -56,9 +60,8 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Ser
         description = event.getProperty(DESCRIPTION).getValue();
         setColor(generateColor(getLocation()));
 
-        // TODO: Replace with i8n
         if (description.isEmpty()) {
-            description = "UNDEFINED";
+            description = undefined;
         }
         else { // Remove last line
             description = new StringBuffer(description).reverse().toString();
@@ -66,13 +69,19 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Ser
             description = new StringBuilder(description).reverse().toString();
         }
         if (getLocation().isEmpty()) {
-            setLocation("UNDEFINED");
+            setLocation(undefined);
         }
         if (getName().isEmpty()) {
-            setName("UNDEFINED");
+            setName(undefined);
         }
     }
 
+    /**
+     * Method to generate a color depending on location
+     *
+     * @param location Location
+     * @return Color
+     */
     private int generateColor(String location) {
         // Amphi
         if (Pattern.compile("(\\d){3} - Amphi").matcher(location).matches()) {

@@ -8,6 +8,7 @@
     <string name="menu_days_scope">3 Days</string>
     <string name="menu_week_scope">1 Week</string>
 
+    <!-- Navigation view -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -22,4 +23,13 @@
     <string name="about">About</string>
     <string name="groups">Groups</string>
     <string name="menu">Menu</string>
+    <string name="undefined">Undefined</string>
+
+    <!-- About page items -->
+    <string name="version">Version</string>
+    <string name="build_date">Build date</string>
+    <string name="git_repo">Git repository</string>
+    <string name="git_revision">Git revision</string>
+    <string name="devs">Developers</string>
+    <string name="license">License</string>
 </resources>
