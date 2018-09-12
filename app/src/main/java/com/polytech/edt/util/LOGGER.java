@@ -27,13 +27,15 @@ public class LOGGER {
     }
 
     public static void fatal(Exception exception) {
-        Log.wtf("FATAL", "", exception);
-        System.exit(0);
+        Log.e("FATAL", "", exception);
+
+        Thread.getDefaultUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), exception);
     }
 
     public static void fatal(String message) {
-        Log.wtf("FATAL", message);
-        System.exit(0);
+        Log.e("FATAL", message);
+
+        Thread.getDefaultUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), new Exception(message));
     }
 
     //endregion

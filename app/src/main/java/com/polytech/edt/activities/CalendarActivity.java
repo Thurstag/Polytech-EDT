@@ -64,8 +64,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         try {
             calendar = new ADECalendar(Collections.singletonList(new ADEResource(2128))).load();
         } catch (Exception e) {
-            LOGGER.error(e);
-            // TODO: Use fatal ?
+            LOGGER.fatal(e);
             return;
         }
 
@@ -76,8 +75,8 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
 
             fragment = changeFragment(CalendarFragment.class, args);
         } catch (Exception e) {
-            LOGGER.error(e);
-            // TODO: Use fatal ?
+            LOGGER.fatal(e);
+            return;
         }
     }
 

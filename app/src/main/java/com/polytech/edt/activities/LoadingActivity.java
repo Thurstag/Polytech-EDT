@@ -25,7 +25,7 @@ import java.util.List;
 public class LoadingActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
-
+    boolean started = false;
     ObjectMapper mapper = new ObjectMapper();
 
     @Override
@@ -43,12 +43,20 @@ public class LoadingActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        if (started) {
+            return;
+        }
+        started = true;
+
         // Start animation
         AnimatedVectorDrawable animator = ((AnimatedVectorDrawable) ((ImageView) findViewById(R.id.loading_logo)).getDrawable());
         animator.start();
 
         // Define a callback on animation end
+        // TODO: Create a class
         new AsyncTask<Void, Void, Void>() {
+
+            private boolean done = false;
 
             @Override
             protected Void doInBackground(Void... voids) {
@@ -92,20 +100,26 @@ public class LoadingActivity extends AppCompatActivity {
                     if (false) {
                         // TODO: Load calendar and store it
                     }
+
+                    done = true;
                 } catch (Exception e) {
-                    LOGGER.error(e);
-                    // TODO: Use fatal ?
+                    LOGGER.fatal(e);
                 }
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void aVoid) {
+                if (!done) {
+                    return;
+                }
+
                 // Stop progress bar
                 progressBar.setVisibility(View.GONE);
 
                 // Go to the main activity
                 startActivity(new Intent(LoadingActivity.this, CalendarActivity.class));
+                finish();
 
                 // Define a transition
                 overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_slide_out);
