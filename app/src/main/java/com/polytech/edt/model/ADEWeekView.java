@@ -66,7 +66,7 @@ public class ADEWeekView extends View {
     public static final int LENGTH_LONG = 2;
 
     // Calendar hour bounds
-    public static final int MIN_HOUR = 7;
+    public static final int MIN_HOUR = 8;
     public static final int MAX_HOUR = 20;
 
     private final Context mContext;
