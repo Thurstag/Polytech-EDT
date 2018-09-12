@@ -1,8 +1,11 @@
-package com.polytech.edt;
+package com.polytech.edt.model.android;
 
 import android.content.Context;
 import android.widget.SimpleAdapter;
 
+import com.polytech.edt.App;
+import com.polytech.edt.BuildConfig;
+import com.polytech.edt.R;
 import com.polytech.edt.util.LOGGER;
 
 import java.text.SimpleDateFormat;

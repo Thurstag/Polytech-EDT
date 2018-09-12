@@ -8,12 +8,16 @@ import android.os.Bundle;
 
 import com.polytech.edt.exceptions.CustomExceptionHandler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class App extends Application implements Application.ActivityLifecycleCallbacks {
 
     @SuppressLint("StaticFieldLeak")
     public static Context context;
 
     public static Activity currentActivity;
+    public static List<String> activityHistory = new ArrayList<>();
 
     @Override
     public void onCreate() {
@@ -30,16 +34,19 @@ public class App extends Application implements Application.ActivityLifecycleCal
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         currentActivity = activity;
+        logHistory(activity);
     }
 
     @Override
     public void onActivityStarted(Activity activity) {
         currentActivity = activity;
+        logHistory(activity);
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
         currentActivity = activity;
+        logHistory(activity);
     }
 
     @Override
@@ -60,5 +67,16 @@ public class App extends Application implements Application.ActivityLifecycleCal
     @Override
     public void onActivityDestroyed(Activity activity) {
 
+    }
+
+    /**
+     * Method to log activity history
+     *
+     * @param activity Activity
+     */
+    private void logHistory(Activity activity) {
+        if (activityHistory.isEmpty() || !activityHistory.get(activityHistory.size() - 1).equals(activity.getClass().getName())) {
+            activityHistory.add(activity.getClass().getName());
+        }
     }
 }

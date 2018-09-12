@@ -3,7 +3,6 @@ package com.polytech.edt.exceptions;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.polytech.edt.App;
 import com.polytech.edt.activities.ErrorReporterActivity;
@@ -25,11 +24,9 @@ public class CustomExceptionHandler implements Thread.UncaughtExceptionHandler {
     public void uncaughtException(Thread t, Throwable e) {
         Intent intent = new Intent(App.currentActivity, ErrorReporterActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Bundle b = new Bundle();
 
         // Pass report to activity
-        b.putSerializable("report", new ExceptionReport(t.getId(), e));
-        intent.putExtras(b);
+        intent.putExtra("report", new ExceptionReport(t.getId(), e));
 
         // Start activity
         Activity current = App.currentActivity;

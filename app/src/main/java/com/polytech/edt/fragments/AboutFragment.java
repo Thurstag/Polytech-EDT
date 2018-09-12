@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.polytech.edt.AboutListAdaptater;
 import com.polytech.edt.BuildConfig;
 import com.polytech.edt.R;
-import com.polytech.edt.WebIntent;
+import com.polytech.edt.model.android.AboutListAdaptater;
+import com.polytech.edt.model.android.WebIntent;
 
 
 /**

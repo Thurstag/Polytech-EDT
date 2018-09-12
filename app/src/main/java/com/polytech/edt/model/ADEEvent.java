@@ -51,7 +51,7 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Ser
      * @throws ParseException Date parsing error
      */
     ADEEvent(VEvent event) throws ParseException {
-        String undefined = App.context.getString(R.string.undefined);
+        String undefined = (App.context != null ? App.context.getString(R.string.undefined) : "UNDEFINED");
 
         setName(event.getProperty(LABEL).getValue());
         startDate = dateFormat.parse(event.getProperty(START_DATE).getValue());
