@@ -3,13 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="18dp">
 
     <TextView
         android:id="@+id/item_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Version"
         android:textColor="@color/black"
         android:textSize="18sp" />
 
@@ -17,7 +16,6 @@
         android:id="@+id/item_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1.0.0"
         android:textColor="@color/polytechGrey" />
 
 </LinearLayout>

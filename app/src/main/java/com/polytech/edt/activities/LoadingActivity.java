@@ -32,10 +32,6 @@ public class LoadingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
-
-        // Get progress bar and hide it
-        progressBar = findViewById(R.id.loading_progress_bar);
-        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -47,6 +43,10 @@ public class LoadingActivity extends AppCompatActivity {
             return;
         }
         started = true;
+
+        // Get progress bar and hide it
+        progressBar = findViewById(R.id.loading_progress_bar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         // Start animation
         AnimatedVectorDrawable animator = ((AnimatedVectorDrawable) ((ImageView) findViewById(R.id.loading_logo)).getDrawable());

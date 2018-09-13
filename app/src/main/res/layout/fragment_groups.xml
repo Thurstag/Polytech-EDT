@@ -5,4 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".fragments.GroupsFragment">
 
+    <!-- TODO: Test if a scroll bar is created when there are many groups -->
+
+    <ExpandableListView
+        android:id="@+id/expandable_list_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </FrameLayout>
