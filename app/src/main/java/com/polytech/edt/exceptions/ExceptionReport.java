@@ -38,6 +38,7 @@ public class ExceptionReport implements Serializable {
 
         for (StackTraceElement element : throwable.getStackTrace()) {
             builder.append(element);
+            builder.append("\n");
         }
         return builder.toString();
     }
@@ -54,7 +55,7 @@ public class ExceptionReport implements Serializable {
         report.addCategory(contextKey);
         report.getCategory(contextKey).put("crash date", (new Date()).toString());
         report.getCategory(contextKey).put("thread id", threadId + "");
-        if (!App.activityHistory.isEmpty()) {
+        if (App.activityHistory.size() > 1) {
             report.getCategory(contextKey).put("activity", App.activityHistory.get(App.activityHistory.size() - 2));
         }
 

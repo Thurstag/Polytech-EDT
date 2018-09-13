@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import com.polytech.edt.BuildConfig;
 import com.polytech.edt.R;
-import com.polytech.edt.model.android.AboutListAdaptater;
+import com.polytech.edt.model.android.AboutListAdapter;
 import com.polytech.edt.model.android.WebIntent;
 
 
@@ -33,7 +33,7 @@ public class AboutFragment extends NamedFragment {
 
         // Build list view
         ListView listView = view.findViewById(R.id.about_list_view);
-        listView.setAdapter(new AboutListAdaptater(getContext()));
+        listView.setAdapter(new AboutListAdapter(getContext()));
 
         // Define listener on click
         listView.setOnItemClickListener(listener());

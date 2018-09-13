@@ -1,8 +1,9 @@
 package com.polytech.edt.activities;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +14,20 @@ import android.widget.TextView;
 
 import com.polytech.edt.R;
 import com.polytech.edt.exceptions.ExceptionReport;
+import com.polytech.edt.util.ColorUtil;
+import com.polytech.edt.util.FileIO;
+import com.polytech.edt.util.LOGGER;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 
 public class ErrorReporterActivity extends AppCompatActivity {
+
+    private static int reportMaxCount = 10;
 
     Toolbar toolbar;
     ExceptionReport report;
@@ -28,9 +41,7 @@ public class ErrorReporterActivity extends AppCompatActivity {
 
         // Set up toolbar
         toolbar = findViewById(R.id.toolbar);
-        Drawable icon = getDrawable(R.drawable.ic_warning);
-        icon.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
-        toolbar.setNavigationIcon(icon);
+        toolbar.setNavigationIcon(ColorUtil.coloredSVG((VectorDrawable) Objects.requireNonNull(getDrawable(R.drawable.ic_warning)), getResources().getColor(R.color.white)));
         setSupportActionBar(toolbar);
 
         // Define listener for close button
@@ -50,6 +61,40 @@ public class ErrorReporterActivity extends AppCompatActivity {
 
         // Set up buttons
         setUpButtons();
+
+        // Save report
+        saveReport();
+    }
+
+    /**
+     * Method to save report
+     */
+    @SuppressLint("StaticFieldLeak")
+    private void saveReport() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss", Locale.FRANCE);
+                try {
+                    if (!FileIO.dirExists(FileIO.path + "files/reports")) {
+                        FileIO.mkdir(FileIO.path + "files/reports");
+                    }
+
+                    Collection<File> reports = FileIO.files(FileIO.path + "files/reports/");
+
+                    // Delete first report
+                    if (reports.size() >= reportMaxCount) {
+                        reports.toArray(new File[]{})[0].delete();
+                    }
+
+                    // Save report
+                    FileIO.write(FileIO.path + "files/reports/report$" + format.format(new Date()), report.report().toString());
+                } catch (Exception e) {
+                    LOGGER.error(e);
+                }
+                return null;
+            }
+        }.execute();
     }
 
     private void setUpButtons() {
@@ -59,9 +104,9 @@ public class ErrorReporterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (reportContent == null) {
                     reportContent = new AlertDialog.Builder(ErrorReporterActivity.this)
-                            .setTitle("Report content") // TODO: string.xml
+                            .setTitle(getResources().getString(R.string.report_content))
                             .setMessage(report.report().toString())
-                            .setNeutralButton("Close",  // TODO: string.xml
+                            .setNeutralButton(getResources().getString(R.string.close),
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {

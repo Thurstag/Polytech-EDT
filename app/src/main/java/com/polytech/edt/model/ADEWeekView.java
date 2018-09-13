@@ -1163,7 +1163,7 @@ public class ADEWeekView extends View {
         for (EventRect eventRect : collisionGroup) {
             boolean isPlaced = false;
             for (List<EventRect> column : columns) {
-                if (column.size() == 0) {
+                if (column.isEmpty()) {
                     column.add(eventRect);
                     isPlaced = true;
                 }

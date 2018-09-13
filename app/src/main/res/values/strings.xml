@@ -23,6 +23,8 @@
     <string name="groups">Groups</string>
     <string name="menu">Menu</string>
     <string name="undefined">Undefined</string>
+    <string name="reports">Reports</string>
+    <string name="close">Close</string>
 
     <!-- About page items -->
     <string name="version">Version</string>
@@ -34,4 +36,6 @@
 
     <!-- Error page -->
     <string name="error_explication_text">An unexpected error has occurred.\nHelp developers by providing error details.\nThank you for your support!</string>
+    <string name="report_content">Report content</string>
+    <string name="no_report">No reports</string>
 </resources>

@@ -16,6 +16,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
     @SuppressLint("StaticFieldLeak")
     public static Context context;
 
+    @SuppressLint("StaticFieldLeak")
     public static Activity currentActivity;
     public static List<String> activityHistory = new ArrayList<>();
 

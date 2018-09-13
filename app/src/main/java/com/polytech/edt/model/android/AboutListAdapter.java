@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class AboutListAdaptater extends SimpleAdapter {
+public class AboutListAdapter extends SimpleAdapter {
 
     /**
      * Constructor
@@ -31,11 +31,11 @@ public class AboutListAdaptater extends SimpleAdapter {
      * @param to       The views that should display column in the "from" parameter. These should all be
      *                 TextViews. The first N views in this list are given the values of the first N columns
      */
-    private AboutListAdaptater(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
+    private AboutListAdapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
         super(context, data, resource, from, to);
     }
 
-    public AboutListAdaptater(Context context) {
+    public AboutListAdapter(Context context) {
         this(context, data(), R.layout.list_item, new String[]{"1_line", "2_line"}, new int[]{R.id.item_title, R.id.item_subtitle});
     }
 
