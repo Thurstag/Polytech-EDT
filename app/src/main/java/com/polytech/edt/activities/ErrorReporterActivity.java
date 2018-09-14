@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.polytech.edt.R;
 import com.polytech.edt.exceptions.ExceptionReport;
+import com.polytech.edt.model.android.MailIntent;
 import com.polytech.edt.util.ColorUtil;
 import com.polytech.edt.util.FileIO;
 import com.polytech.edt.util.LOGGER;
@@ -120,7 +121,20 @@ public class ErrorReporterActivity extends AppCompatActivity {
             }
         });
 
-        // TODO: Make send report button
+        // Send report listener
+        findViewById(R.id.button_send_report).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    startActivity(new MailIntent(
+                            new String[]{"psud.edt.app.reports@gmail.com"}, // TODO: use config to store address
+                            getResources().getString(R.string.mail_report_subject),
+                            getResources().getString(R.string.mail_report_header) + report.report().toString()));
+                } catch (Exception e) {
+                    LOGGER.error(e);
+                }
+            }
+        });
     }
 
     /**

@@ -8,6 +8,7 @@ import com.polytech.edt.model.IniReport;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Locale;
 
 public class ExceptionReport implements Serializable {
 
@@ -67,6 +68,7 @@ public class ExceptionReport implements Serializable {
         report.getCategory(deviceKey).put("manufacturer", Build.MANUFACTURER);
         report.getCategory(deviceKey).put("product", Build.PRODUCT);
         report.getCategory(deviceKey).put("sdk", Build.VERSION.SDK_INT + "");
+        report.getCategory(deviceKey).put("language", Locale.getDefault().getDisplayName());
 
         String errorKey = "Error";
         report.addCategory(errorKey);
