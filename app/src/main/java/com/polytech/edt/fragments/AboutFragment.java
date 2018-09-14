@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.polytech.edt.AppConfig;
+import com.polytech.edt.AppProperty;
 import com.polytech.edt.BuildConfig;
 import com.polytech.edt.R;
 import com.polytech.edt.model.android.AboutListAdapter;
+import com.polytech.edt.model.android.MailIntent;
 import com.polytech.edt.model.android.WebIntent;
 
 
@@ -64,6 +67,11 @@ public class AboutFragment extends NamedFragment {
                     // Git rev
                     case 3:
                         startActivity(new WebIntent("https://github.com/Thurstag/Polytech---EDT/commit/" + BuildConfig.GIT_COMMIT_SHA));
+                        break;
+
+                    // Contact
+                    case 6:
+                        startActivity(new MailIntent(new String[]{AppConfig.get(AppProperty.REPORT_MAIL)}, "", ""));
                         break;
                 }
             }

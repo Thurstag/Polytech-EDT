@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.polytech.edt.AppConfig;
 import com.polytech.edt.R;
 import com.polytech.edt.model.ADEResource;
 import com.polytech.edt.util.FileIO;
@@ -74,11 +75,14 @@ public class LoadingActivity extends AppCompatActivity {
                     LOGGER.warning(e.getMessage());
                 }
 
+                // Load config
+                AppConfig.loadConfig();
+
                 try {
                     List<ADEResource> resources;
 
                     // Load/Store resources
-                    if (FileIO.exists(FileIO.path + "files/resources.json")) {
+                    if (FileIO.exists(FileIO.ROOT_PATH + "files/resources.json")) {
                         // Decode file
                         resources = mapper.readValue(FileIO.read(getApplicationContext(), "resources.json").getBytes(), new TypeReference<ArrayList<ADEResource>>() {
                         });

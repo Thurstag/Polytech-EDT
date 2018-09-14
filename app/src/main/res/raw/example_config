@@ -1,0 +1,8 @@
+mail.email=REPLACE_ME
+mail.password=REPLACE_ME
+mail.smtp.auth=true
+mail.smtp.starttls.enable=true
+mail.smtp.host=smtp.gmail.com
+mail.smtp.port=587
+
+// CONFIG FILE NAME IS "application.properties"

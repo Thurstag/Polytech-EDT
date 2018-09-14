@@ -33,5 +33,4 @@
             android:name=".activities.ErrorReporterActivity"
             android:screenOrientation="portrait" />
     </application>
-
 </manifest>

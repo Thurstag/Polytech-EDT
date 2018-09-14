@@ -4,6 +4,8 @@ import android.content.Context;
 import android.widget.SimpleAdapter;
 
 import com.polytech.edt.App;
+import com.polytech.edt.AppConfig;
+import com.polytech.edt.AppProperty;
 import com.polytech.edt.BuildConfig;
 import com.polytech.edt.R;
 import com.polytech.edt.util.LOGGER;
@@ -49,7 +51,8 @@ public class AboutListAdapter extends SimpleAdapter {
                 {App.context.getString(R.string.git_repo), "https://github.com"},
                 {App.context.getString(R.string.git_revision), BuildConfig.GIT_COMMIT_SHA},
                 {App.context.getString(R.string.devs), "Thomas Capodano & Sasha Berthout"},
-                {App.context.getString(R.string.license), "GNU General Public License v3.0"}
+                {App.context.getString(R.string.license), "GNU General Public License v3.0"},
+                {App.context.getString(R.string.contact), AppConfig.get(AppProperty.REPORT_MAIL)}
         };
 
         for (String[] d : data) {

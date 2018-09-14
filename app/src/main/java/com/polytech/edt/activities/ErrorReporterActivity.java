@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.polytech.edt.AppConfig;
+import com.polytech.edt.AppProperty;
 import com.polytech.edt.R;
 import com.polytech.edt.exceptions.ExceptionReport;
 import com.polytech.edt.model.android.MailIntent;
@@ -77,11 +79,11 @@ public class ErrorReporterActivity extends AppCompatActivity {
             protected Void doInBackground(Void... voids) {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss", Locale.FRANCE);
                 try {
-                    if (!FileIO.dirExists(FileIO.path + "files/reports")) {
-                        FileIO.mkdir(FileIO.path + "files/reports");
+                    if (!FileIO.dirExists(FileIO.ROOT_PATH + "files/reports")) {
+                        FileIO.mkdir(FileIO.ROOT_PATH + "files/reports");
                     }
 
-                    Collection<File> reports = FileIO.files(FileIO.path + "files/reports/");
+                    Collection<File> reports = FileIO.files(FileIO.ROOT_PATH + "files/reports/");
 
                     // Delete first report
                     if (reports.size() >= reportMaxCount) {
@@ -89,7 +91,7 @@ public class ErrorReporterActivity extends AppCompatActivity {
                     }
 
                     // Save report
-                    FileIO.write(FileIO.path + "files/reports/report$" + format.format(new Date()), report.report().toString());
+                    FileIO.write(FileIO.ROOT_PATH + "files/reports/report$" + format.format(new Date()), report.report().toString());
                 } catch (Exception e) {
                     LOGGER.error(e);
                 }
@@ -127,7 +129,7 @@ public class ErrorReporterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     startActivity(new MailIntent(
-                            new String[]{"psud.edt.app.reports@gmail.com"}, // TODO: use config to store address
+                            new String[]{AppConfig.get(AppProperty.REPORT_MAIL)},
                             getResources().getString(R.string.mail_report_subject),
                             getResources().getString(R.string.mail_report_header) + report.report().toString()));
                 } catch (Exception e) {

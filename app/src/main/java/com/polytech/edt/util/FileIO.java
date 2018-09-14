@@ -18,10 +18,10 @@ import java.util.TreeSet;
 
 public class FileIO {
 
-    public static String path;
+    public static String ROOT_PATH;
 
     static {
-        path = "data/data/" + App.class.getPackage().getName() + "/";
+        ROOT_PATH = "data/data/" + App.class.getPackage().getName() + "/";
     }
 
     public static void write(Context context, String filename, String content) {

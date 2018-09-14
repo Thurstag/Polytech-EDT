@@ -25,6 +25,7 @@
     <string name="undefined">Undefined</string>
     <string name="reports">Reports</string>
     <string name="close">Close</string>
+    <string name="contact">Contact</string>
 
     <!-- About page items -->
     <string name="version">Version</string>
