@@ -25,7 +25,7 @@ public class AppConfig {
      * @return Property's value
      */
     public static String get(AppProperty property) {
-        return properties.getProperty(property.label());
+        return properties.getProperty(property.label(), null);
     }
 
     /**
@@ -36,6 +36,11 @@ public class AppConfig {
      * @return Property's value
      */
     public static String get(AppProperty property, String _default) {
-        return properties.getProperty(property.label(), _default);
+        String o = properties.getProperty(property.label(), _default);
+
+        if (o == null) {
+            LOGGER.warning(String.format("Fail to retrieve property: %s", property.label()));
+        }
+        return o;
     }
 }

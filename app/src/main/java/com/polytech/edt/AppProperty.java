@@ -2,7 +2,7 @@ package com.polytech.edt;
 
 public enum AppProperty {
 
-    REPORT_MAIL("mail.email");
+    REPORT_MAIL("report.email");
 
     private String label;
 

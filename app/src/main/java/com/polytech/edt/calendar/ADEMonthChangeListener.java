@@ -20,7 +20,7 @@ public class ADEMonthChangeListener implements MonthLoader.MonthChangeListener {
         Calendar now = Calendar.getInstance();
         now.setTime(new Date());
 
-        currentWeek = now.get(Calendar.WEEK_OF_YEAR + (now.get(Calendar.DAY_OF_WEEK) == 7 || now.get(Calendar.DAY_OF_WEEK) == 1 ? 1 : 0));
+        currentWeek = now.get(Calendar.WEEK_OF_YEAR) + (now.get(Calendar.DAY_OF_WEEK) == 7 || now.get(Calendar.DAY_OF_WEEK) == 1 ? 1 : 0);
     }
 
     /**

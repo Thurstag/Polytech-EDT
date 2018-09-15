@@ -1,8 +1,3 @@
-mail.email=REPLACE_ME
-mail.password=REPLACE_ME
-mail.smtp.auth=true
-mail.smtp.starttls.enable=true
-mail.smtp.host=smtp.gmail.com
-mail.smtp.port=587
+report.email=psud.edt.app.reports@gmail.com
 
 // CONFIG FILE NAME IS "application.properties"
