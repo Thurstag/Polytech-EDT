@@ -1,10 +1,16 @@
 package com.polytech.edt.model;
 
 import com.alamkanak.weekview.WeekViewEvent;
+import com.polytech.edt.AppConfig;
+import com.polytech.edt.AppProperty;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -15,9 +21,12 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({AppConfig.class})
 public class CalendarTest {
 
     private static InputStream buffer;
@@ -29,7 +38,7 @@ public class CalendarTest {
 
     @BeforeClass
     public static void setUp() throws FileNotFoundException {
-        buffer = new FileInputStream("src/test/resources/test-calendar.ics");
+        buffer = new FileInputStream("src/test/res/raw/test-calendar.ics");
 
         starts.add("08:30:00");
         starts.add("13:30:00");
@@ -78,6 +87,10 @@ public class CalendarTest {
         locations.add("UNDEFINED");
         locations.add("620 - A104");
         locations.add("UNDEFINED");
+
+        // Mock config
+        PowerMockito.mockStatic(AppConfig.class);
+        PowerMockito.when(AppConfig.get(eq(AppProperty.RESOURCES_LIST))).thenReturn("13,1777,1630,1838,1857,1739,1746,1953,2020,1732,1795,1823,2117,346,2139,2154,2180,2218");
     }
 
     @Test

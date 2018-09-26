@@ -31,7 +31,7 @@ public class ResourceURL implements ADEURL {
     /**
      * Constructor
      *
-     * @param id ID
+     * @param id     ID
      * @param detail Detail
      */
     public ResourceURL(Integer id, int detail) {

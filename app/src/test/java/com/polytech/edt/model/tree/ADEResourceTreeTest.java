@@ -1,5 +1,7 @@
 package com.polytech.edt.model.tree;
 
+import com.polytech.edt.AppConfig;
+import com.polytech.edt.AppProperty;
 import com.polytech.edt.model.ADEResource;
 
 import org.junit.Assert;
@@ -11,15 +13,12 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Matchers.eq;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(ADEResource.class)
+@PrepareForTest({ADEResource.class, AppConfig.class})
 public class ADEResourceTreeTest {
-
-    private static List<ADEResource> resources;
 
     private static String PPS = "Polytech Paris-Sud";
     private static String FISA = "FISA";
@@ -29,10 +28,17 @@ public class ADEResourceTreeTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        resources = new ArrayList<>();
+        // Mock config
+        PowerMockito.mockStatic(AppConfig.class);
+        PowerMockito.when(AppConfig.get(eq(AppProperty.RESOURCES_LIST))).thenReturn("13,1777,1630,1838,1857,1739,1746,1953,2020,1732,1795,1823,2117,346,2139,2154,2180,2218");
 
+        // Mocked load
+        ArrayList<ADEResource> resources = new ArrayList<>();
         resources.add(new ADEResource(2128).load());
         resources.add(new ADEResource(2011).load());
+
+        PowerMockito.mockStatic(ADEResource.class);
+        PowerMockito.when(ADEResource.resources()).thenReturn(resources);
     }
 
     @Test
@@ -40,12 +46,6 @@ public class ADEResourceTreeTest {
         // Simple load
         ADEResourceTree tree = new ADEResourceTree();
         Assert.assertNotNull(tree);
-
-        // Mocked load
-        PowerMockito.mockStatic(ADEResource.class);
-        when(ADEResource.resources()).thenReturn(resources);
-        tree = new ADEResourceTree();
-
         Assert.assertEquals(1, tree.children.size());
         Assert.assertTrue(tree.contains(PPS));
         Assert.assertEquals(1, tree.child(PPS).children().size());

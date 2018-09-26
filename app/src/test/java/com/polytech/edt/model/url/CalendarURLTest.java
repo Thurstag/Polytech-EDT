@@ -1,21 +1,39 @@
 package com.polytech.edt.model.url;
 
+import com.polytech.edt.AppConfig;
+import com.polytech.edt.AppProperty;
 import com.polytech.edt.model.ADEResource;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static org.mockito.Matchers.eq;
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({AppConfig.class})
 public class CalendarURLTest {
 
     private final static int scope = 3;
     private final static int id = 2128;
+
+    @BeforeClass
+    public static void setUp() {
+        // Mock config
+        PowerMockito.mockStatic(AppConfig.class);
+        PowerMockito.when(AppConfig.get(eq(AppProperty.RESOURCES_LIST))).thenReturn("13,1777,1630,1838,1857,1739,1746,1953,2020,1732,1795,1823,2117,346,2139,2154,2180,2218");
+    }
 
     @Test
     public void UrlMethodTest() throws Exception {

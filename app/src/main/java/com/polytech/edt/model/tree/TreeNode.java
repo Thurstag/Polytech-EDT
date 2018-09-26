@@ -2,7 +2,6 @@ package com.polytech.edt.model.tree;
 
 import org.apache.commons.lang.NullArgumentException;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +22,7 @@ public class TreeNode<T, V> implements Node<T, V> {
     /**
      * Constructor
      *
-     * @param id Id
+     * @param id      Id
      * @param content Content
      */
     public TreeNode(T id, V content) {

@@ -43,7 +43,7 @@ public class AboutListAdapter extends SimpleAdapter {
 
     private static List<? extends Map<String, ?>> data() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss", Locale.FRANCE);
-        
+
         List<Map<String, String>> list = new ArrayList<>();
         String[][] data = new String[][]{
                 {App.context.getString(R.string.version), BuildConfig.VERSION_NAME},

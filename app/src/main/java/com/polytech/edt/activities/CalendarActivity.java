@@ -83,8 +83,8 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
     /**
      * Method to change fragment
      *
-     * @param _class          Fragment class
-     * @param parameters      Parameters
+     * @param _class     Fragment class
+     * @param parameters Parameters
      * @return Fragment
      */
     private Fragment changeFragment(Class<? extends NamedFragment> _class, Map<String, Serializable> parameters) throws InstantiationException, IllegalAccessException {

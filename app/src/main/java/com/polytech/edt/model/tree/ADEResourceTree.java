@@ -1,6 +1,7 @@
 package com.polytech.edt.model.tree;
 
 import com.polytech.edt.model.ADEResource;
+import com.polytech.edt.util.LOGGER;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,11 @@ public class ADEResourceTree extends TreeNode<String, List<ADEResource>> {
     private void build(List<ADEResource> resources) throws Exception {
         // Add resources
         for (ADEResource resource : resources) {
+            if (resource == null) {
+                LOGGER.warning("Try to build a tree with null resource");
+                continue;
+            }
+
             // Check path
             if (resource.path() == null) {
                 continue;

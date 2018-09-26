@@ -29,13 +29,17 @@ public class LOGGER {
     public static void fatal(Exception exception) {
         Log.e("FATAL", "", exception);
 
-        Thread.getDefaultUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), exception);
+        if (Thread.getDefaultUncaughtExceptionHandler() != null) {
+            Thread.getDefaultUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), exception);
+        }
     }
 
     public static void fatal(String message) {
         Log.e("FATAL", message);
 
-        Thread.getDefaultUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), new Exception(message));
+        if (Thread.getDefaultUncaughtExceptionHandler() != null) {
+            Thread.getDefaultUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), new Exception(message));
+        }
     }
 
     //endregion
