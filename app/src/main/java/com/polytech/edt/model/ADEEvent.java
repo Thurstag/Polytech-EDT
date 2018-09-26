@@ -78,19 +78,6 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Ser
     }
 
     /**
-     * Get hash from string
-     * @param str
-     * @return
-     */
-    private int hashCode(String str) { // java String#hashCode
-        int hash = 0;
-        for (int i = 0; i < str.length(); i++) {
-            hash = str.charAt(i) + ((hash << 5) - hash);
-        }
-        return hash;
-    }
-
-    /**
      * Method to generate a color depending on location
      *
      * @param location Location
