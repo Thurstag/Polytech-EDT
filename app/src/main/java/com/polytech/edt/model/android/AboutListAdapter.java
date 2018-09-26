@@ -4,10 +4,10 @@ import android.content.Context;
 import android.widget.SimpleAdapter;
 
 import com.polytech.edt.App;
-import com.polytech.edt.AppConfig;
-import com.polytech.edt.AppProperty;
 import com.polytech.edt.BuildConfig;
 import com.polytech.edt.R;
+import com.polytech.edt.config.AppConfig;
+import com.polytech.edt.config.AppProperty;
 import com.polytech.edt.util.LOGGER;
 
 import java.text.SimpleDateFormat;

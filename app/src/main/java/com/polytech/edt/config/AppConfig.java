@@ -1,5 +1,7 @@
-package com.polytech.edt;
+package com.polytech.edt.config;
 
+import com.polytech.edt.App;
+import com.polytech.edt.R;
 import com.polytech.edt.util.LOGGER;
 
 import java.io.InputStream;

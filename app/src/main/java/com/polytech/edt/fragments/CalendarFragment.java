@@ -68,6 +68,9 @@ public class CalendarFragment extends NamedFragment {
             LOGGER.warning("Calendar is null");
             return;
         }
+        if (calendar.events().isEmpty()) {
+            return;
+        }
         weekView.goToDate(calendar.events().get(0).getStartTime());
     }
 

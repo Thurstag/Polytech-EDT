@@ -2,8 +2,8 @@ package com.polytech.edt.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.polytech.edt.AppConfig;
-import com.polytech.edt.AppProperty;
+import com.polytech.edt.config.AppConfig;
+import com.polytech.edt.config.AppProperty;
 import com.polytech.edt.model.url.ResourceURL;
 
 import net.fortuna.ical4j.data.ParserException;

@@ -12,6 +12,7 @@ public class TreeNode<T, V> implements Node<T, V> {
 
     private T id;
     private V content;
+    private Node<T, V> parent;
 
     protected Map<T, Node<T, V>> children;
 
@@ -23,12 +24,14 @@ public class TreeNode<T, V> implements Node<T, V> {
      * Constructor
      *
      * @param id      Id
+     * @param parent Parent
      * @param content Content
      */
-    public TreeNode(T id, V content) {
+    public TreeNode(T id, Node<T, V> parent, V content) {
         this.id = id;
         this.content = content;
         this.children = new HashMap<>();
+        this.parent = parent;
     }
 
     /**
@@ -36,8 +39,8 @@ public class TreeNode<T, V> implements Node<T, V> {
      *
      * @param id Id
      */
-    public TreeNode(T id) {
-        this(id, null);
+    public TreeNode(T id, Node<T, V> parent) {
+        this(id, parent, null);
     }
 
     //endregion
@@ -62,6 +65,11 @@ public class TreeNode<T, V> implements Node<T, V> {
     @Override
     public boolean isLeaf() {
         return content != null;
+    }
+
+    @Override
+    public Node<T, V> parent() {
+        return parent;
     }
 
     //endregion

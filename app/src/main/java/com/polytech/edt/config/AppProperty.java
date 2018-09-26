@@ -1,4 +1,4 @@
-package com.polytech.edt;
+package com.polytech.edt.config;
 
 public enum AppProperty {
 

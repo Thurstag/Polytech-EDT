@@ -1,7 +1,7 @@
 package com.polytech.edt.model.url;
 
-import com.polytech.edt.AppConfig;
-import com.polytech.edt.AppProperty;
+import com.polytech.edt.config.AppConfig;
+import com.polytech.edt.config.AppProperty;
 import com.polytech.edt.model.ADEResource;
 
 import org.apache.http.NameValuePair;

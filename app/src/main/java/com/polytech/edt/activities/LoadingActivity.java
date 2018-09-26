@@ -14,8 +14,9 @@ import android.widget.ProgressBar;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.polytech.edt.AppConfig;
+import com.polytech.edt.AppCache;
 import com.polytech.edt.R;
+import com.polytech.edt.config.AppConfig;
 import com.polytech.edt.model.ADEResource;
 import com.polytech.edt.util.FileIO;
 import com.polytech.edt.util.LOGGER;
@@ -35,8 +36,8 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
     }
 
-    @Override
     @SuppressLint("StaticFieldLeak")
+    @Override
     protected void onStart() {
         super.onStart();
 
@@ -56,8 +57,6 @@ public class LoadingActivity extends AppCompatActivity {
         // Define a callback on animation end
         // TODO: Create a class
         new AsyncTask<Void, Void, Void>() {
-
-            private boolean done = false;
 
             @Override
             protected Void doInBackground(Void... voids) {
@@ -95,14 +94,13 @@ public class LoadingActivity extends AppCompatActivity {
                         FileIO.write(getApplicationContext(), "resources.json", mapper.writeValueAsString(resources));
                     }
 
-                    // TODO: Store resources
+                    // Store resources in cache
+                    AppCache.save("resources", resources);
 
                     // Load calendar
                     if (false) {
                         // TODO: Load calendar and store it
                     }
-
-                    done = true;
                 } catch (Exception e) {
                     LOGGER.fatal(e);
                 }
@@ -111,10 +109,6 @@ public class LoadingActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                if (!done) {
-                    return;
-                }
-
                 // Stop progress bar
                 progressBar.setVisibility(View.GONE);
 

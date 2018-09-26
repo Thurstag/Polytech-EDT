@@ -66,7 +66,7 @@ public class ADEResourceTree extends TreeNode<String, List<ADEResource>> {
 
                 // Check if node exists
                 if (!current.contains(part)) {
-                    current.addChild(new TreeNode<String, List<ADEResource>>(part));
+                    current.addChild(new TreeNode<>(part, current));
                 }
 
                 // Update current
@@ -79,6 +79,37 @@ public class ADEResourceTree extends TreeNode<String, List<ADEResource>> {
                 }
                 current.content().add(resource);
             }
+        }
+    }
+
+    /**
+     * Method to get leaves
+     *
+     * @return Leaves
+     */
+    public List<Node<String, List<ADEResource>>> leaves() {
+        List<Node<String, List<ADEResource>>> nodes = new ArrayList<>();
+
+        // Get leaves
+        _leaves(nodes, this);
+
+        return nodes;
+    }
+
+    /**
+     * Method to retrieve leaves recursively
+     *
+     * @param nodes List buffer
+     * @param node  Current node
+     */
+    private void _leaves(List<Node<String, List<ADEResource>>> nodes, Node<String, List<ADEResource>> node) {
+        if (node.isLeaf()) {
+            nodes.add(node);
+            return;
+        }
+
+        for (Node<String, List<ADEResource>> child : node.children()) {
+            _leaves(nodes, child);
         }
     }
 

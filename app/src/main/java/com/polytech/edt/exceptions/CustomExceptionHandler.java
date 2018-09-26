@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import com.polytech.edt.App;
 import com.polytech.edt.activities.ErrorReporterActivity;
+import com.polytech.edt.util.LOGGER;
 
 public class CustomExceptionHandler implements Thread.UncaughtExceptionHandler {
 
@@ -22,6 +23,8 @@ public class CustomExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread t, Throwable e) {
+        LOGGER.error(e);
+
         Intent intent = new Intent(App.currentActivity, ErrorReporterActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

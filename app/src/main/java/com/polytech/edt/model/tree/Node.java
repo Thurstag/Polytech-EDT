@@ -20,9 +20,11 @@ public interface Node<T, V> {
 
     T id();
 
-    V content() throws Exception;
+    V content();
 
     void setContent(V content);
 
     boolean isLeaf();
+
+    Node<T, V> parent();
 }

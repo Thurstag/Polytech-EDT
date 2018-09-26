@@ -33,8 +33,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
     Fragment fragment;
     ADECalendar calendar;
     Toolbar toolbar;
-    Menu menu;
-    private boolean hideToolBarMenu;
+    boolean hideToolBarMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +69,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
 
         // Choose calendar fragment
         try {
-            Map<String, Serializable> args = new HashMap<String, Serializable>();
+            Map<String, Serializable> args = new HashMap<>();
             args.put("calendar", calendar);
 
             fragment = changeFragment(CalendarFragment.class, args);
@@ -160,7 +159,6 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
     }
 
     @Override
-    @SuppressWarnings("StatementWithEmptyBody")
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_calendar:

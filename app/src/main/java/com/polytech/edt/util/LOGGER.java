@@ -22,11 +22,11 @@ public class LOGGER {
         Log.e("ERROR", message);
     }
 
-    public static void error(Exception exception) {
+    public static void error(Throwable exception) {
         Log.e("ERROR", "", exception);
     }
 
-    public static void fatal(Exception exception) {
+    public static void fatal(Throwable exception) {
         Log.e("FATAL", "", exception);
 
         if (Thread.getDefaultUncaughtExceptionHandler() != null) {
