@@ -12,14 +12,14 @@ public class TreeNodeTest {
     public final ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void ConstructorTest() throws Exception {
-        TreeNode<String, String> node = new TreeNode<>("a", "b");
+    public void ConstructorTest() {
+        TreeNode<String, String> node = new TreeNode<>("a", null, "b");
 
         Assert.assertEquals("a", node.id());
         Assert.assertEquals("b", node.content());
         Assert.assertTrue(node.isLeaf());
 
-        node = new TreeNode<>("a");
+        node = new TreeNode<>("a", null);
 
         Assert.assertEquals("a", node.id());
         Assert.assertNull(node.content());
@@ -29,14 +29,14 @@ public class TreeNodeTest {
 
     @Test
     public void addChildTest() throws Exception {
-        TreeNode<String, String> node = new TreeNode<>("a");
+        TreeNode<String, String> node = new TreeNode<>("a", null);
 
-        node.addChild(new TreeNode<String, String>("a"));
+        node.addChild(new TreeNode<String, String>("a", null));
 
         exception.expect(NullArgumentException.class);
         node.addChild(null);
 
         exception.expect(Exception.class);
-        node.addChild(new TreeNode<String, String>("a"));
+        node.addChild(new TreeNode<String, String>("a", null));
     }
 }

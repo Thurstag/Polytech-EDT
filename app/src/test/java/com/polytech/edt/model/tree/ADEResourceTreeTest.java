@@ -42,10 +42,11 @@ public class ADEResourceTreeTest {
     }
 
     @Test
-    public void loadTest() throws Exception {
-        // Simple load
+    public void loadAndLeavesTest() throws Exception {
         ADEResourceTree tree = new ADEResourceTree();
+
         Assert.assertNotNull(tree);
+
         Assert.assertEquals(1, tree.children.size());
         Assert.assertTrue(tree.contains(PPS));
         Assert.assertEquals(1, tree.child(PPS).children().size());
@@ -55,11 +56,13 @@ public class ADEResourceTreeTest {
         Assert.assertEquals(2, tree.child(PPS).child(FISA).child(FISA3).children().size());
         Assert.assertTrue(tree.child(PPS).child(FISA).child(FISA3).contains(FISA_INFO));
         Assert.assertTrue(tree.child(PPS).child(FISA).child(FISA3).contains(FISA_TC));
-        Assert.assertTrue(tree.child(PPS).child(FISA).child(FISA3).child(FISA_INFO).content() != null);
-        Assert.assertTrue(tree.child(PPS).child(FISA).child(FISA3).child(FISA_TC).content() != null);
+        Assert.assertTrue(tree.child(PPS).child(FISA).child(FISA3).child(FISA_INFO).isLeaf());
+        Assert.assertTrue(tree.child(PPS).child(FISA).child(FISA3).child(FISA_TC).isLeaf());
         Assert.assertEquals(1, tree.child(PPS).child(FISA).child(FISA3).child(FISA_INFO).content().size());
         Assert.assertEquals(1, tree.child(PPS).child(FISA).child(FISA3).child(FISA_TC).content().size());
         Assert.assertEquals(2011, tree.child(PPS).child(FISA).child(FISA3).child(FISA_INFO).content().get(0).id());
         Assert.assertEquals(2128, tree.child(PPS).child(FISA).child(FISA3).child(FISA_TC).content().get(0).id());
+
+        Assert.assertEquals(2, tree.leaves().size());
     }
 }
