@@ -51,7 +51,7 @@ public class GroupsFragment extends NamedFragment {
         TextView groups = view.findViewById(R.id.group_count);
         int size = 0;
         for (Node<String, List<ADEResource>> node : resources) {
-            for (ADEResource resource : node.content()) {
+            for (ADEResource ignored : node.content()) {
                 size++;
             }
         }
