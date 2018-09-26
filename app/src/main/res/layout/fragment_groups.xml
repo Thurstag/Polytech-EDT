@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".fragments.GroupsFragment">
 
-    <!-- TODO: Add a button to reload groups (SEQUENTIAL LOAD) -->
+    <!-- TODO: Add a button to reload groups -->
 
     <LinearLayout
         android:layout_width="match_parent"

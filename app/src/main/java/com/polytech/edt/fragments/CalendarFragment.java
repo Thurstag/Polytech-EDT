@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.polytech.edt.AppCache;
 import com.polytech.edt.R;
 import com.polytech.edt.calendar.ADEDateTimeInterpreter;
 import com.polytech.edt.calendar.ADEEventClickListener;
 import com.polytech.edt.calendar.ADEMonthChangeListener;
+import com.polytech.edt.config.UserConfig;
 import com.polytech.edt.model.ADECalendar;
 import com.polytech.edt.model.ADEWeekView;
 import com.polytech.edt.util.LOGGER;
@@ -33,17 +35,24 @@ public class CalendarFragment extends NamedFragment {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
         // Set calendar
-        calendar = (ADECalendar) getArguments().getSerializable("calendar");
+        calendar = AppCache.get("calendar");
 
         // Get a reference for the week view in the layout.
         weekView = view.findViewById(R.id.weekView);
 
         // Init week view
         initWeekView();
-        goToFirstEvent();
+        setScope();
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    /**
+     * Method to set calendar's scope
+     */
+    private void setScope() {
+        changeVisibility(((UserConfig) AppCache.get("config")).calendarScope());
     }
 
     /**

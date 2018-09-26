@@ -40,17 +40,10 @@ public class ADEEventClickListener implements ADEWeekView.EventClickListener {
 
         alertDialog.setMessage(e.getLocation() + "\n" + e.description());
 
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", // TODO: string.xml
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                    }
-                });
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Add a note", // TODO: string.xml
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // TODO: Permettre d'ajouter une note (utile pour noter le numéro de salle si il n'est pas précisé...)
-                        // TODO: Penser à ajouter la modification de cette note ???
                     }
                 });
         alertDialog.show();
