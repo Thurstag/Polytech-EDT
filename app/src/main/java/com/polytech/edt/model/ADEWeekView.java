@@ -1174,7 +1174,7 @@ public class ADEWeekView extends View {
                 }
             }
             if (!isPlaced) {
-                List<EventRect> newColumn = new ArrayList<EventRect>();
+                List<EventRect> newColumn = new ArrayList<>();
                 newColumn.add(eventRect);
                 columns.add(newColumn);
             }

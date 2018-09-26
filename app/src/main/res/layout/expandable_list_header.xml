@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="55dip"
@@ -12,11 +13,38 @@
         android:layout_height="match_parent"
         android:gravity="center|start">
 
+        <ImageView
+            android:id="@+id/group_arrow_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:tint="@color/polytechGrey"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
+            tools:ignore="RtlSymmetry" />
+
+        <ImageView
+            android:id="@+id/group_arrow_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:tint="@color/polytechGrey"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp"
+            tools:ignore="RtlSymmetry" />
+
+        <View
+            android:id="@+id/group_empty_indicator"
+            android:layout_width="34dp"
+            android:layout_height="24dp"
+            tools:ignore="RtlSymmetry" />
+
         <TextView
             android:id="@+id/expandable_list_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="?android:attr/expandableListPreferredItemPaddingLeft"
+            android:paddingStart="5dp"
+            android:text="R"
             tools:ignore="RtlSymmetry" />
     </TableRow>
 </LinearLayout>

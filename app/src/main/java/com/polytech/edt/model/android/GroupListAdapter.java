@@ -1,7 +1,15 @@
 package com.polytech.edt.model.android;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SimpleExpandableListAdapter;
+import android.widget.TextView;
 
 import com.polytech.edt.R;
 import com.polytech.edt.model.ADEResource;
@@ -19,17 +27,32 @@ public class GroupListAdapter extends SimpleExpandableListAdapter {
     private static final int[] groupIds = new int[]{R.id.expandable_list_header};
     private static final int[] childIds = new int[]{R.id.expandable_list_item};
 
+    @SuppressLint("UseSparseArrays")
+    private static Map<Integer, Boolean> isSection = new HashMap<>();
+    private ColorStateList defaultTextColor = null;
+
     public GroupListAdapter(Context context, List<Node<String, List<ADEResource>>> resources) {
         super(context, buildGroups(resources), R.layout.expandable_list_header, keys, groupIds, buildChildren(resources), R.layout.expandable_list_item, keys, childIds);
     }
 
     private static List<? extends Map<String, ?>> buildGroups(List<Node<String, List<ADEResource>>> resources) {
         List<Map<String, String>> groups = new ArrayList<>();
+        String section = null;
 
         // Add groups
         for (Node<String, List<ADEResource>> node : resources) {
+            if (section == null || !section.equals(node.parent().id())) {
+                groups.add(new HashMap<String, String>());
+                groups.get(groups.size() - 1).put(keys[0], node.parent().id());
+
+                isSection.put(groups.size() - 1, true);
+            }
+
             groups.add(new HashMap<String, String>());
             groups.get(groups.size() - 1).put(keys[0], node.id());
+
+            // Update section
+            section = node.parent().id();
         }
 
         return groups;
@@ -37,18 +60,79 @@ public class GroupListAdapter extends SimpleExpandableListAdapter {
 
     private static List<? extends List<? extends Map<String, ?>>> buildChildren(List<Node<String, List<ADEResource>>> resources) {
         List<List<Map<String, String>>> children = new ArrayList<>();
+        String section = null;
+
         for (Node<String, List<ADEResource>> node : resources) {
+            if (section == null || !section.equals(node.parent().id())) {
+                children.add(new ArrayList<Map<String, String>>());
+            }
+
             List<Map<String, String>> child = new ArrayList<>();
 
             for (ADEResource resource : node.content()) {
+                if (resource.name().isEmpty()) {
+                    continue;
+                }
+
                 child.add(new HashMap<String, String>());
                 child.get(child.size() - 1).put(keys[0], resource.name());
             }
 
             children.add(child);
+
+            // Update section
+            section = node.parent().id();
         }
 
         return children;
+    }
+
+    @Override
+    @SuppressLint("CutPasteId")
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        View view = super.getGroupView(groupPosition, isExpanded, convertView, parent);
+
+        TextView textView = view.findViewById(R.id.expandable_list_header);
+        View emptyIndicator = view.findViewById(R.id.group_empty_indicator);
+        ImageView down = view.findViewById(R.id.group_arrow_down);
+        ImageView up = view.findViewById(R.id.group_arrow_up);
+
+        // Back up default color
+        if (defaultTextColor == null) {
+            defaultTextColor = textView.getTextColors();
+        }
+
+        // Refactor into section style
+        if (isSection.containsKey(groupPosition)) {
+            emptyIndicator.setVisibility(View.VISIBLE);
+            up.setVisibility(View.GONE);
+            down.setVisibility(View.GONE);
+
+            view.setBackgroundColor(view.getResources().getColor(R.color.colorPrimary));
+            textView.setTextColor(Color.WHITE);
+            return view;
+        }
+
+        // Display arrow
+        if (isExpanded) {
+            up.setVisibility(View.VISIBLE);
+            down.setVisibility(View.GONE);
+        }
+        else {
+            down.setVisibility(View.VISIBLE);
+            up.setVisibility(View.GONE);
+        }
+
+        // Set default text color
+        textView.setTextColor(defaultTextColor);
+
+        // Hide fake image
+        emptyIndicator.setVisibility(View.GONE);
+
+        // Set default background
+        view.setBackground(new ColorDrawable());
+
+        return view;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.polytech.edt.activities;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -114,6 +116,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
     }
 
     @Override
+    @SuppressLint("StaticFieldLeak")
     public boolean onOptionsItemSelected(MenuItem item) {
         // Check fragment
         if (!(fragment instanceof CalendarFragment)) {
@@ -144,11 +147,18 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         ((CalendarFragment) fragment).changeVisibility(scope);
 
         // Update config
-        try {
-            ((UserConfig) AppCache.get("config")).setCalendarScope(scope);
-        } catch (JsonProcessingException e) {
-            LOGGER.error(e);
-        }
+        final int finalScope = scope;
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    ((UserConfig) AppCache.get("config")).setCalendarScope(finalScope);
+                } catch (JsonProcessingException e) {
+                    LOGGER.error(e);
+                }
+                return null;
+            }
+        };
 
         return super.onOptionsItemSelected(item);
     }
