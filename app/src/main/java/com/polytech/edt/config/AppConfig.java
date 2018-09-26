@@ -11,7 +11,7 @@ public class AppConfig {
 
     private static Properties properties = new Properties();
 
-    public static void loadConfig() {
+    public static void load() {
         try {
             InputStream rawResource = App.context.getResources().openRawResource(R.raw.application);
             properties.load(rawResource);

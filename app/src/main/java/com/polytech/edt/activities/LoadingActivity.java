@@ -17,6 +17,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.polytech.edt.AppCache;
 import com.polytech.edt.R;
 import com.polytech.edt.config.AppConfig;
+import com.polytech.edt.config.UserConfig;
+import com.polytech.edt.model.ADECalendar;
 import com.polytech.edt.model.ADEResource;
 import com.polytech.edt.util.FileIO;
 import com.polytech.edt.util.LOGGER;
@@ -74,8 +76,8 @@ public class LoadingActivity extends AppCompatActivity {
                     LOGGER.warning(e.getMessage());
                 }
 
-                // Load config
-                AppConfig.loadConfig();
+                // Load app config
+                AppConfig.load();
 
                 try {
                     List<ADEResource> resources;
@@ -97,10 +99,23 @@ public class LoadingActivity extends AppCompatActivity {
                     // Store resources in cache
                     AppCache.save("resources", resources);
 
-                    // Load calendar
-                    if (false) {
-                        // TODO: Load calendar and store it
+                    // Load/Store user config
+                    if (!UserConfig.exists()) {
+                        AppCache.save("config", UserConfig.create());
                     }
+                    else {
+                        AppCache.save("config", UserConfig.load());
+                    }
+
+                    // TODO: Change this and retrieve user's groups (When group selection is implemented)
+                    String[] items = "366,1081,1634,1685,1745,1779,1805,1872,1985,2116,2127,2204,1677,2157,1690,1698,1770,1807,1937,1949,2067,2081,2137,1924,1935,364,1975,2066,2185,2197,51,59,65,71,119,120,121,122,267,1097,1670,1708,1710,1816,1864,1867,1925,2035,2076,2084,2153,2155,2158,2173,2292,2293,2294,2295,2298,2299,2300,2301,2302,2303,2304,2305,1738,1806,1996,1982,2135,2005,1869,2026,2151,2014,1916,2043,1682,1825,1687,1693,1725,1772,1817,1846,1887,2042,2078,2128,2167,2177,2193,1769,1970,2034,1804,2049,2073,2011,2175,2064,2087".split(",");
+                    List<ADEResource> res = new ArrayList<>();
+                    for (String item : items) {
+                        res.add(new ADEResource(Integer.parseInt(item)));
+                    }
+
+                    // Load/Store calendar
+                    AppCache.save("calendar", new ADECalendar(res).load());
                 } catch (Exception e) {
                     LOGGER.fatal(e);
                 }
