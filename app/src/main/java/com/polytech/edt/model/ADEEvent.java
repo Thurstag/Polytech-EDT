@@ -2,6 +2,7 @@ package com.polytech.edt.model;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.alamkanak.weekview.WeekViewEvent;
 import com.polytech.edt.App;
@@ -77,6 +78,19 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Ser
     }
 
     /**
+     * Get hash from string
+     * @param str
+     * @return
+     */
+    private int hashCode(String str) { // java String#hashCode
+        int hash = 0;
+        for (int i = 0; i < str.length(); i++) {
+            hash = str.charAt(i) + ((hash << 5) - hash);
+        }
+        return hash;
+    }
+
+    /**
      * Method to generate a color depending on location
      *
      * @param location Location
@@ -84,20 +98,13 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Ser
      */
     private int generateColor(String location) {
         // Amphi
-        if (Pattern.compile("(\\d){3} - Amphi").matcher(location).matches()) {
-            return Color.CYAN;
+        if (this.description == null) {
+            return Color.BLACK;
         }
-        else if (Pattern.compile("620 - [a-z](\\d){3}").matcher(location.toLowerCase()).matches()) {   // 620 TD
-            return Color.LTGRAY;
-        }
-        else if (Pattern.compile("640 - [a-z](\\d){3}").matcher(location.toLowerCase()).matches()) {   // 640 TD
-            return Color.GRAY;
-        }
-        else if (location.startsWith("Centre Langues")) {   // Language center
+        try {
+            return this.getName().hashCode();
+        } catch (NumberFormatException nfe) {
             return Color.RED;
-        }
-        else {  // Other
-            return Color.GRAY;
         }
     }
 
