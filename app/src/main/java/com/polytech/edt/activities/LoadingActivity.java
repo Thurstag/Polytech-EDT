@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,6 +30,7 @@ import java.util.List;
 public class LoadingActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
+    TextView waitingText;
     boolean started = false;
     ObjectMapper mapper = new ObjectMapper();
 
@@ -51,6 +53,9 @@ public class LoadingActivity extends AppCompatActivity {
         // Get progress bar and hide it
         progressBar = findViewById(R.id.loading_progress_bar);
         progressBar.setVisibility(View.INVISIBLE);
+
+        // Get waiting text
+        waitingText = findViewById(R.id.loading_waiting_text);
 
         // Start animation
         AnimatedVectorDrawable animator = ((AnimatedVectorDrawable) ((ImageView) findViewById(R.id.loading_logo)).getDrawable());
@@ -89,6 +94,14 @@ public class LoadingActivity extends AppCompatActivity {
                         });
                     }
                     else {
+                        // Hide text
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                waitingText.setVisibility(View.VISIBLE);
+                            }
+                        });
+
                         // Fetch resources
                         resources = ADEResource.resources();
 

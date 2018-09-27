@@ -43,4 +43,7 @@
     <!-- Mail report -->
     <string name="mail_report_subject">Error report</string>
     <string name="mail_report_header">=== COMMENT ===\n\n=== REPORT ===\n\n</string>
+
+    <!-- Loading page -->
+    <string name="loading_waiting_message">Loading groups \n(it will take some time)</string>
 </resources>
