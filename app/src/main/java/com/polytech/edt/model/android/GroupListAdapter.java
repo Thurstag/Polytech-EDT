@@ -5,16 +5,23 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
+import com.google.common.base.Predicate;
+import com.polytech.edt.AppCache;
 import com.polytech.edt.R;
+import com.polytech.edt.config.UserConfig;
 import com.polytech.edt.model.ADEResource;
 import com.polytech.edt.model.tree.Node;
 import com.polytech.edt.util.LOGGER;
+import com.polytech.edt.util.ListUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,9 +37,14 @@ public class GroupListAdapter extends SimpleExpandableListAdapter {
     @SuppressLint("UseSparseArrays")
     private static Map<Integer, Boolean> isSection = new HashMap<>();
     private ColorStateList defaultTextColor = null;
+    private CompoundButton.OnCheckedChangeListener checkedChangeListener = null;
 
     public GroupListAdapter(Context context, List<Node<String, List<ADEResource>>> resources) {
         super(context, buildGroups(resources), R.layout.expandable_list_header, keys, groupIds, buildChildren(resources), R.layout.expandable_list_item, keys, childIds);
+    }
+
+    public void setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener checkedChangeListener) {
+        this.checkedChangeListener = checkedChangeListener;
     }
 
     private static List<? extends Map<String, ?>> buildGroups(List<Node<String, List<ADEResource>>> resources) {
@@ -85,6 +97,34 @@ public class GroupListAdapter extends SimpleExpandableListAdapter {
         }
 
         return children;
+    }
+
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        View view = super.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
+
+        // Attach a listener on change
+        final AppCompatCheckBox checkBox = view.findViewById(childIds[0]);
+        if (checkBox != null) {
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (checkedChangeListener != null) {
+                        checkedChangeListener.onCheckedChanged(buttonView, isChecked);
+                    }
+                }
+            });
+
+            // Check box
+            checkBox.setChecked(ListUtil.contains(((UserConfig) AppCache.get("config")).groups(), new Predicate<ADEResource>() {
+                @Override
+                public boolean apply(@Nullable ADEResource input) {
+                    return input != null && input.name() != null && input.name().equals(checkBox.getText().toString());
+                }
+            }));
+        }
+
+        return view;
     }
 
     @Override

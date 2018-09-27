@@ -9,8 +9,8 @@ import com.polytech.edt.model.ADEResource;
 import com.polytech.edt.util.FileIO;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserConfig {
     //region Fields
@@ -21,7 +21,7 @@ public class UserConfig {
     private int calendarScope;
 
     @JsonProperty
-    private List<ADEResource> groups;
+    private Set<ADEResource> groups;
 
     //endregion
 
@@ -46,7 +46,7 @@ public class UserConfig {
 
         // Define default values
         config.calendarScope = 3;
-        config.groups = new ArrayList<>();
+        config.groups = new HashSet<>();
 
         // Save
         save(config);
@@ -63,7 +63,7 @@ public class UserConfig {
      *
      * @param config Config
      */
-    private static void save(UserConfig config) throws JsonProcessingException {
+    public static void save(UserConfig config) throws JsonProcessingException {
         // Encode to json & save into a file
         FileIO.write(App.context, "config.json", mapper.writeValueAsString(config));
     }
@@ -84,6 +84,16 @@ public class UserConfig {
 
     public void setCalendarScope(int calendarScope) throws JsonProcessingException {
         this.calendarScope = calendarScope;
+
+        save(this);
+    }
+
+    public Set<ADEResource> groups() {
+        return groups;
+    }
+
+    public void setGroups(Set<ADEResource> groups) throws JsonProcessingException {
+        this.groups = groups;
 
         save(this);
     }
