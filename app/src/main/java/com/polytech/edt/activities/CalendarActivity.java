@@ -1,8 +1,11 @@
 package com.polytech.edt.activities;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -14,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.polytech.edt.AppCache;
@@ -23,6 +28,8 @@ import com.polytech.edt.fragments.AboutFragment;
 import com.polytech.edt.fragments.CalendarFragment;
 import com.polytech.edt.fragments.GroupsFragment;
 import com.polytech.edt.fragments.NamedFragment;
+import com.polytech.edt.model.ADEResource;
+import com.polytech.edt.task.ReloadCalendar;
 import com.polytech.edt.util.LOGGER;
 
 import java.io.Serializable;
@@ -33,7 +40,8 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
 
     Fragment fragment;
     Toolbar toolbar;
-    boolean hideToolBarMenu;
+    boolean hideToolBarMenus;
+    ImageView reload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,44 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         // Set up navigation view
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Define listener on reload icon
+        reload = findViewById(R.id.calendar_reload);
+        reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ProgressDialog dialog = new ProgressDialog(CalendarActivity.this);
+
+                // Define properties
+                dialog.setMessage(getResources().getString(R.string.loading)); // TODO: string.xml
+                dialog.setCancelable(false);
+                dialog.setCanceledOnTouchOutside(false);
+
+                // Show
+                dialog.show();
+
+                // Reload calendar
+                ReloadCalendar task = new ReloadCalendar();
+                task.setCallback(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    fragment = changeFragment(CalendarFragment.class, new HashMap<String, Serializable>());
+                                } catch (Exception e) {
+                                    LOGGER.fatal(e);
+                                } finally {
+                                    dialog.cancel();
+                                }
+                            }
+                        });
+                    }
+                });
+                task.execute(((UserConfig) AppCache.get("config")).groups().toArray(new ADEResource[0]));
+            }
+        });
 
         // Choose calendar fragment
         try {
@@ -105,12 +151,14 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.calendar_scope, menu);
+        reload.setVisibility(View.VISIBLE);
 
         // Hide or not
-        if (hideToolBarMenu && menu != null) {
+        if (hideToolBarMenus && menu != null) {
             for (int i = 0; i < menu.size(); i++) {
                 menu.getItem(i).setVisible(false);
             }
+            reload.setVisibility(View.INVISIBLE);
         }
         return true;
     }
@@ -124,7 +172,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         }
 
         // Switch on item clicked
-        int scope = -1;
+        int scope;
         switch (item.getItemId()) {
 
             /* Toolbar menu */
@@ -171,7 +219,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
                     // Change fragment
                     try {
                         fragment = changeFragment(CalendarFragment.class, new HashMap<String, Serializable>());
-                        hideToolBarMenu = false;
+                        hideToolBarMenus = false;
                     } catch (Exception e) {
                         LOGGER.error(e);
                     }
@@ -183,7 +231,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
                     // Change fragment
                     try {
                         fragment = changeFragment(GroupsFragment.class, new HashMap<String, Serializable>());
-                        hideToolBarMenu = true;
+                        hideToolBarMenus = true;
                     } catch (Exception e) {
                         LOGGER.error(e);
                     }
@@ -195,7 +243,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
                     // Change fragment
                     try {
                         fragment = changeFragment(AboutFragment.class, new HashMap<String, Serializable>());
-                        hideToolBarMenu = true;
+                        hideToolBarMenus = true;
                     } catch (Exception e) {
                         LOGGER.error(e);
                     }

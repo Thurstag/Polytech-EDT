@@ -19,15 +19,14 @@ import com.google.common.base.Predicate;
 import com.polytech.edt.AppCache;
 import com.polytech.edt.R;
 import com.polytech.edt.config.UserConfig;
-import com.polytech.edt.model.ADECalendar;
 import com.polytech.edt.model.ADEResource;
 import com.polytech.edt.model.android.GroupListAdapter;
 import com.polytech.edt.model.tree.ADEResourceTree;
 import com.polytech.edt.model.tree.Node;
+import com.polytech.edt.task.ReloadCalendar;
 import com.polytech.edt.util.LOGGER;
 import com.polytech.edt.util.ListUtil;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +39,7 @@ import java.util.Set;
 public class GroupsFragment extends NamedFragment {
 
     Map<String, ADEResource> resourceMap = new HashMap<>();
-    AsyncTask<Void, Void, Void> reloadCalendar = null;
+    ReloadCalendar reloadCalendar = null;
 
     public GroupsFragment() {
         // Required empty public constructor
@@ -119,17 +118,8 @@ public class GroupsFragment extends NamedFragment {
                 }
 
                 // Reload calendar in background
-                reloadCalendar = new AsyncTask<Void, Void, Void>() {
-                    @Override
-                    protected Void doInBackground(Void... voids) {
-                        try {
-                            AppCache.save("calendar", new ADECalendar(new ArrayList<>(res)).load());
-                        } catch (Exception e) {
-                            LOGGER.error(e);
-                        }
-                        return null;
-                    }
-                }.execute();
+                reloadCalendar = new ReloadCalendar();
+                reloadCalendar.execute(res.toArray(new ADEResource[0]));
             }
         });
 

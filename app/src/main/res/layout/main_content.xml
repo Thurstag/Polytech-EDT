@@ -17,7 +17,17 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            app:titleTextColor="@android:color/white" />
+            app:titleTextColor="@android:color/white">
+
+            <ImageView
+                android:id="@+id/calendar_reload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_refresh_black_24dp"
+                tools:ignore="RtlHardcoded" />
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 

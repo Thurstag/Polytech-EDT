@@ -26,6 +26,7 @@
     <string name="reports">Reports</string>
     <string name="close">Close</string>
     <string name="contact">Contact</string>
+    <string name="loading">Loading…</string>
 
     <!-- About page items -->
     <string name="version">Version</string>
