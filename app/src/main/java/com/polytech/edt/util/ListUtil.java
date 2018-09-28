@@ -50,6 +50,7 @@ public class ListUtil {
             if (item.equals(value)) {
                 return i;
             }
+            i++;
         }
         return -1;
     }

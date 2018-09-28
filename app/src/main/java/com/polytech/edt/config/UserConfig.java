@@ -99,5 +99,17 @@ public class UserConfig {
         return calendarScope;
     }
 
+    public void setCalendarUnit(CalendarUnit unit) throws JsonProcessingException {
+        this.calendarScope.setUnit(unit);
+
+        save(this);
+    }
+
+    public void setCalendarDuration(Integer duration) throws JsonProcessingException {
+        this.calendarScope.setDuration(duration);
+
+        save(this);
+    }
+
     //endregion
 }

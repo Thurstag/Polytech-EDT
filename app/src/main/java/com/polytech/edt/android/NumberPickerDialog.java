@@ -9,25 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.NumberPicker;
 
-import com.google.common.base.Function;
 import com.polytech.edt.R;
-import com.polytech.edt.model.BasicEnum;
-import com.polytech.edt.util.ListUtil;
 
-import org.apache.commons.collections.CollectionUtils;
-
-import java.util.Collection;
-
-public class EnumPicker<T extends BasicEnum> extends AlertDialog {
+public class NumberPickerDialog extends AlertDialog {
 
     private NumberPicker numberPicker;
-    private OnValueChangedListener<T> listener;
-    private Collection<T> enums;
-    private T _default;
+    private OnValueChangedListener<Integer> listener;
+    private int from;
+    private int to;
+    private int _default;
 
-    public EnumPicker(@NonNull Context context, final Collection<T> enums, T _default) {
+    public NumberPickerDialog(@NonNull Context context, int from, int to, int _default) {
         super(context);
-        this.enums = enums;
+        this.from = from;
+        this.to = to;
         this._default = _default;
     }
 
@@ -42,24 +37,17 @@ public class EnumPicker<T extends BasicEnum> extends AlertDialog {
         numberPicker = view.findViewById(R.id.dialog_picker);
 
         // Define picker
-        numberPicker.setMinValue(0);
-        numberPicker.setMaxValue(enums.size() - 1);
+        numberPicker.setMinValue(from);
+        numberPicker.setMaxValue(to);
         numberPicker.setWrapSelectorWheel(false);
-        numberPicker.setDisplayedValues(ListUtil.select(enums, new Function<T, String>() {
-            @Override
-            public String apply(T input) {
-                return input.label();
-            }
-        }).toArray(new String[0]));
-        int indexOf = ListUtil.indexOf(enums, _default);
-        numberPicker.setValue(indexOf < 0 ? 0 : indexOf);
+        numberPicker.setValue(_default - numberPicker.getMinValue());
 
         // Define listener
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 if (listener != null) {
-                    listener.onValueChange(picker, (T) CollectionUtils.get(enums, oldVal), (T) CollectionUtils.get(enums, newVal));
+                    listener.onValueChange(picker, oldVal, newVal);
                 }
             }
         });
@@ -74,11 +62,7 @@ public class EnumPicker<T extends BasicEnum> extends AlertDialog {
         super.onCreate(savedInstanceState);
     }
 
-    public void setOnValueChangeListener(OnValueChangedListener<T> listener) {
+    public void setOnValueChangeListener(OnValueChangedListener<Integer> listener) {
         this.listener = listener;
-    }
-
-    public interface OnValueChangedListener<T> {
-        void onValueChange(NumberPicker picker, T _old, T _new);
     }
 }

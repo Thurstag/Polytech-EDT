@@ -8,6 +8,7 @@ import com.polytech.edt.model.ADEResource;
 import com.polytech.edt.model.calendar.ADECalendar;
 import com.polytech.edt.util.LOGGER;
 
+import java.io.InterruptedIOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class ReloadCalendar extends AsyncTask<ADEResource, Void, Void> {
             UserConfig config = AppCache.get("config");
 
             AppCache.save("calendar", new ADECalendar(Arrays.asList(adeResources), config.calendarScope().unit(), config.calendarScope().duration()).load());
+        } catch (InterruptedIOException ignored) {
         } catch (Exception e) {
             LOGGER.error(e);
         } finally {

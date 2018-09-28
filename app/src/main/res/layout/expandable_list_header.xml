@@ -20,7 +20,7 @@
             android:paddingStart="10dp"
             android:tint="@color/polytechGrey"
             android:visibility="gone"
-            app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
+            app:srcCompat="@drawable/ic_keyboard_arrow_down"
             tools:ignore="RtlSymmetry" />
 
         <ImageView
@@ -30,7 +30,7 @@
             android:paddingStart="10dp"
             android:tint="@color/polytechGrey"
             android:visibility="gone"
-            app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp"
+            app:srcCompat="@drawable/ic_keyboard_arrow_up"
             tools:ignore="RtlSymmetry" />
 
         <View

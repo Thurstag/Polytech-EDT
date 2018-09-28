@@ -49,6 +49,9 @@
     <string name="loading_waiting_message">Loading groups \n(it will take some time)</string>
     <string name="loading_conf_error">Try to load a malformed configuration, re-create it</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Settings page -->
+    <string name="calendar_unit">Calendar unit</string>
+    <string name="calendar_duration">Calendar duration</string>
+    <string name="settings_pick_calendar_unit" type="id">Pick calendar unit</string>
+    <string name="settings_pick_calendar_duration" type="id">Choose calendar duration</string>
 </resources>
