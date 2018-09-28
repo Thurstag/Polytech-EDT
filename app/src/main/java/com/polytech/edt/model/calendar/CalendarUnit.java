@@ -4,13 +4,15 @@ import com.polytech.edt.model.BasicEnum;
 
 public enum CalendarUnit implements BasicEnum {
 
-    Week("Week"),
-    Month("Month");
+    Week("Week", "nbWeeks"),
+    Month("Month", "nbWeeks");
 
     private String label;
+    private String urlParameter;
 
-    CalendarUnit(String label) {
+    CalendarUnit(String label, String urlParameter) {
         this.label = label;
+        this.urlParameter = urlParameter;
     }
 
     public String label() {
@@ -22,17 +24,8 @@ public enum CalendarUnit implements BasicEnum {
      *
      * @return Parameter
      */
-    public String toURLParameter() throws Exception {
-        switch (this) {
-            case Week:
-                return "nbWeeks";
-
-            case Month:
-                return "nbWeeks";
-
-            default:
-                throw new Exception("Unknown scope: " + this);
-        }
+    public String URLParameter() {
+        return urlParameter;
     }
 
     /**

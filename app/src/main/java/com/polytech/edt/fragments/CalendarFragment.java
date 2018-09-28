@@ -53,6 +53,7 @@ public class CalendarFragment extends NamedFragment {
      */
     private void setScope() {
         changeVisibility(((UserConfig) AppCache.get("config")).calendarScope().viewScope());
+        goToFirstEvent();
     }
 
     /**
@@ -90,7 +91,6 @@ public class CalendarFragment extends NamedFragment {
      */
     public void changeVisibility(int i) {
         weekView.setNumberOfVisibleDays(i);
-        goToFirstEvent();
     }
 
     @Override

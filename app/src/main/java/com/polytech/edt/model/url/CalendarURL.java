@@ -69,7 +69,7 @@ public class CalendarURL implements ADEURL {
         parameters.add(new BasicNameValuePair("resources", StringUtils.join(resources, ',')));
         parameters.add(new BasicNameValuePair("projectId", CalendarURL.PROJECT_ID + ""));
         parameters.add(new BasicNameValuePair("calType", CalendarURL.TYPE));
-        parameters.add(new BasicNameValuePair(unit.toURLParameter(), unit.transformScope(viewScope) + ""));
+        parameters.add(new BasicNameValuePair(unit.URLParameter(), unit.transformScope(viewScope) + ""));
 
         return new URL("http", CalendarURL.HOST, CalendarURL.PORT, CalendarURL.URL_PATH + "?" + URLEncodedUtils.format(parameters, "UTF-8"));
     }
