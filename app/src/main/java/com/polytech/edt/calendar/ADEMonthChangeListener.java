@@ -12,15 +12,11 @@ import java.util.List;
 
 public class ADEMonthChangeListener implements MonthLoader.MonthChangeListener {
 
-    private static int currentWeek;
-
     private ADECalendar calendar;
 
     static {
         Calendar now = Calendar.getInstance();
         now.setTime(new Date());
-
-        currentWeek = now.get(Calendar.WEEK_OF_YEAR) + (now.get(Calendar.DAY_OF_WEEK) == 7 || now.get(Calendar.DAY_OF_WEEK) == 1 ? 1 : 0);
     }
 
     /**
@@ -37,7 +33,7 @@ public class ADEMonthChangeListener implements MonthLoader.MonthChangeListener {
         List<WeekViewEvent> events = new ArrayList<>();
 
         for (ADEEvent event : calendar.events()) {
-            if (event.month() == newMonth && event.week() == currentWeek) {
+            if (event.month() == newMonth) {
                 events.add(event);
             }
         }

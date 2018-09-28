@@ -2,7 +2,6 @@ package com.polytech.edt.model;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.alamkanak.weekview.WeekViewEvent;
 import com.polytech.edt.App;
@@ -17,7 +16,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.regex.Pattern;
 
 /**
  * Event
@@ -144,10 +142,6 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Ser
 
     public int month() {
         return getStartTime().get(Calendar.MONTH);
-    }
-
-    public int week() {
-        return getStartTime().get(Calendar.WEEK_OF_YEAR);
     }
 
     //endregion

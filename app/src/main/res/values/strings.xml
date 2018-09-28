@@ -47,4 +47,5 @@
 
     <!-- Loading page -->
     <string name="loading_waiting_message">Loading groups \n(it will take some time)</string>
+    <string name="loading_conf_error">Try to load a malformed configuration, re-create it</string>
 </resources>

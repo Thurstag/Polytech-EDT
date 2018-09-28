@@ -70,7 +70,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
                 final ProgressDialog dialog = new ProgressDialog(CalendarActivity.this);
 
                 // Define properties
-                dialog.setMessage(getResources().getString(R.string.loading)); // TODO: string.xml
+                dialog.setMessage(getResources().getString(R.string.loading));
                 dialog.setCancelable(false);
                 dialog.setCanceledOnTouchOutside(false);
 
@@ -200,13 +200,13 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
-                    ((UserConfig) AppCache.get("config")).setCalendarScope(finalScope);
+                    ((UserConfig) AppCache.get("config")).setCalendarViewScope(finalScope);
                 } catch (JsonProcessingException e) {
                     LOGGER.error(e);
                 }
                 return null;
             }
-        };
+        }.execute();
 
         return super.onOptionsItemSelected(item);
     }

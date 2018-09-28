@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.polytech.edt.App;
 import com.polytech.edt.model.ADEResource;
+import com.polytech.edt.model.CalendarUnit;
 import com.polytech.edt.util.FileIO;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class UserConfig {
     private static ObjectMapper mapper = new ObjectMapper();
 
     @JsonProperty
-    private int calendarScope;
+    private CalendarScope calendarScope;
 
     @JsonProperty
     private Set<ADEResource> groups;
@@ -45,7 +46,7 @@ public class UserConfig {
         UserConfig config = new UserConfig();
 
         // Define default values
-        config.calendarScope = 3;
+        config.calendarScope = new CalendarScope(CalendarUnit.Week, 1, 3);
         config.groups = new HashSet<>();
 
         // Save
@@ -78,12 +79,8 @@ public class UserConfig {
         });
     }
 
-    public int calendarScope() {
-        return calendarScope;
-    }
-
-    public void setCalendarScope(int calendarScope) throws JsonProcessingException {
-        this.calendarScope = calendarScope;
+    public void setCalendarViewScope(int calendarScope) throws JsonProcessingException {
+        this.calendarScope.setViewScope(calendarScope);
 
         save(this);
     }
@@ -96,6 +93,10 @@ public class UserConfig {
         this.groups = groups;
 
         save(this);
+    }
+
+    public CalendarScope calendarScope() {
+        return calendarScope;
     }
 
     //endregion

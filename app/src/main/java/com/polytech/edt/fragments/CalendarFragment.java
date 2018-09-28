@@ -52,7 +52,7 @@ public class CalendarFragment extends NamedFragment {
      * Method to set calendar's scope
      */
     private void setScope() {
-        changeVisibility(((UserConfig) AppCache.get("config")).calendarScope());
+        changeVisibility(((UserConfig) AppCache.get("config")).calendarScope().viewScope());
     }
 
     /**

@@ -3,6 +3,7 @@ package com.polytech.edt.model.url;
 import com.polytech.edt.config.AppConfig;
 import com.polytech.edt.config.AppProperty;
 import com.polytech.edt.model.ADEResource;
+import com.polytech.edt.model.CalendarUnit;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -37,7 +38,7 @@ public class CalendarURLTest {
 
     @Test
     public void UrlMethodTest() throws Exception {
-        URL url = new CalendarURL(Collections.singletonList(new ADEResource(id)), scope).url();
+        URL url = new CalendarURL(Collections.singletonList(new ADEResource(id)), CalendarUnit.Week, scope).url();
 
         Assert.assertNotNull(url);
         Assert.assertEquals(CalendarURL.HOST, url.getHost());

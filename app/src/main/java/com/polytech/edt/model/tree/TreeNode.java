@@ -24,7 +24,7 @@ public class TreeNode<T, V> implements Node<T, V> {
      * Constructor
      *
      * @param id      Id
-     * @param parent Parent
+     * @param parent  Parent
      * @param content Content
      */
     public TreeNode(T id, Node<T, V> parent, V content) {

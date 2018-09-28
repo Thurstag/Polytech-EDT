@@ -1,13 +1,13 @@
 package com.polytech.edt.model.url;
 
 import com.polytech.edt.model.ADEResource;
+import com.polytech.edt.model.CalendarUnit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,8 @@ public class CalendarURL implements ADEURL {
     public static final int PROJECT_ID = 2;
 
     private List<ADEResource> resources;
-    private int scope;
+    private CalendarUnit unit;
+    private int viewScope;
 
     //endregion
 
@@ -36,11 +37,13 @@ public class CalendarURL implements ADEURL {
      * Constructor
      *
      * @param resources Resource list
-     * @param scope     Scope (in weeks)
+     * @param unit      Calendar unit
+     * @param viewScope View unit
      */
-    public CalendarURL(List<ADEResource> resources, int scope) {
+    public CalendarURL(List<ADEResource> resources, CalendarUnit unit, int viewScope) {
         this.resources = resources;
-        this.scope = scope;
+        this.unit = unit;
+        this.viewScope = viewScope;
     }
 
     /**
@@ -49,7 +52,7 @@ public class CalendarURL implements ADEURL {
      * @param resources Resource list
      */
     public CalendarURL(List<ADEResource> resources) {
-        this(resources, 1);
+        this(resources, CalendarUnit.Week, 1);
     }
 
     //endregion
@@ -59,14 +62,14 @@ public class CalendarURL implements ADEURL {
     /**
      * Method to get url
      */
-    public URL url() throws MalformedURLException {
+    public URL url() throws Exception {
         List<NameValuePair> parameters = new ArrayList<>();
 
         // Build parameters
-        parameters.add(new BasicNameValuePair("resources", StringUtils.join(this.resources, ',')));
+        parameters.add(new BasicNameValuePair("resources", StringUtils.join(resources, ',')));
         parameters.add(new BasicNameValuePair("projectId", CalendarURL.PROJECT_ID + ""));
         parameters.add(new BasicNameValuePair("calType", CalendarURL.TYPE));
-        parameters.add(new BasicNameValuePair("nbWeeks", this.scope + ""));
+        parameters.add(new BasicNameValuePair(unit.toURLParameter(), unit.transformScope(viewScope) + ""));
 
         return new URL("http", CalendarURL.HOST, CalendarURL.PORT, CalendarURL.URL_PATH + "?" + URLEncodedUtils.format(parameters, "UTF-8"));
     }

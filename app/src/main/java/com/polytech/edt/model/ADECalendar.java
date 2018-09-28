@@ -10,7 +10,6 @@ import net.fortuna.ical4j.model.component.VEvent;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -36,10 +35,11 @@ public class ADECalendar implements ADELoadable<ADECalendar>, Serializable {
      * Constructor
      *
      * @param resources Resource list
-     * @param scope     Scope (in weeks)
+     * @param unit      Calendar unit
+     * @param viewScope View scope
      */
-    public ADECalendar(List<ADEResource> resources, int scope) throws MalformedURLException {
-        url = new CalendarURL(resources, scope).url();
+    public ADECalendar(List<ADEResource> resources, CalendarUnit unit, int viewScope) throws Exception {
+        url = new CalendarURL(resources, unit, viewScope).url();
     }
 
     /**
@@ -47,7 +47,7 @@ public class ADECalendar implements ADELoadable<ADECalendar>, Serializable {
      *
      * @param resources Resource list
      */
-    public ADECalendar(List<ADEResource> resources) throws MalformedURLException {
+    public ADECalendar(List<ADEResource> resources) throws Exception {
         url = new CalendarURL(resources).url();
     }
 

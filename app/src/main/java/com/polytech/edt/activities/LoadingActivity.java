@@ -12,9 +12,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.polytech.edt.App;
 import com.polytech.edt.AppCache;
 import com.polytech.edt.R;
 import com.polytech.edt.config.AppConfig;
@@ -40,8 +42,8 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
     }
 
-    @SuppressLint("StaticFieldLeak")
     @Override
+    @SuppressLint("StaticFieldLeak")
     protected void onStart() {
         super.onStart();
 
@@ -118,14 +120,26 @@ public class LoadingActivity extends AppCompatActivity {
                         config = UserConfig.create();
                     }
                     else {
-                        config = UserConfig.load();
+                        try {
+                            config = UserConfig.load();
+                        } catch (Exception e) { // Reset config
+                            // Notify user
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(LoadingActivity.this, App.context.getString(R.string.loading_conf_error), Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+                            config = UserConfig.create();
+                        }
                     }
 
                     // Save in cache
                     AppCache.save("config", config);
 
                     // Load/Store calendar
-                    AppCache.save("calendar", new ADECalendar(new ArrayList<>(config.groups())).load());
+                    AppCache.save("calendar", new ADECalendar(new ArrayList<>(config.groups()), config.calendarScope().unit(), config.calendarScope().duration()).load());
                 } catch (Exception e) {
                     LOGGER.fatal(e);
                 }
