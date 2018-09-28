@@ -1,7 +1,7 @@
 package com.polytech.edt.calendar;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
-import com.polytech.edt.model.ADEWeekView;
+import com.polytech.edt.model.calendar.ADEWeekView;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;

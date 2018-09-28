@@ -13,10 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.polytech.edt.R;
+import com.polytech.edt.android.MailIntent;
 import com.polytech.edt.config.AppConfig;
 import com.polytech.edt.config.AppProperty;
 import com.polytech.edt.exceptions.ExceptionReport;
-import com.polytech.edt.model.android.MailIntent;
 import com.polytech.edt.util.ColorUtil;
 import com.polytech.edt.util.FileIO;
 import com.polytech.edt.util.LOGGER;

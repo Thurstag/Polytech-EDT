@@ -1,8 +1,9 @@
-package com.polytech.edt.model;
+package com.polytech.edt.model.calendar;
 
 import com.alamkanak.weekview.WeekViewEvent;
 import com.polytech.edt.config.AppConfig;
 import com.polytech.edt.config.AppProperty;
+import com.polytech.edt.model.ADEResource;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;

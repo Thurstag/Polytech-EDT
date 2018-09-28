@@ -1,4 +1,4 @@
-package com.polytech.edt.model.android;
+package com.polytech.edt.android;
 
 import android.content.Context;
 import android.widget.SimpleAdapter;

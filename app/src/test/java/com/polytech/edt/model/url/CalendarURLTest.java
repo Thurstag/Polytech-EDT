@@ -3,7 +3,7 @@ package com.polytech.edt.model.url;
 import com.polytech.edt.config.AppConfig;
 import com.polytech.edt.config.AppProperty;
 import com.polytech.edt.model.ADEResource;
-import com.polytech.edt.model.CalendarUnit;
+import com.polytech.edt.model.calendar.CalendarUnit;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;

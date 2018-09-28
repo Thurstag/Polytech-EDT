@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.polytech.edt.App;
 import com.polytech.edt.model.ADEResource;
-import com.polytech.edt.model.CalendarUnit;
+import com.polytech.edt.model.calendar.CalendarUnit;
 import com.polytech.edt.util.FileIO;
 
 import java.io.IOException;

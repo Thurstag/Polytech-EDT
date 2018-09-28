@@ -1,7 +1,7 @@
 package com.polytech.edt.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.polytech.edt.model.CalendarUnit;
+import com.polytech.edt.model.calendar.CalendarUnit;
 
 public class CalendarScope {
     //region Fields

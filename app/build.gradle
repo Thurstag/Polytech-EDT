@@ -62,6 +62,7 @@ dependencies {
     implementation 'org.mnode.ical4j:ical4j:1.0.3'
     implementation 'com.github.alamkanak:android-week-view:1.2.6'
     implementation 'com.github.fge:jackson-coreutils:1.0'
+    implementation group: 'commons-collections', name: 'commons-collections', version: '3.0'
 
     // ANDROID DEPENDENCIES
     //noinspection GradleCompatible

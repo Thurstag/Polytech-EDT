@@ -1,4 +1,4 @@
-package com.polytech.edt.model;
+package com.polytech.edt.model.calendar;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;

@@ -11,11 +11,11 @@ import android.widget.ListView;
 
 import com.polytech.edt.BuildConfig;
 import com.polytech.edt.R;
+import com.polytech.edt.android.AboutListAdapter;
+import com.polytech.edt.android.MailIntent;
+import com.polytech.edt.android.WebIntent;
 import com.polytech.edt.config.AppConfig;
 import com.polytech.edt.config.AppProperty;
-import com.polytech.edt.model.android.AboutListAdapter;
-import com.polytech.edt.model.android.MailIntent;
-import com.polytech.edt.model.android.WebIntent;
 
 
 /**

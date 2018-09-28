@@ -28,11 +28,12 @@ import com.polytech.edt.fragments.AboutFragment;
 import com.polytech.edt.fragments.CalendarFragment;
 import com.polytech.edt.fragments.GroupsFragment;
 import com.polytech.edt.fragments.NamedFragment;
-import com.polytech.edt.model.ADEResource;
+import com.polytech.edt.fragments.SettingsFragment;
 import com.polytech.edt.task.ReloadCalendar;
 import com.polytech.edt.util.LOGGER;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,7 +79,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
                 dialog.show();
 
                 // Reload calendar
-                ReloadCalendar task = new ReloadCalendar();
+                ReloadCalendar task = new ReloadCalendar(new ArrayList<>(((UserConfig) AppCache.get("config")).groups()));
                 task.setCallback(new Runnable() {
                     @Override
                     public void run() {
@@ -96,7 +97,6 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
                         });
                     }
                 });
-                task.execute(((UserConfig) AppCache.get("config")).groups().toArray(new ADEResource[0]));
             }
         });
 
@@ -169,6 +169,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         // Check fragment
         if (!(fragment instanceof CalendarFragment)) {
             LOGGER.warning("Current fragment is not a CalendarFragment");
+            return super.onOptionsItemSelected(item);
         }
 
         // Switch on item clicked
@@ -243,6 +244,18 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
                     // Change fragment
                     try {
                         fragment = changeFragment(AboutFragment.class, new HashMap<String, Serializable>());
+                        hideToolBarMenus = true;
+                    } catch (Exception e) {
+                        LOGGER.error(e);
+                    }
+                }
+                break;
+
+            case R.id.nav_settings:
+                if (!(fragment instanceof SettingsFragment)) {
+                    // Change fragment
+                    try {
+                        fragment = changeFragment(SettingsFragment.class, new HashMap<String, Serializable>());
                         hideToolBarMenus = true;
                     } catch (Exception e) {
                         LOGGER.error(e);

@@ -1,5 +1,7 @@
-package com.polytech.edt.model;
+package com.polytech.edt.model.calendar;
 
+import com.polytech.edt.model.ADELoadable;
+import com.polytech.edt.model.ADEResource;
 import com.polytech.edt.model.url.CalendarURL;
 
 import net.fortuna.ical4j.data.CalendarBuilder;

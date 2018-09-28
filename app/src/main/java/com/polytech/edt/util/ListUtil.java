@@ -1,9 +1,12 @@
 package com.polytech.edt.util;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public class ListUtil {
 
@@ -28,5 +31,26 @@ public class ListUtil {
             }
         }
         return false;
+    }
+
+    public static <T, V> List<V> select(Collection<T> list, Function<T, V> selector) {
+        List<V> result = new ArrayList<>();
+
+        for (T item : list) {
+            result.add(selector.apply(item));
+        }
+
+        return result;
+    }
+
+    public static <T> int indexOf(Collection<T> list, T value) {
+        int i = 0;
+
+        for (T item : list) {
+            if (item.equals(value)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

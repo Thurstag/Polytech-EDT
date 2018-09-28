@@ -1,4 +1,4 @@
-package com.polytech.edt.model.android;
+package com.polytech.edt.android;
 
 import android.content.Intent;
 import android.net.Uri;

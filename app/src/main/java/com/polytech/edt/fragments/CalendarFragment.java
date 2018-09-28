@@ -13,8 +13,8 @@ import com.polytech.edt.calendar.ADEDateTimeInterpreter;
 import com.polytech.edt.calendar.ADEEventClickListener;
 import com.polytech.edt.calendar.ADEMonthChangeListener;
 import com.polytech.edt.config.UserConfig;
-import com.polytech.edt.model.ADECalendar;
-import com.polytech.edt.model.ADEWeekView;
+import com.polytech.edt.model.calendar.ADECalendar;
+import com.polytech.edt.model.calendar.ADEWeekView;
 import com.polytech.edt.util.LOGGER;
 
 /**

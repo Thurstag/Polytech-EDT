@@ -4,15 +4,35 @@ import android.os.AsyncTask;
 
 import com.polytech.edt.AppCache;
 import com.polytech.edt.config.UserConfig;
-import com.polytech.edt.model.ADECalendar;
 import com.polytech.edt.model.ADEResource;
+import com.polytech.edt.model.calendar.ADECalendar;
 import com.polytech.edt.util.LOGGER;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class ReloadCalendar extends AsyncTask<ADEResource, Void, Void> {
 
     private Runnable callback = null;
+
+    /**
+     * Constructor (auto run task)
+     *
+     * @param resources Resources
+     */
+    public ReloadCalendar(List<ADEResource> resources) {
+        super();
+
+        // Execute task
+        execute(resources.toArray(new ADEResource[0]));
+    }
+
+    /**
+     * Constructor
+     */
+    public ReloadCalendar() {
+        super();
+    }
 
     public void setCallback(Runnable callback) {
         this.callback = callback;

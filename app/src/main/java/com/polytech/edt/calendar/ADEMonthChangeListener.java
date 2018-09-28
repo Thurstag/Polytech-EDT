@@ -2,8 +2,8 @@ package com.polytech.edt.calendar;
 
 import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekViewEvent;
-import com.polytech.edt.model.ADECalendar;
-import com.polytech.edt.model.ADEEvent;
+import com.polytech.edt.model.calendar.ADECalendar;
+import com.polytech.edt.model.calendar.ADEEvent;
 
 import java.util.ArrayList;
 import java.util.Calendar;

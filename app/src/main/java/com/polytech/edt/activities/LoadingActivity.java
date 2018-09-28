@@ -21,8 +21,8 @@ import com.polytech.edt.AppCache;
 import com.polytech.edt.R;
 import com.polytech.edt.config.AppConfig;
 import com.polytech.edt.config.UserConfig;
-import com.polytech.edt.model.ADECalendar;
 import com.polytech.edt.model.ADEResource;
+import com.polytech.edt.model.calendar.ADECalendar;
 import com.polytech.edt.util.FileIO;
 import com.polytech.edt.util.LOGGER;
 

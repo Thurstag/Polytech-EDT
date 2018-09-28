@@ -12,21 +12,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Predicate;
 import com.polytech.edt.AppCache;
 import com.polytech.edt.R;
+import com.polytech.edt.android.GroupListAdapter;
 import com.polytech.edt.config.UserConfig;
 import com.polytech.edt.model.ADEResource;
-import com.polytech.edt.model.android.GroupListAdapter;
 import com.polytech.edt.model.tree.ADEResourceTree;
 import com.polytech.edt.model.tree.Node;
 import com.polytech.edt.task.ReloadCalendar;
 import com.polytech.edt.util.LOGGER;
 import com.polytech.edt.util.ListUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,18 +64,12 @@ public class GroupsFragment extends NamedFragment {
         GroupListAdapter adapter = new GroupListAdapter(getContext(), resources);
         listView.setAdapter(adapter);
 
-        // Edit text & to map
-        final TextView groups = view.findViewById(R.id.group_count);
-        int size = 0;
+        // To map
         for (Node<String, List<ADEResource>> node : resources) {
             for (ADEResource resource : node.content()) {
-                size++;
-
-                // Add to map
                 resourceMap.put(resource.name(), resource);
             }
         }
-        groups.setText(String.format("%d group%s", size, size > 1 ? "s" : ""));
 
         // Define listener
         adapter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -113,13 +107,12 @@ public class GroupsFragment extends NamedFragment {
                 }
 
                 // Kill old task
-                if (reloadCalendar != null && reloadCalendar.getStatus().equals(AsyncTask.Status.RUNNING)) {
-                    reloadCalendar.cancel(true); //
+                if (reloadCalendar != null && AsyncTask.Status.RUNNING.equals(reloadCalendar.getStatus())) {
+                    reloadCalendar.cancel(true);
                 }
 
                 // Reload calendar in background
-                reloadCalendar = new ReloadCalendar();
-                reloadCalendar.execute(res.toArray(new ADEResource[0]));
+                reloadCalendar = new ReloadCalendar(new ArrayList<>(res));
             }
         });
 

@@ -1,6 +1,8 @@
-package com.polytech.edt.model;
+package com.polytech.edt.model.calendar;
 
-public enum CalendarUnit {
+import com.polytech.edt.model.BasicEnum;
+
+public enum CalendarUnit implements BasicEnum {
 
     Week("Week"),
     Month("Month");
