@@ -24,6 +24,9 @@ public class UserConfig {
     @JsonProperty
     private Set<ADEResource> groups;
 
+    //@JsonProperty TODO: Develop an offline mode
+    private boolean offlineMode;
+
     //endregion
 
     //region GET

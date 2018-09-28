@@ -3,7 +3,6 @@ package com.polytech.edt.model.calendar;
 import com.alamkanak.weekview.WeekViewEvent;
 import com.polytech.edt.config.AppConfig;
 import com.polytech.edt.config.AppProperty;
-import com.polytech.edt.model.ADEResource;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -19,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Matchers.eq;
@@ -96,12 +94,8 @@ public class CalendarTest {
 
     @Test
     public void loadTest() throws Exception {
-        // Simple load
-        ADECalendar c = new ADECalendar(Collections.singletonList(new ADEResource(2128))).load();
-        Assert.assertNotNull(c);
-
-        // Mocked load
-        c = mock(ADECalendar.class);
+        // Mock load
+        ADECalendar c = mock(ADECalendar.class);
         when(c.fetchCalendar()).thenReturn(new BufferedInputStream(buffer));
         when(c.events()).thenCallRealMethod();
         when(c.load()).thenCallRealMethod();
