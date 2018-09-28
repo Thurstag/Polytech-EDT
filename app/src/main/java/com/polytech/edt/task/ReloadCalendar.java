@@ -47,7 +47,8 @@ public class ReloadCalendar extends AsyncTask<ADEResource, Void, Void> {
             AppCache.save("calendar", new ADECalendar(Arrays.asList(adeResources), config.calendarScope().unit(), config.calendarScope().duration()).load());
         } catch (InterruptedIOException ignored) {
         } catch (Exception e) {
-            LOGGER.error(e);
+            LOGGER.fatal(e);
+            this.cancel(true);
         } finally {
             if (callback != null) {
                 callback.run();

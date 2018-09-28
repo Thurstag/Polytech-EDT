@@ -142,6 +142,7 @@ public class LoadingActivity extends AppCompatActivity {
                     AppCache.save("calendar", new ADECalendar(new ArrayList<>(config.groups()), config.calendarScope().unit(), config.calendarScope().duration()).load());
                 } catch (Exception e) {
                     LOGGER.fatal(e);
+                    this.cancel(true);
                 }
                 return null;
             }
