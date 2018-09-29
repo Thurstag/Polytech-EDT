@@ -25,19 +25,14 @@ public class ADEEventClickListener implements ADEWeekView.EventClickListener {
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        ADEEvent e;
-
-        if (event instanceof ADEEvent) {
-            e = (ADEEvent) event;
-        }
-        else {
+        if (!(event instanceof ADEEvent)) {
             LOGGER.warning("Event isn't an ADEEvent");
             return;
         }
+        ADEEvent e = (ADEEvent) event;
 
         AlertDialog alertDialog = new AlertDialog.Builder(calendar.getContext()).create();
         alertDialog.setTitle(e.getName() + " (" + e.span() + ")");
-
         alertDialog.setMessage(e.getLocation() + "\n" + e.description());
 
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {

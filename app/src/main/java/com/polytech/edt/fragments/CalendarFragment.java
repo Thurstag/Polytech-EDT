@@ -34,10 +34,8 @@ public class CalendarFragment extends NamedFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-        // Set calendar
+        // Get calendar + weekView
         calendar = AppCache.get("calendar");
-
-        // Get a reference for the week view in the layout.
         weekView = view.findViewById(R.id.weekView);
 
         // Init week view
@@ -60,13 +58,13 @@ public class CalendarFragment extends NamedFragment {
      * Method to init week view
      */
     public void initWeekView() {
-        // Implement month listener
+        // MonthChange listener
         weekView.setMonthChangeListener(new ADEMonthChangeListener(calendar));
 
-        // Change DateTimeInterpreter
+        // DateTimeInterpreter listener
         weekView.setDateTimeInterpreter(new ADEDateTimeInterpreter(weekView));
 
-        // Implement click callback
+        // Click listener
         weekView.setOnEventClickListener(new ADEEventClickListener(this));
     }
 

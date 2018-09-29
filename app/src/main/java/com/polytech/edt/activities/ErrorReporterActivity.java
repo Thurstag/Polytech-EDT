@@ -143,12 +143,15 @@ public class ErrorReporterActivity extends AppCompatActivity {
      * Method to fill texts in UI
      */
     private void fillTexts() {
+        // Exception class
         TextView textView = findViewById(R.id.error_exception);
         textView.setText(report.exception().getClass().getName());
 
+        // Exception message
         textView = findViewById(R.id.error_message);
         textView.setText(report.exception().getMessage());
 
+        // Exception cause
         if (report.exception().getCause() != null) {
             textView = findViewById(R.id.error_cause);
             textView.setText(report.exception().getCause().getClass().getName());

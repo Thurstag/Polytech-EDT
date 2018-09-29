@@ -58,8 +58,7 @@ public class GroupsFragment extends NamedFragment {
             return view;
         }
 
-
-        // Find list
+        // Build list view
         ExpandableListView listView = view.findViewById(R.id.expandable_list_group);
         GroupListAdapter adapter = new GroupListAdapter(getContext(), resources);
         listView.setAdapter(adapter);
@@ -78,8 +77,6 @@ public class GroupsFragment extends NamedFragment {
             public void onCheckedChanged(final CompoundButton buttonView, boolean isChecked) {
                 UserConfig config = AppCache.get("config");
                 final Set<ADEResource> res = config.groups();
-
-                LOGGER.debug(buttonView.getText() + " => " + isChecked);
 
                 // Check in map
                 if (!resourceMap.containsKey(buttonView.getText().toString())) {

@@ -47,6 +47,7 @@ public class LoadingActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        // Avoid multiple starts
         if (started) {
             return;
         }
@@ -64,7 +65,6 @@ public class LoadingActivity extends AppCompatActivity {
         animator.start();
 
         // Define a callback on animation end
-        // TODO: Create a class
         new AsyncTask<Void, Void, Void>() {
 
             @Override
@@ -77,6 +77,7 @@ public class LoadingActivity extends AppCompatActivity {
                     }
                 });
 
+                // Wait animation end
                 try {
                     Thread.sleep(1750);
                 } catch (InterruptedException e) {

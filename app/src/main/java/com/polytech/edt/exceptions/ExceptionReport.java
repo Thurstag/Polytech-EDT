@@ -30,10 +30,6 @@ public class ExceptionReport implements Serializable {
         return throwable;
     }
 
-    public long threadId() {
-        return threadId;
-    }
-
     public String stackTrace() {
         StringBuilder builder = new StringBuilder();
 

@@ -63,7 +63,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Define listener on reload icon
+        // Define listener on reload icon click
         reload = findViewById(R.id.calendar_reload);
         reload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +132,12 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         ft.commit();
 
         // Change toolbar's name
-        getSupportActionBar().setTitle(getResources().getString(fragment.name()));
+        if (getSupportActionBar() == null) {
+            LOGGER.warning("There is no action bar");
+        }
+        else {
+            getSupportActionBar().setTitle(getResources().getString(fragment.name()));
+        }
 
         return fragment;
     }
@@ -150,11 +155,12 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // Show menu
         getMenuInflater().inflate(R.menu.calendar_scope, menu);
         reload.setVisibility(View.VISIBLE);
 
-        // Hide or not
-        if (hideToolBarMenus && menu != null) {
+        // Hide menu
+        if (hideToolBarMenus) {
             for (int i = 0; i < menu.size(); i++) {
                 menu.getItem(i).setVisible(false);
             }
@@ -217,7 +223,6 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         switch (item.getItemId()) {
             case R.id.nav_calendar:
                 if (!(fragment instanceof CalendarFragment)) {
-                    // Change fragment
                     try {
                         fragment = changeFragment(CalendarFragment.class, new HashMap<String, Serializable>());
                         hideToolBarMenus = false;
@@ -229,7 +234,6 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
 
             case R.id.nav_group:
                 if (!(fragment instanceof GroupsFragment)) {
-                    // Change fragment
                     try {
                         fragment = changeFragment(GroupsFragment.class, new HashMap<String, Serializable>());
                         hideToolBarMenus = true;
@@ -241,7 +245,6 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
 
             case R.id.nav_about:
                 if (!(fragment instanceof AboutFragment)) {
-                    // Change fragment
                     try {
                         fragment = changeFragment(AboutFragment.class, new HashMap<String, Serializable>());
                         hideToolBarMenus = true;
@@ -253,7 +256,6 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
 
             case R.id.nav_settings:
                 if (!(fragment instanceof SettingsFragment)) {
-                    // Change fragment
                     try {
                         fragment = changeFragment(SettingsFragment.class, new HashMap<String, Serializable>());
                         hideToolBarMenus = true;
