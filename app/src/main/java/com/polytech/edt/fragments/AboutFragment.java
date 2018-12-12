@@ -61,12 +61,12 @@ public class AboutFragment extends NamedFragment {
                 switch (position) {
                     // Git repo
                     case 2:
-                        startActivity(new WebIntent("https://github.com/Thurstag/Polytech---EDT"));
+                        startActivity(new WebIntent("https://github.com/Thurstag/Polytech-EDT"));
                         break;
 
                     // Git rev
                     case 3:
-                        startActivity(new WebIntent("https://github.com/Thurstag/Polytech---EDT/commit/" + BuildConfig.GIT_COMMIT_SHA));
+                        startActivity(new WebIntent("https://github.com/Thurstag/Polytech-EDT/commit/" + BuildConfig.GIT_COMMIT_SHA));
                         break;
 
                     // Contact

@@ -47,7 +47,10 @@ public class SettingsListAdapter extends SimpleAdapter {
         List<Map<String, String>> list = new ArrayList<>();
         String[][] data = new String[][]{
                 {App.context.getString(R.string.calendar_unit), config.calendarScope().unit().label()},
-                {App.context.getString(R.string.calendar_duration), String.format("%d %s%s", config.calendarScope().duration(), config.calendarScope().unit().name().toLowerCase(), config.calendarScope().duration() > 1 ? "s" : "")},
+                {App.context.getString(R.string.calendar_duration), String.format("%d %s%s",
+                        config.calendarScope().duration(),
+                        config.calendarScope().unit().label().toLowerCase(),
+                        config.calendarScope().duration() > 1 ? (config.calendarScope().unit().label().toLowerCase().endsWith("s") ? "" : "s") : "")},
         };
 
         for (String[] d : data) {

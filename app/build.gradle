@@ -10,6 +10,14 @@ def gitSha1 = { ->
 }
 
 android {
+    signingConfigs {
+        releaseSign {
+            storeFile file(project.file("keyStore.jks"))
+            storePassword "polytech"
+            keyAlias "polytechedt"
+            keyPassword "polytech"
+        }
+    }
     compileSdkVersion 28
     buildToolsVersion "28.0.2"
     defaultConfig {
@@ -28,6 +36,7 @@ android {
         }
         release {
             minifyEnabled false
+            signingConfig signingConfigs.releaseSign
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "java.util.Date", "BUILD_DATE", "new java.util.Date()"
             buildConfigField "String", "GIT_COMMIT_SHA", "\"${gitSha1()}\""
@@ -52,7 +61,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
     //noinspection GradleCompatible
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
