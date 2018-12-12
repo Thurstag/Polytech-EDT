@@ -1,5 +1,9 @@
 package com.polytech.edt.model.url;
 
+import android.content.Context;
+
+import com.polytech.edt.App;
+import com.polytech.edt.R;
 import com.polytech.edt.config.AppConfig;
 import com.polytech.edt.config.AppProperty;
 import com.polytech.edt.model.ADEResource;
@@ -8,7 +12,7 @@ import com.polytech.edt.model.calendar.CalendarUnit;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -29,8 +33,13 @@ public class CalendarURLTest {
     private final static int scope = 3;
     private final static int id = 2128;
 
-    @BeforeClass
-    public static void setUp() {
+    @Before
+    public void setUp() {
+        // Mock context
+        Context mMockContext = PowerMockito.mock(Context.class);
+        PowerMockito.when(mMockContext.getString(R.string.week)).thenReturn("Week");
+        App.context = mMockContext;
+
         // Mock config
         PowerMockito.mockStatic(AppConfig.class);
         PowerMockito.when(AppConfig.get(eq(AppProperty.RESOURCES_LIST))).thenReturn("13,1777,1630,1838,1857,1739,1746,1953,2020,1732,1795,1823,2117,346,2139,2154,2180,2218");

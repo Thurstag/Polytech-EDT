@@ -1,11 +1,13 @@
 package com.polytech.edt.model.calendar;
 
+import com.polytech.edt.App;
+import com.polytech.edt.R;
 import com.polytech.edt.model.BasicEnum;
 
 public enum CalendarUnit implements BasicEnum {
 
-    Week("Week", "nbWeeks"),
-    Month("Month", "nbWeeks");
+    Week(App.context.getString(R.string.week), "nbWeeks"),
+    Month(App.context.getString(R.string.month), "nbWeeks");
 
     private String label;
     private String urlParameter;

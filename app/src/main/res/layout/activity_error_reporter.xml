@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:background="@color/red"
             android:minHeight="?attr/actionBarSize"
-            app:title="Error"
+            app:title="@string/error_page_title"
             app:titleTextColor="@android:color/white">
 
             <ImageView
@@ -120,7 +120,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Exception cause"
+                android:text="@string/exception_cause"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -142,7 +142,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="56dp"
             android:gravity="center"
-            android:text="Show report"
+            android:text="@string/show_report"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -156,7 +156,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:gravity="center"
-            android:text="Send report"
+            android:text="@string/send_report"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

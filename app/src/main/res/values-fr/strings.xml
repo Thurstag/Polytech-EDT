@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Polytech - EDT</string>
+    <string name="app_short_name">EDT</string>
+
+    <!-- Scope choice -->
+    <string name="menu_day_scope">1 jour</string>
+    <string name="menu_days_scope">3 jours</string>
+    <string name="menu_week_scope">1 semaine</string>
+
+    <!-- Navigation view -->
+    <string name="navigation_drawer_open">Ouvrir le menu tiroir</string>
+    <string name="navigation_drawer_close">Fermer le menu tiroir</string>
+    <string name="nav_header_title">Menu</string>
+    <string name="nav_header_desc">Bandeau de navigation</string>
+    <string name="action_settings">Options</string>
+
+    <!-- Words -->
+    <string name="settings">Options</string>
+    <string name="calendar">Calendrier</string>
+    <string name="other">Autres</string>
+    <string name="about">A propos</string>
+    <string name="groups">Groupes</string>
+    <string name="menu">Menu</string>
+    <string name="undefined">Non défini</string>
+    <string name="reports">Rapports</string>
+    <string name="close">Fermer</string>
+    <string name="contact">Contact</string>
+    <string name="loading">Chargement…</string>
+
+    <!-- About page items -->
+    <string name="version">Version</string>
+    <string name="build_date">Date du build</string>
+    <string name="git_repo">Dépôt GIT</string>
+    <string name="git_revision">Révision GIT</string>
+    <string name="devs">Développeurs</string>
+    <string name="license">License</string>
+
+    <!-- Error page -->
+    <string name="error_explication_text">Une erreur est survenue.\nAidez-nous en envoyant le rapport d\'erreur.\nMerci pour votre aide!</string>
+    <string name="exception_cause">Cause de l\'exception</string>
+    <string name="report_content">Contenu du rapport</string>
+    <string name="show_report">Montrer le rapport</string>
+    <string name="send_report">Envoyer le rapport</string>
+    <string name="no_report">Aucun rapports</string>
+    <string name="error_page_title">Erreur</string>
+
+    <!-- Mail report -->
+    <string name="mail_report_subject">Rapport d\'erreur</string>
+    <string name="mail_report_header">=== COMMENT ===\n\n=== REPORT ===\n\n</string>
+
+    <!-- Loading page -->
+    <string name="loading_waiting_message">Chargement des groupes \n(cela prendra un certain temps)</string>
+    <string name="loading_conf_error">Echec du chargement de la configuration, réinitialisation de celle-ci</string>
+
+    <!-- Settings page -->
+    <string name="calendar_unit">Unité du calendrier</string>
+    <string name="calendar_duration">Durée du calendrier</string>
+    <string name="settings_pick_calendar_unit" type="id">Choisir une unité</string>
+    <string name="settings_pick_calendar_duration" type="id">Choisir une durée</string>
+    <string name="week">Semaine</string>
+    <string name="month">Mois</string>
+</resources>
