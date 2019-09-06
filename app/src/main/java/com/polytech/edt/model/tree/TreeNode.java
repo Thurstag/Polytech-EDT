@@ -64,7 +64,7 @@ public class TreeNode<T, V> implements Node<T, V> {
 
     @Override
     public boolean isLeaf() {
-        return content != null;
+        return this.children.size() == 0;
     }
 
     @Override

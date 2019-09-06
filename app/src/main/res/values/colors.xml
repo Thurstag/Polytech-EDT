@@ -11,4 +11,5 @@
     <color name="polytechDarkBlue">#004065</color>
     <color name="polytechBlue">#00ADE8</color>
     <color name="polytechGrey">#696A6D</color>
+    <color name="polytechWhiteGrey">#E2E2E4</color>
 </resources>

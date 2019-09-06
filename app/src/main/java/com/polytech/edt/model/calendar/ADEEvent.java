@@ -57,7 +57,6 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Ser
         endDate = dateFormat.parse(event.getProperty(END_DATE).getValue());
         setLocation(event.getProperty(LOCATION).getValue());
         description = event.getProperty(DESCRIPTION).getValue();
-        setColor(generateColor(getLocation()));
 
         if (description.isEmpty()) {
             description = undefined;
@@ -73,6 +72,7 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Ser
         if (getName().isEmpty()) {
             setName(undefined);
         }
+        setColor(generateColor(getLocation()));
     }
 
     /**
@@ -82,13 +82,9 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Ser
      * @return Color
      */
     private int generateColor(String location) {
-        // Amphi
-        if (this.description == null) {
-            return Color.BLACK;
-        }
         try {
-            return this.getName().hashCode();
-        } catch (NumberFormatException nfe) {
+            return this.getName().hashCode() + location.hashCode();
+        } catch (Throwable ignored) {
             return Color.RED;
         }
     }

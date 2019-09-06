@@ -24,7 +24,7 @@ public class TreeNodeTest {
         Assert.assertEquals("a", node.id());
         Assert.assertNull(node.content());
         Assert.assertNull(node.content());
-        Assert.assertFalse(node.isLeaf());
+        Assert.assertTrue(node.isLeaf());
     }
 
     @Test

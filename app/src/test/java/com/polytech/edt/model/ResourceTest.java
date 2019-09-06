@@ -38,7 +38,7 @@ public class ResourceTest {
     @Test
     public void loadTest() throws Exception {
         // Simple load
-        ADEResource resource = new ADEResource(2128).load();
+        ADEResource resource = new ADEResource(2128);
         Assert.assertNotNull(resource);
 
         // Mocked load

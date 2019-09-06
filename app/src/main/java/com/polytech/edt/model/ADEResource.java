@@ -1,5 +1,7 @@
 package com.polytech.edt.model;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.polytech.edt.config.AppConfig;
@@ -17,12 +19,12 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -33,6 +35,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * <p>
  * Get all resources: http://ade.polytech.u-psud.fr:8080/jsp/webapi?function=getResources&projectId=2&data=5e3670a1af64840169d64367705be27e51e7ab85056895b426543d6e5ba99179
  * Get one resource: http://ade.polytech.u-psud.fr:8080/jsp/webapi?function=getResources&id=2128&projectId=2&data=5e3670a1af64840169d64367705be27e51e7ab85056895b426543d6e5ba99179&detail=4
+ * Get project id: http://ade.polytech.u-psud.fr:8080/jsp/webapi?function=getProjects&data=5e3670a1af64840169d64367705be27e51e7ab85056895b426543d6e5ba99179
  * </p>
  */
 public class ADEResource implements ADELoadable<ADEResource> {
@@ -158,7 +161,7 @@ public class ADEResource implements ADELoadable<ADEResource> {
      * @return Resources
      */
     public static List<ADEResource> resources() throws InterruptedException {
-        final List<ADEResource> resources = new ArrayList<>();
+        final List<ADEResource> resources = new CopyOnWriteArrayList<>();
         final Set<Callable<Object>> tasks = new HashSet<>();
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
@@ -169,7 +172,8 @@ public class ADEResource implements ADELoadable<ADEResource> {
                 public Object call() {
                     try {
                         resources.add(new ADEResource(Integer.parseInt(key)).load());
-                    } catch (Exception ignored) {
+                    } catch (Exception exception) {
+                        Log.e("GET-RESOURCE", exception.getMessage());
                     }
                     return null;
                 }
