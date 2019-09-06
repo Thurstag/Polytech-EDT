@@ -9,6 +9,15 @@ def gitSha1 = { ->
     return stdout.toString().trim()
 }
 
+def gitMasterSha1 = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'rev-parse', "--short", 'origin/android-master'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
 android {
     signingConfigs {
         releaseSign {
@@ -39,7 +48,7 @@ android {
             signingConfig signingConfigs.releaseSign
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "java.util.Date", "BUILD_DATE", "new java.util.Date()"
-            buildConfigField "String", "GIT_COMMIT_SHA", "\"${gitSha1()}\""
+            buildConfigField "String", "GIT_COMMIT_SHA", "\"${gitMasterSha1()}\""
         }
     }
     testOptions {
