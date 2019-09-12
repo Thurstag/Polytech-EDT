@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
 import com.google.common.base.Predicate;
+import com.polytech.edt.App;
 import com.polytech.edt.AppCache;
 import com.polytech.edt.R;
 import com.polytech.edt.config.UserConfig;
@@ -148,7 +150,7 @@ public class GroupListAdapter extends SimpleExpandableListAdapter {
             up.setVisibility(View.GONE);
             down.setVisibility(View.GONE);
 
-            view.setBackgroundColor(view.getResources().getColor(R.color.colorPrimary));
+            view.setBackgroundColor(ContextCompat.getColor(App.context, R.color.colorPrimary));
             textView.setTextColor(Color.WHITE);
             return view;
         }

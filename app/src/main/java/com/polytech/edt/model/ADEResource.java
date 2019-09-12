@@ -1,12 +1,11 @@
 package com.polytech.edt.model;
 
-import android.util.Log;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.polytech.edt.config.AppConfig;
 import com.polytech.edt.config.AppProperty;
 import com.polytech.edt.model.url.ResourceURL;
+import com.polytech.edt.util.LOGGER;
 
 import net.fortuna.ical4j.data.ParserException;
 
@@ -47,13 +46,13 @@ public class ADEResource implements ADELoadable<ADEResource> {
     private URL url;
 
     @JsonProperty
-    private int id;
+    protected int id;
 
     @JsonProperty
-    private String name;
+    protected String name;
 
     @JsonProperty
-    private String path;
+    protected String path;
 
     //endregion
 
@@ -173,7 +172,7 @@ public class ADEResource implements ADELoadable<ADEResource> {
                     try {
                         resources.add(new ADEResource(Integer.parseInt(key)).load());
                     } catch (Exception exception) {
-                        Log.e("GET-RESOURCE", exception.getMessage());
+                        LOGGER.error(exception.getMessage());
                     }
                     return null;
                 }

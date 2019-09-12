@@ -48,8 +48,8 @@ public class ResourceTest {
         when(resource.name()).thenCallRealMethod();
         when(resource.path()).thenCallRealMethod();
         when(resource.load()).thenCallRealMethod();
-        resource = resource.load();
 
+        resource = resource.load();
         Assert.assertEquals(2128, resource.id());
         Assert.assertEquals("APP3 TC GrC", resource.name());
         Assert.assertEquals("Polytech Paris-Sud.FISA.FISA 3A.FISA 3A TC.", resource.path());

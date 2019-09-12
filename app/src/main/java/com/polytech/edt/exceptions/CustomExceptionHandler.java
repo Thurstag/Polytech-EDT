@@ -1,7 +1,6 @@
 package com.polytech.edt.exceptions;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 
 import com.polytech.edt.App;
@@ -10,15 +9,12 @@ import com.polytech.edt.util.LOGGER;
 
 public class CustomExceptionHandler implements Thread.UncaughtExceptionHandler {
 
-    private Application application;
-
     /**
      * Constructor
      *
-     * @param application Application
      */
-    public CustomExceptionHandler(Application application) {
-        this.application = application;
+    public CustomExceptionHandler() {
+
     }
 
     @Override

@@ -10,9 +10,7 @@
     <!-- Navigation view -->
     <string name="navigation_drawer_open">Ouvrir le menu tiroir</string>
     <string name="navigation_drawer_close">Fermer le menu tiroir</string>
-    <string name="nav_header_title">Menu</string>
     <string name="nav_header_desc">Bandeau de navigation</string>
-    <string name="action_settings">Options</string>
 
     <!-- Words -->
     <string name="settings">Options</string>
@@ -22,7 +20,6 @@
     <string name="groups">Groupes</string>
     <string name="menu">Menu</string>
     <string name="undefined">Non défini</string>
-    <string name="reports">Rapports</string>
     <string name="close">Fermer</string>
     <string name="contact">Contact</string>
     <string name="loading">Chargement…</string>
@@ -41,7 +38,6 @@
     <string name="report_content">Contenu du rapport</string>
     <string name="show_report">Montrer le rapport</string>
     <string name="send_report">Envoyer le rapport</string>
-    <string name="no_report">Aucun rapports</string>
     <string name="error_page_title">Erreur</string>
 
     <!-- Mail report -->

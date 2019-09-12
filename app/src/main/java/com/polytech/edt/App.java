@@ -29,7 +29,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
         context = this;
 
         // Define exception handler
-        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
+        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler());
     }
 
     @Override

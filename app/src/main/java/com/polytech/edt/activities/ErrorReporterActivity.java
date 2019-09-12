@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.drawable.VectorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.polytech.edt.App;
 import com.polytech.edt.R;
 import com.polytech.edt.android.MailIntent;
 import com.polytech.edt.config.AppConfig;
@@ -44,7 +46,7 @@ public class ErrorReporterActivity extends AppCompatActivity {
 
         // Set up toolbar
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(ColorUtil.coloredSVG((VectorDrawable) Objects.requireNonNull(getDrawable(R.drawable.ic_warning)), getResources().getColor(R.color.white)));
+        toolbar.setNavigationIcon(ColorUtil.coloredSVG((VectorDrawable) Objects.requireNonNull(getDrawable(R.drawable.ic_warning)), ContextCompat.getColor(App.context, R.color.white)));
         setSupportActionBar(toolbar);
 
         // Define listener for close button

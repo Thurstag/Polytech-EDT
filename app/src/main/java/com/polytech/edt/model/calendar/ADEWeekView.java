@@ -1084,9 +1084,9 @@ public class ADEWeekView extends View {
         if (event.getStartTime().compareTo(event.getEndTime()) >= 0) {
             return;
         }
-        List<WeekViewEvent> splitedEvents = splitWeekViewEvents(event);
-        for (WeekViewEvent splitedEvent : splitedEvents) {
-            mEventRects.add(new EventRect(splitedEvent, event, null));
+        List<WeekViewEvent> splitEvents = splitWeekViewEvents(event);
+        for (WeekViewEvent splitEvent : splitEvents) {
+            mEventRects.add(new EventRect(splitEvent, event, null));
         }
     }
 
@@ -1964,13 +1964,7 @@ public class ADEWeekView extends View {
      * @return true if scrolling should be stopped before reaching the end of animation.
      */
     private boolean forceFinishScroll() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            // current velocity only available since api 14
-            return mScroller.getCurrVelocity() <= mMinimumFlingVelocity;
-        }
-        else {
-            return false;
-        }
+        return mScroller.getCurrVelocity() <= mMinimumFlingVelocity;
     }
 
     /**

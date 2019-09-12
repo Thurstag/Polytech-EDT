@@ -65,7 +65,7 @@ public class ADECalendar implements ADELoadable<ADECalendar>, Serializable {
      * @throws ParseException  Date parsing error
      */
     public ADECalendar load() throws IOException, ParserException, ParseException {
-        // Fecth & decode calendar
+        // Fetch & decode calendar
         Calendar calendar = new CalendarBuilder().build(fetchCalendar());
 
         // Load events

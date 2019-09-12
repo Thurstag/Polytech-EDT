@@ -10,9 +10,7 @@
     <!-- Navigation view -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Menu</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
     <!-- Words -->
     <string name="settings">Settings</string>
@@ -22,7 +20,6 @@
     <string name="groups">Groups</string>
     <string name="menu">Menu</string>
     <string name="undefined">Undefined</string>
-    <string name="reports">Reports</string>
     <string name="close">Close</string>
     <string name="contact">Contact</string>
     <string name="loading">Loading…</string>
@@ -42,7 +39,6 @@
     <string name="show_report">Show report</string>
     <string name="send_report">Send report</string>
     <string name="error_page_title">Error</string>
-    <string name="no_report">No reports</string>
 
     <!-- Mail report -->
     <string name="mail_report_subject">Error report</string>

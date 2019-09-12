@@ -20,6 +20,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
@@ -54,7 +55,7 @@ public class CalendarURLTest {
         Assert.assertEquals(CalendarURL.PORT, url.getPort());
         Assert.assertEquals(CalendarURL.URL_PATH, url.getPath());
 
-        List<NameValuePair> parameters = URLEncodedUtils.parse(url.toURI(), "UTF-8");
+        List<NameValuePair> parameters = URLEncodedUtils.parse(url.toURI(), Charset.forName("UTF-8"));
 
         Assert.assertEquals(1, parameters.stream().filter(new Predicate<NameValuePair>() {
             @Override
