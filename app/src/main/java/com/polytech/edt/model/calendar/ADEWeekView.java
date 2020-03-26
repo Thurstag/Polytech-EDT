@@ -1,3 +1,8 @@
+/*
+ * Copyright 2018-2020 Polytech-EDT
+ * Licensed under Apache License 2.0 or any later version
+ * Refer to the LICENSE.md file included.
+ */
 package com.polytech.edt.model.calendar;
 
 import android.content.Context;
@@ -55,7 +60,7 @@ import static org.apache.commons.lang3.time.DateUtils.isSameDay;
 
 /**
  * ADEWeekView class
- * 
+ *
  * Based on Raquib-ul Alam's work
  */
 public class ADEWeekView extends View {
@@ -841,7 +846,7 @@ public class ADEWeekView extends View {
                             top < getHeight() &&
                             right > mHeaderColumnWidth &&
                             bottom > mHeaderHeight + mHeaderRowPadding * 2 + mTimeTextHeight / 2 + mHeaderMarginBottom
-                            ) {
+                    ) {
                         mEventRects.get(i).rectF = new RectF(left, top, right, bottom);
                         mEventBackgroundPaint.setColor(mEventRects.get(i).event.getColor() == 0 ? mDefaultEventColor : mEventRects.get(i).event.getColor());
                         canvas.drawRoundRect(mEventRects.get(i).rectF, mEventCornerRadius, mEventCornerRadius, mEventBackgroundPaint);
@@ -901,7 +906,7 @@ public class ADEWeekView extends View {
                             top < getHeight() &&
                             right > mHeaderColumnWidth &&
                             bottom > 0
-                            ) {
+                    ) {
                         mEventRects.get(i).rectF = new RectF(left, top, right, bottom);
                         mEventBackgroundPaint.setColor(mEventRects.get(i).event.getColor() == 0 ? mDefaultEventColor : mEventRects.get(i).event.getColor());
                         canvas.drawRoundRect(mEventRects.get(i).rectF, mEventCornerRadius, mEventCornerRadius, mEventBackgroundPaint);
