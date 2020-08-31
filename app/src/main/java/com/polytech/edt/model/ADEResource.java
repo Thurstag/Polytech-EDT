@@ -37,9 +37,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 /**
  * Resource
  * <p>
- * Get all resources: http://ade.polytech.u-psud.fr:8080/jsp/webapi?function=getResources&projectId=2&data=5e3670a1af64840169d64367705be27e51e7ab85056895b426543d6e5ba99179
  * Get one resource: http://ade.polytech.u-psud.fr:8080/jsp/webapi?function=getResources&id=2128&projectId=2&data=5e3670a1af64840169d64367705be27e51e7ab85056895b426543d6e5ba99179&detail=4
- * Get project id: http://ade.polytech.u-psud.fr:8080/jsp/webapi?function=getProjects&data=5e3670a1af64840169d64367705be27e51e7ab85056895b426543d6e5ba99179
  * </p>
  */
 public class ADEResource implements ADELoadable<ADEResource> {
