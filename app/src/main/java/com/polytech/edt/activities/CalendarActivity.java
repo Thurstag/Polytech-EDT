@@ -115,7 +115,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
     }
 
     /**
-     * Method to change fragment
+     * Change fragment
      *
      * @param _class     Fragment class
      * @param parameters Parameters

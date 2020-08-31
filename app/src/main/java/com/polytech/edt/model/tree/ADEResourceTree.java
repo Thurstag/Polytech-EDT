@@ -19,23 +19,23 @@ public class ADEResourceTree extends TreeNode<String, List<ADEResource>> {
      * Constructor
      *
      * @param resources Resources
+     * @throws Exception Failed to load resources
      */
     public ADEResourceTree(List<ADEResource> resources) throws Exception {
         super(null, null);
 
-        if (resources == null) {
-            build(ADEResource.resources());
-        }
-        else {
-            build(resources);
-        }
+        build(resources);
     }
 
     /**
-     * Constructor
+     * Default constructor
+     *
+     * @throws Exception Failed to load resources
      */
     public ADEResourceTree() throws Exception {
-        this(null);
+        super(null, null);
+
+        build(ADEResource.resources(ADEResource.resourceIds()));
     }
 
     //endregion
@@ -43,7 +43,7 @@ public class ADEResourceTree extends TreeNode<String, List<ADEResource>> {
     //region Methods
 
     /**
-     * Method to build tree
+     * Build tree
      */
     private void build(List<ADEResource> resources) throws Exception {
         // Add resources
@@ -88,7 +88,7 @@ public class ADEResourceTree extends TreeNode<String, List<ADEResource>> {
     }
 
     /**
-     * Method to get leaves
+     * MetGet leaves
      *
      * @return Leaves
      */
@@ -102,9 +102,9 @@ public class ADEResourceTree extends TreeNode<String, List<ADEResource>> {
     }
 
     /**
-     * Method to retrieve leaves recursively
+     * Retrieve leaves
      *
-     * @param nodes List buffer
+     * @param nodes Leaves buffer
      * @param node  Current node
      */
     private void _leaves(List<Node<String, List<ADEResource>>> nodes, Node<String, List<ADEResource>> node) {

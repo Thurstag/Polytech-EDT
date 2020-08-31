@@ -52,7 +52,7 @@ public class CalendarFragment extends NamedFragment {
     }
 
     /**
-     * Method to set calendar's scope
+     * Set calendar's scope based on user configuration
      */
     private void setScope() {
         changeVisibility(((UserConfig) AppCache.get("config")).calendarScope().viewScope());
@@ -60,7 +60,7 @@ public class CalendarFragment extends NamedFragment {
     }
 
     /**
-     * Method to init week view
+     * Init week view
      */
     public void initWeekView() {
         // MonthChange listener
@@ -74,7 +74,7 @@ public class CalendarFragment extends NamedFragment {
     }
 
     /**
-     * Method to go to the first event
+     * Go to the first event
      */
     private void goToFirstEvent() {
         if (calendar == null) {
@@ -88,7 +88,7 @@ public class CalendarFragment extends NamedFragment {
     }
 
     /**
-     * Method to change day visibility
+     * Change day visibility
      *
      * @param i Count day
      */

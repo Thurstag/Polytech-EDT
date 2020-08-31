@@ -34,16 +34,16 @@ public class UserConfig {
     //region GET
 
     /**
-     * Method to know if config exists
+     * Test if configuration exists
      *
-     * @return True or False
+     * @return true if config exists, false otherwise
      */
     public static boolean exists() {
         return FileIO.exists(FileIO.ROOT_PATH + "files/config.json");
     }
 
     /**
-     * Method to create config
+     * Create default configuration
      *
      * @return Config
      */
@@ -65,7 +65,7 @@ public class UserConfig {
     //region Methods
 
     /**
-     * Method to save config
+     * Save config
      *
      * @param config Config
      */
@@ -75,7 +75,7 @@ public class UserConfig {
     }
 
     /**
-     * Method to load config
+     * Load config from file
      *
      * @return Config
      */

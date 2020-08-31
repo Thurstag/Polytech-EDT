@@ -59,7 +59,7 @@ public class SettingsFragment extends NamedFragment {
     }
 
     /**
-     * Method to define on item click listener
+     * Get on item click listener
      *
      * @return Listener
      */

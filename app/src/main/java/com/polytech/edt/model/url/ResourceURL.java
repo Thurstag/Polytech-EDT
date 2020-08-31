@@ -21,7 +21,7 @@ public class ResourceURL implements ADEURL {
     public static final String HOST = "ade.polytech.u-psud.fr";
     public static final String URL_PATH = "/jsp/webapi";
     public static final int PORT = 8080;
-    public static final int PROJECT_ID = 4;
+    public static final int PROJECT_ID = CalendarURL.PROJECT_ID;
     public static final String FUNCTION = "getResources";
     public static final String TOKEN = "5e3670a1af64840169d64367705be27e51e7ab85056895b426543d6e5ba99179";
     public static final int DETAIL = 4;
@@ -65,7 +65,7 @@ public class ResourceURL implements ADEURL {
     //region Methods
 
     /**
-     * Method to get url
+     * Get URL
      */
     public URL url() throws MalformedURLException {
         List<NameValuePair> parameters = new ArrayList<>();

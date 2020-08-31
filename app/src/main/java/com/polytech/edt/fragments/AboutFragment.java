@@ -54,7 +54,7 @@ public class AboutFragment extends NamedFragment {
     }
 
     /**
-     * Method to define on item click listener
+     * Define on item click listener
      *
      * @return Listener
      */

@@ -81,7 +81,7 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Ser
     }
 
     /**
-     * Method to generate a color depending on location
+     * Generate a color depending on location
      *
      * @param location Location
      * @return Color

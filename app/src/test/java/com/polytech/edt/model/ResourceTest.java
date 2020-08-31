@@ -6,13 +6,11 @@
 package com.polytech.edt.model;
 
 import com.polytech.edt.config.AppConfig;
-import com.polytech.edt.config.AppProperty;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -21,7 +19,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -34,10 +31,6 @@ public class ResourceTest {
     @BeforeClass
     public static void setUp() throws FileNotFoundException {
         buffer = new FileInputStream("src/test/res/raw/resource.xml");
-
-        // Mock config
-        PowerMockito.mockStatic(AppConfig.class);
-        PowerMockito.when(AppConfig.get(eq(AppProperty.RESOURCES_LIST))).thenReturn("13,1777,1630,1838,1857,1739,1746,1953,2020,1732,1795,1823,2117,346,2139,2154,2180,2218");
     }
 
     @Test

@@ -77,7 +77,7 @@ public class ErrorReporterActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to save report
+     * Save report
      */
     @SuppressLint("StaticFieldLeak")
     private void saveReport() {
@@ -147,7 +147,7 @@ public class ErrorReporterActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to fill texts in UI
+     * Fill texts in UI
      */
     private void fillTexts() {
         // Exception class

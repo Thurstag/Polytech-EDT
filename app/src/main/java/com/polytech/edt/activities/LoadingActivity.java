@@ -32,6 +32,8 @@ import com.polytech.edt.util.FileIO;
 import com.polytech.edt.util.LOGGER;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 public class LoadingActivity extends AppCompatActivity {
@@ -93,16 +95,31 @@ public class LoadingActivity extends AppCompatActivity {
                 AppConfig.load();
 
                 try {
-                    List<ADEResource> resources;
+                    List<ADEResource> resources = null;
+                    boolean resourcesUpdate = false;
 
-                    // Load/Store resources
+                    // Load server resources
+                    List<Integer> resourceIds = ADEResource.resourceIds();
+
+                    // Load existing resources
                     if (FileIO.exists(FileIO.ROOT_PATH + "files/resources.json")) {
                         // Decode file
                         resources = mapper.readValue(FileIO.read(getApplicationContext(), "resources.json").getBytes(), new TypeReference<ArrayList<ADEResource>>() {
                         });
+
+                        // Compare local and server resources
+                        List<Integer> diff = new LinkedList<>(resourceIds);
+                        for (ADEResource resource : resources) {
+                            diff.remove(Integer.valueOf(resource.id()));
+                        }
+                        if (!diff.isEmpty()) {
+                            resourcesUpdate = true;
+                        }
                     }
-                    else {
-                        // Hide text
+
+                    // Generate resources.json
+                    if (resources == null || resourcesUpdate) {
+                        // Show loading groups text
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
                             @Override
                             public void run() {
@@ -111,7 +128,7 @@ public class LoadingActivity extends AppCompatActivity {
                         });
 
                         // Fetch resources
-                        resources = ADEResource.resources();
+                        resources = ADEResource.resources(resourceIds);
 
                         // Encode to json & save into a file
                         FileIO.write(getApplicationContext(), "resources.json", mapper.writeValueAsString(resources));
@@ -139,6 +156,11 @@ public class LoadingActivity extends AppCompatActivity {
 
                             config = UserConfig.create();
                         }
+                    }
+
+                    // Reset groups
+                    if (resourcesUpdate) {
+                        config.setGroups(new HashSet<ADEResource>());
                     }
 
                     // Save in cache

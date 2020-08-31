@@ -27,7 +27,7 @@ public enum CalendarUnit implements BasicEnum {
     }
 
     /**
-     * Method to convert a CalendarUnit into a url parameter (For CalendarURL)
+     * Convert a CalendarUnit into a url parameter (For CalendarURL)
      *
      * @return Parameter
      */
@@ -36,7 +36,7 @@ public enum CalendarUnit implements BasicEnum {
     }
 
     /**
-     * Method to transform scope depends on unit
+     * Calculate scope
      *
      * @param scope Scope
      * @return Transformed scope

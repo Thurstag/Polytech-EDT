@@ -26,7 +26,7 @@ public class AppConfig {
     }
 
     /**
-     * Method to get a property
+     * Get a property
      *
      * @param property Property's name
      * @return Property's value
@@ -36,7 +36,7 @@ public class AppConfig {
     }
 
     /**
-     * Method to get a property
+     * Get a property
      *
      * @param property Property's name
      * @param _default Default value

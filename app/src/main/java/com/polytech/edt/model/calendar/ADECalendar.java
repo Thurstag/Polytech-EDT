@@ -63,11 +63,11 @@ public class ADECalendar implements ADELoadable<ADECalendar>, Serializable {
     //region Methods
 
     /**
-     * Method to load calendar from remote
+     * Load calendar from remote
      *
-     * @throws IOException     Download error
-     * @throws ParserException Calendar parsing error
-     * @throws ParseException  Date parsing error
+     * @throws IOException     Failed to download
+     * @throws ParserException Failed to parse calendar
+     * @throws ParseException  Failed to parse dates
      */
     public ADECalendar load() throws IOException, ParserException, ParseException {
         // Fetch & decode calendar
@@ -86,7 +86,7 @@ public class ADECalendar implements ADELoadable<ADECalendar>, Serializable {
     }
 
     /**
-     * Method to fetch calendar
+     * Fetch calendar
      *
      * @return Calendar
      * @throws IOException Download error
@@ -96,9 +96,9 @@ public class ADECalendar implements ADELoadable<ADECalendar>, Serializable {
     }
 
     /**
-     * Method to get events
+     * Get events
      *
-     * @return Event list
+     * @return Events
      */
     public List<ADEEvent> events() {
         return events;

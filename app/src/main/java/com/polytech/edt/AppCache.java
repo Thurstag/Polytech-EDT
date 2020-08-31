@@ -26,7 +26,7 @@ public class AppCache {
     //region Methods
 
     /**
-     * Method to save an object
+     * Save an object
      *
      * @param key     Key
      * @param _object Object
@@ -36,7 +36,7 @@ public class AppCache {
     }
 
     /**
-     * Method to get an object from cast
+     * Get an object with its key
      *
      * @param key Key
      * @param <T> Object type

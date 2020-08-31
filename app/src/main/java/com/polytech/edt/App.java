@@ -76,7 +76,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
     }
 
     /**
-     * Method to log activity history
+     * Log activity history
      *
      * @param activity Activity
      */

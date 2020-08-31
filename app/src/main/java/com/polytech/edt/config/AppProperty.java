@@ -7,8 +7,7 @@ package com.polytech.edt.config;
 
 public enum AppProperty {
 
-    REPORT_MAIL("report.email"),
-    RESOURCES_LIST("calendar.resources");
+    REPORT_MAIL("report.email");
 
     private String label;
 

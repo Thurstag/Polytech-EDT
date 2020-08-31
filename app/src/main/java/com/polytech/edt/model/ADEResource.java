@@ -7,8 +7,7 @@ package com.polytech.edt.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.polytech.edt.config.AppConfig;
-import com.polytech.edt.config.AppProperty;
+import com.polytech.edt.BuildConfig;
 import com.polytech.edt.model.url.ResourceURL;
 import com.polytech.edt.util.LOGGER;
 
@@ -23,9 +22,11 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -44,8 +45,6 @@ public class ADEResource implements ADELoadable<ADEResource> {
 
     //region Fields
 
-    private static List<String> idList;
-
     private URL url;
 
     @JsonProperty
@@ -60,10 +59,6 @@ public class ADEResource implements ADELoadable<ADEResource> {
     //endregion
 
     //region Constructors
-
-    static {
-        idList = Arrays.asList(AppConfig.get(AppProperty.RESOURCES_LIST).split(","));
-    }
 
     /**
      * Constructor
@@ -97,16 +92,80 @@ public class ADEResource implements ADELoadable<ADEResource> {
         return id() + "";
     }
 
+    /**
+     * Fetch ADE resources based on their IDs
+     *
+     * @param resourceIds IDs
+     * @return ADE resources
+     */
+    public static List<ADEResource> resources(Collection<Integer> resourceIds) throws InterruptedException {
+        final List<ADEResource> resources = new CopyOnWriteArrayList<>();
+        final Set<Callable<Object>> tasks = new HashSet<>();
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+        // Generate tasks
+        for (final Integer resourceId : resourceIds) {
+            tasks.add(new Callable<Object>() {
+                @Override
+                public Object call() {
+                    try {
+                        resources.add(new ADEResource(resourceId).load());
+                    } catch (Exception exception) {
+                        LOGGER.error(exception.getMessage());
+                    }
+                    return null;
+                }
+            });
+        }
+
+        // Execute & join tasks
+        executorService.invokeAll(tasks);
+
+        return resources;
+    }
+
+    /**
+     * Fetch resource IDs stored in git
+     *
+     * @return IDs
+     * @throws Exception Failed to load resource IDs
+     */
+    public static List<Integer> resourceIds() throws Exception {
+        List<Integer> ids = new LinkedList<>();
+
+        // Create URL
+        URL url = new URL("https", "raw.githubusercontent.com", 443,
+                "/Thurstag/Polytech-EDT/android-" + (Objects.equals(BuildConfig.BUILD_TYPE, "debug") ? "dev" : "master") + "/assets/resources");
+
+        // Fetch resources
+        StringBuilder builder = new StringBuilder();
+        try (BufferedInputStream resource = new BufferedInputStream(url.openStream())) {
+            byte[] contents = new byte[1024];
+            int bytesRead;
+
+            while ((bytesRead = resource.read(contents)) != -1) {
+                builder.append(new String(contents, 0, bytesRead));
+            }
+        }
+
+        for (String id : builder.toString().split(",")) {
+            ids.add(Integer.parseInt(id));
+        }
+
+        return ids;
+    }
+
     @Override
     public ADEResource load() throws Exception {
-        BufferedInputStream resource = fetchResource();
-        byte[] contents = new byte[1024];
-        int bytesRead;
-
-        // Buffer to string
+        // Fetch resource
         StringBuilder builder = new StringBuilder();
-        while ((bytesRead = resource.read(contents)) != -1) {
-            builder.append(new String(contents, 0, bytesRead));
+        try (BufferedInputStream resource = fetchResource()) {
+            byte[] contents = new byte[1024];
+            int bytesRead;
+
+            while ((bytesRead = resource.read(contents)) != -1) {
+                builder.append(new String(contents, 0, bytesRead));
+            }
         }
 
         // Decode xml
@@ -140,52 +199,12 @@ public class ADEResource implements ADELoadable<ADEResource> {
     }
 
     /**
-     * Method to fetch resource
+     * Fetch resource
      *
      * @return Resource
      */
     public BufferedInputStream fetchResource() throws IOException {
         return new BufferedInputStream(this.url.openStream());
-    }
-
-    /**
-     * Method to fetch resources
-     *
-     * @return Resources xml
-     */
-    private static BufferedInputStream fetchResources() throws IOException {
-        return new BufferedInputStream(new ResourceURL(null, 0).url().openStream());
-    }
-
-    /**
-     * Method to get all resources
-     *
-     * @return Resources
-     */
-    public static List<ADEResource> resources() throws InterruptedException {
-        final List<ADEResource> resources = new CopyOnWriteArrayList<>();
-        final Set<Callable<Object>> tasks = new HashSet<>();
-        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-
-        // Generate tasks
-        for (final String key : idList) {
-            tasks.add(new Callable<Object>() {
-                @Override
-                public Object call() {
-                    try {
-                        resources.add(new ADEResource(Integer.parseInt(key)).load());
-                    } catch (Exception exception) {
-                        LOGGER.error(exception.getMessage());
-                    }
-                    return null;
-                }
-            });
-        }
-
-        // Execute & join tasks
-        executorService.invokeAll(tasks);
-
-        return resources;
     }
 
     //endregion
