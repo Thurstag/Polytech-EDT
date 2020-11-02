@@ -17,47 +17,39 @@ import java.util.function.Predicate;
 
 public class ResourceURLTest {
 
-    private final static int id = 2128;
-
     @Test
     public void UrlMethodTest() throws Exception {
-        URL url = new ResourceURL(id).url();
+        URL url = new ResourcesURL().url();
 
         Assert.assertNotNull(url);
-        Assert.assertEquals(ResourceURL.HOST, url.getHost());
-        Assert.assertEquals(ResourceURL.PORT, url.getPort());
-        Assert.assertEquals(ResourceURL.URL_PATH, url.getPath());
+        Assert.assertEquals(ResourcesURL.HOST, url.getHost());
+        Assert.assertEquals(ResourcesURL.PORT, url.getPort());
+        Assert.assertEquals(ResourcesURL.URL_PATH, url.getPath());
 
         List<NameValuePair> parameters = URLEncodedUtils.parse(url.toURI(), Charset.forName("UTF-8"));
 
         Assert.assertEquals(1, parameters.stream().filter(new Predicate<NameValuePair>() {
             @Override
             public boolean test(NameValuePair nameValuePair) {
-                return nameValuePair.getName().equals("id") && nameValuePair.getValue().equals(id + "");
+                return nameValuePair.getName().equals("projectId") && nameValuePair.getValue().equals(ResourcesURL.PROJECT_ID + "");
             }
         }).count());
         Assert.assertEquals(1, parameters.stream().filter(new Predicate<NameValuePair>() {
             @Override
             public boolean test(NameValuePair nameValuePair) {
-                return nameValuePair.getName().equals("projectId") && nameValuePair.getValue().equals(ResourceURL.PROJECT_ID + "");
+                return nameValuePair.getName().equals("function") && nameValuePair.getValue().equals(ResourcesURL.FUNCTION);
             }
         }).count());
         Assert.assertEquals(1, parameters.stream().filter(new Predicate<NameValuePair>() {
             @Override
             public boolean test(NameValuePair nameValuePair) {
-                return nameValuePair.getName().equals("function") && nameValuePair.getValue().equals(ResourceURL.FUNCTION);
+                return nameValuePair.getName().equals("data") && nameValuePair.getValue().equals(ResourcesURL.TOKEN);
             }
         }).count());
         Assert.assertEquals(1, parameters.stream().filter(new Predicate<NameValuePair>() {
             @Override
             public boolean test(NameValuePair nameValuePair) {
-                return nameValuePair.getName().equals("data") && nameValuePair.getValue().equals(ResourceURL.TOKEN);
-            }
-        }).count());
-        Assert.assertEquals(1, parameters.stream().filter(new Predicate<NameValuePair>() {
-            @Override
-            public boolean test(NameValuePair nameValuePair) {
-                return nameValuePair.getName().equals("detail") && nameValuePair.getValue().equals(ResourceURL.DETAIL + "");
+                return nameValuePair.getName().equals("detail") && nameValuePair.getValue().equals(ResourcesURL.DETAIL + "");
             }
         }).count());
     }

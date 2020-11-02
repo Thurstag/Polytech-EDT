@@ -15,11 +15,9 @@ import com.polytech.edt.config.AppConfig;
 import com.polytech.edt.config.AppProperty;
 import com.polytech.edt.util.LOGGER;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class AboutListAdapter extends SimpleAdapter {
@@ -47,12 +45,12 @@ public class AboutListAdapter extends SimpleAdapter {
     }
 
     private static List<? extends Map<String, ?>> data() {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss", Locale.FRANCE);
+
 
         List<Map<String, String>> list = new ArrayList<>();
         String[][] data = new String[][]{
                 {App.context.getString(R.string.version), BuildConfig.VERSION_NAME},
-                {App.context.getString(R.string.build_date), format.format(BuildConfig.BUILD_DATE)},
+                {App.context.getString(R.string.build_date), BuildConfig.BUILD_DATE},
                 {App.context.getString(R.string.git_repo), "https://github.com"},
                 {App.context.getString(R.string.git_revision), BuildConfig.GIT_COMMIT_SHA},
                 {App.context.getString(R.string.devs), "Thomas Capodano & Sasha Berthout"},

@@ -8,6 +8,8 @@ package com.polytech.edt.model.tree;
 import com.polytech.edt.config.AppConfig;
 import com.polytech.edt.model.ADEResource;
 
+import net.fortuna.ical4j.data.ParserException;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -16,7 +18,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class ADEResourceTreeTest { // TODO: Use assertj + git action
     private static final String FISA_INFO = "FISA 3A INFO";
 
     @BeforeClass
-    public static void setUp() throws InterruptedException, MalformedURLException {
+    public static void setUp() throws IOException, ParserException {
         // Generate resource list
 
         List<ADEResource> resources = new ArrayList<>();

@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.application'
 
 def gitSha1 = { ->
@@ -16,6 +18,10 @@ def gitMasterSha1 = { ->
         standardOutput = stdout
     }
     return stdout.toString().trim()
+}
+
+def now() {
+    return new SimpleDateFormat("yyyy/MM/dd - HH:mm:ss", Locale.FRANCE).format(new Date())
 }
 
 android {
@@ -40,14 +46,14 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "java.util.Date", "BUILD_DATE", "new java.util.Date()"
+            buildConfigField "String", "BUILD_DATE", "\"${now()}\""
             buildConfigField "String", "GIT_COMMIT_SHA", "\"${gitSha1()}\""
         }
         release {
             minifyEnabled false
             signingConfig signingConfigs.releaseSign
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "java.util.Date", "BUILD_DATE", "new java.util.Date()"
+            buildConfigField "String", "BUILD_DATE", "\"${now()}\""
             buildConfigField "String", "GIT_COMMIT_SHA", "\"${gitMasterSha1()}\""
         }
     }

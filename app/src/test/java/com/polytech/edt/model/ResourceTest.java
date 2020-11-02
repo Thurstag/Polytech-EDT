@@ -18,12 +18,17 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import static org.mockito.Matchers.any;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({AppConfig.class})
+@PrepareForTest({ADEResource.class, AppConfig.class})
 public class ResourceTest {
 
     private static InputStream buffer;
@@ -35,19 +40,16 @@ public class ResourceTest {
 
     @Test
     public void loadTest() throws Exception {
+        // Mock static methods
+        mockStatic(ADEResource.class);
+        when(ADEResource.fetchResources()).thenReturn(DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new BufferedInputStream(buffer)));
+        when(ADEResource.resources(any(List.class))).thenCallRealMethod();
+
         // Simple load
         ADEResource resource = new ADEResource(2128);
         Assert.assertNotNull(resource);
 
-        // Mocked load
-        resource = mock(ADEResource.class);
-        when(resource.fetchResource()).thenReturn(new BufferedInputStream(buffer));
-        when(resource.id()).thenCallRealMethod();
-        when(resource.name()).thenCallRealMethod();
-        when(resource.path()).thenCallRealMethod();
-        when(resource.load()).thenCallRealMethod();
-
-        resource = resource.load();
+        resource = ADEResource.resources(Collections.singletonList(2128)).get(0);
         Assert.assertEquals(2128, resource.id());
         Assert.assertEquals("APP3 TC GrC", resource.name());
         Assert.assertEquals("Polytech Paris-Sud.FISA.FISA 3A.FISA 3A TC.", resource.path());
