@@ -142,7 +142,7 @@ public class ADEEvent extends WeekViewEvent implements Comparable<ADEEvent>, Ser
     }
 
     public int month() {
-        return getStartTime().get(Calendar.MONTH);
+        return getStartTime().get(Calendar.MONTH) + 1;
     }
 
     //endregion

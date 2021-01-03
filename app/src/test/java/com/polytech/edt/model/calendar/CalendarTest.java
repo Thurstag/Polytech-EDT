@@ -5,7 +5,6 @@
  */
 package com.polytech.edt.model.calendar;
 
-import com.alamkanak.weekview.WeekViewEvent;
 import com.polytech.edt.config.AppConfig;
 
 import org.junit.Assert;
@@ -101,7 +100,7 @@ public class CalendarTest {
 
         Calendar calendar;
         int i = 0;
-        for (WeekViewEvent event : c.events()) {
+        for (ADEEvent event : c.events()) {
             calendar = event.getStartTime();
             Assert.assertEquals(starts.get(i), String.format("%1$2s", calendar.get(Calendar.HOUR_OF_DAY)).replace(" ", "0") + ":" + String.format("%1$2s", calendar.get(Calendar.MINUTE)).replace(" ", "0") + ":" + String.format("%1$2s", calendar.get(Calendar.SECOND)).replace(" ", "0"));
 
@@ -110,6 +109,7 @@ public class CalendarTest {
 
             Assert.assertEquals(labels.get(i), event.getName());
             Assert.assertEquals(locations.get(i), event.getLocation());
+            Assert.assertEquals(9, event.month());
 
             i++;
         }
