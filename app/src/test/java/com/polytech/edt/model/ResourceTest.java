@@ -11,8 +11,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.w3c.dom.Document;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -28,6 +30,8 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
+@PowerMockIgnore({"com.sun.org.apache.xerces.*", "javax.xml.*", "org.xml.*", "org.w3c.dom.*"})
+// Workaround to ignore class loading exceptions caused by DocumentBuilderFactory
 @PrepareForTest({ADEResource.class, AppConfig.class})
 public class ResourceTest {
 
@@ -42,7 +46,8 @@ public class ResourceTest {
     public void loadTest() throws Exception {
         // Mock static methods
         mockStatic(ADEResource.class);
-        when(ADEResource.fetchResources()).thenReturn(DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new BufferedInputStream(buffer)));
+        Document resources = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new BufferedInputStream(buffer));
+        when(ADEResource.fetchResources()).thenReturn(resources);
         when(ADEResource.resources(any(List.class))).thenCallRealMethod();
 
         // Simple load

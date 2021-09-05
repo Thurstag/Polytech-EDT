@@ -28,7 +28,7 @@ public class CalendarURL implements ADEURL {
     public static final String URL_PATH = "/jsp/custom/modules/plannings/anonymous_cal.jsp";
     public static final int PORT = 8080;
     public static final String TYPE = "ical";
-    public static final int PROJECT_ID = 3;
+    public static final int PROJECT_ID = 6;
 
     private List<ADEResource> resources;
     private CalendarUnit unit;

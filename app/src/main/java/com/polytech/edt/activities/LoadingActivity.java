@@ -33,8 +33,8 @@ import com.polytech.edt.util.LOGGER;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class LoadingActivity extends AppCompatActivity {
 
@@ -108,7 +108,7 @@ public class LoadingActivity extends AppCompatActivity {
                         });
 
                         // Compare local and server resources
-                        List<Integer> diff = new LinkedList<>(resourceIds);
+                        Set<Integer> diff = new HashSet<>(resourceIds);
                         for (ADEResource resource : resources) {
                             diff.remove(Integer.valueOf(resource.id()));
                         }
