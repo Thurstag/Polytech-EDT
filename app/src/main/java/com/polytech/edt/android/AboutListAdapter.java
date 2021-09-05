@@ -50,7 +50,7 @@ public class AboutListAdapter extends SimpleAdapter {
         List<Map<String, String>> list = new ArrayList<>();
         String[][] data = new String[][]{
                 {App.context.getString(R.string.version), BuildConfig.VERSION_NAME},
-                {App.context.getString(R.string.build_date), BuildConfig.BUILD_DATE},
+                {App.context.getString(R.string.build), BuildConfig.BUILD_TYPE + " - " + BuildConfig.BUILD_DATE},
                 {App.context.getString(R.string.git_repo), "https://github.com"},
                 {App.context.getString(R.string.git_revision), BuildConfig.GIT_COMMIT_SHA},
                 {App.context.getString(R.string.devs), "Thomas Capodano & Sasha Berthout"},

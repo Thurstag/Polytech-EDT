@@ -26,7 +26,7 @@
 
     <!-- About page items -->
     <string name="version">Version</string>
-    <string name="build_date">Date du build</string>
+    <string name="build">Build</string>
     <string name="git_repo">Dépôt GIT</string>
     <string name="git_revision">Révision GIT</string>
     <string name="devs">Développeurs</string>
