@@ -125,7 +125,7 @@ public class ADEResource {
      *
      * @return XML document
      */
-    static Document fetchResources() throws ParserException, IOException {
+    public static Document fetchResources() throws ParserException, IOException {
         // Fetch resources
         StringBuilder builder = new StringBuilder();
         try (BufferedInputStream resource = new BufferedInputStream(new ResourcesURL().url().openStream())) {
