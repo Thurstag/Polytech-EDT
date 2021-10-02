@@ -42,7 +42,7 @@ public class GroupListAdapter extends SimpleExpandableListAdapter {
     private static final int[] childIds = new int[]{R.id.expandable_list_item};
 
     @SuppressLint("UseSparseArrays")
-    private static Map<Integer, Boolean> isSection = new HashMap<>();
+    private static final Map<Integer, Boolean> isSection = new HashMap<>();
     private ColorStateList defaultTextColor = null;
     private CompoundButton.OnCheckedChangeListener checkedChangeListener = null;
 

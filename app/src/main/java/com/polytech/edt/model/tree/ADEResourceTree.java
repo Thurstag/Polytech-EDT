@@ -9,6 +9,7 @@ import com.polytech.edt.model.ADEResource;
 import com.polytech.edt.util.LOGGER;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ADEResourceTree extends TreeNode<String, List<ADEResource>> {
@@ -62,7 +63,7 @@ public class ADEResourceTree extends TreeNode<String, List<ADEResource>> {
             String[] parts = resource.path().split("\\.");
             Node<String, List<ADEResource>> current = this;
 
-            // Add resource in tree
+            // Create resource path in tree
             for (String part : parts) {
                 // Skip empty string
                 if (part.isEmpty()) {
@@ -85,10 +86,29 @@ public class ADEResourceTree extends TreeNode<String, List<ADEResource>> {
                 current.content().add(resource);
             }
         }
+
+        // Move resources that aren't contained by a leaf
+        LinkedList<Node<String, List<ADEResource>>> queue = new LinkedList<>();
+        queue.add(this);
+        while (!queue.isEmpty()) {
+            // Treat first node
+            Node<String, List<ADEResource>> node = queue.pop();
+
+            // Move resources to 'Autres' node
+            if (node.content() != null && !node.content().isEmpty() && !node.isLeaf()) {
+                TreeNode<String, List<ADEResource>> others = new TreeNode<>("Autres", node, new ArrayList<>(node.content()));
+
+                node.addChild(others);
+                node.content().clear();
+            }
+
+            // Add children to the queue
+            queue.addAll(node.children());
+        }
     }
 
     /**
-     * MetGet leaves
+     * Get leaves
      *
      * @return Leaves
      */
