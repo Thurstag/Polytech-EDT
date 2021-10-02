@@ -24,8 +24,10 @@ import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -92,29 +94,33 @@ public class ADEResource {
         Document resourcesDoc = fetchResources();
         NodeList resourceTags = resourcesDoc.getFirstChild().getChildNodes();
 
+        // Gather resource tags by id
+        Map<String, Node> resourceTagById = new HashMap<>();
+        for (int i = 0; i < resourceTags.getLength(); i++) {
+            Node resourceTag = resourceTags.item(i);
+            NamedNodeMap attributes = resourceTag.getAttributes();
+
+            // Skip resources without id attribute
+            if (attributes == null || attributes.getNamedItem("id") == null) {
+                continue;
+            }
+
+            resourceTagById.put(attributes.getNamedItem("id").getNodeValue(), resourceTag);
+        }
+
         // Search resources
         for (Integer id : resourceIds) {
-            for (int i = 0; i < resourceTags.getLength(); i++) {
-                Node resourceTag = resourceTags.item(i);
-                NamedNodeMap attributes = resourceTag.getAttributes();
-
-                // Skip resources without id attribute
-                if (attributes == null || attributes.getNamedItem("id") == null) {
-                    continue;
-                }
-
-                // Skip unwanted resources
-                if (!Objects.equals(Integer.toString(id), attributes.getNamedItem("id").getNodeValue())) {
-                    continue;
-                }
-
-                // Create a resource
-                ADEResource resource = new ADEResource(Integer.parseInt(attributes.getNamedItem("id").getNodeValue()));
-                resource.name = attributes.getNamedItem("name").getNodeValue();
-                resource.path = attributes.getNamedItem("path").getNodeValue();
-                resources.add(resource);
-                break;
+            Node resourceTag = resourceTagById.get(id.toString());
+            if (resourceTag == null) {
+                continue;
             }
+
+            // Create a resource
+            NamedNodeMap attributes = resourceTag.getAttributes();
+            ADEResource resource = new ADEResource(id);
+            resource.name = attributes.getNamedItem("name").getNodeValue();
+            resource.path = attributes.getNamedItem("path").getNodeValue();
+            resources.add(resource);
         }
 
         return resources;
