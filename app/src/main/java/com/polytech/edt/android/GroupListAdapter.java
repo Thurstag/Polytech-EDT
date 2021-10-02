@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class GroupListAdapter extends SimpleExpandableListAdapter {
 
@@ -55,55 +56,84 @@ public class GroupListAdapter extends SimpleExpandableListAdapter {
     }
 
     private static List<? extends Map<String, ?>> buildGroups(List<Node<String, List<ADEResource>>> resources) {
-        List<Map<String, String>> groups = new ArrayList<>();
-        String section = null;
+        Map<String, List<Map<String, String>>> groupsByParent = new TreeMap<>();
+        List<Map<String, String>> finalGroups = new ArrayList<>();
 
-        // Add groups
+        // Build groups map
         for (Node<String, List<ADEResource>> node : resources) {
-            if (section == null || !section.equals(node.parent().id())) {
-                groups.add(new HashMap<String, String>());
-                groups.get(groups.size() - 1).put(keys[0], node.parent().id());
-
-                isSection.put(groups.size() - 1, true);
+            String parentId = node.parent().id();
+            if (parentId == null) {
+                parentId = "";
             }
 
-            groups.add(new HashMap<String, String>());
-            groups.get(groups.size() - 1).put(keys[0], node.id());
+            List<Map<String, String>> groups = groupsByParent.get(parentId);
+            if (groups == null) {
+                groups = new ArrayList<>();
+                groupsByParent.put(parentId, groups);
+            }
 
-            // Update section
-            section = node.parent().id();
+            Map<String, String> group = new HashMap<>();
+            group.put(keys[0], node.id());
+            groups.add(group);
         }
 
-        return groups;
+        // Flatten map
+        for (Map.Entry<String, List<Map<String, String>>> parentAndGroups : groupsByParent.entrySet()) {
+            // Add parent group
+            Map<String, String> parentGroup = new HashMap<>();
+            parentGroup.put(keys[0], parentAndGroups.getKey());
+            finalGroups.add(parentGroup);
+
+            // Mark last group as a section
+            isSection.put(finalGroups.size() - 1, true);
+
+            // Add groups
+            finalGroups.addAll(parentAndGroups.getValue());
+        }
+
+        return finalGroups;
     }
 
     private static List<? extends List<? extends Map<String, ?>>> buildChildren(List<Node<String, List<ADEResource>>> resources) {
-        List<List<Map<String, String>>> children = new ArrayList<>();
-        String section = null;
+        Map<String, List<List<Map<String, String>>>> childrenDataByParent = new TreeMap<>();
+        List<List<Map<String, String>>> finalChildren = new ArrayList<>();
 
+        // Build childData map
         for (Node<String, List<ADEResource>> node : resources) {
-            if (section == null || !section.equals(node.parent().id())) {
-                children.add(new ArrayList<Map<String, String>>());
+            String parentId = node.parent().id();
+            if (parentId == null) {
+                parentId = "";
             }
 
-            List<Map<String, String>> child = new ArrayList<>();
+            List<List<Map<String, String>>> childrenData = childrenDataByParent.get(parentId);
+            if (childrenData == null) {
+                childrenData = new ArrayList<>();
+                childrenDataByParent.put(parentId, childrenData);
+            }
 
+            List<Map<String, String>> childData = new ArrayList<>();
             for (ADEResource resource : node.content()) {
                 if (resource.name().isEmpty()) {
                     continue;
                 }
 
-                child.add(new HashMap<String, String>());
-                child.get(child.size() - 1).put(keys[0], resource.name());
+                childData.add(new HashMap<String, String>());
+                childData.get(childData.size() - 1).put(keys[0], resource.name());
             }
 
-            children.add(child);
-
-            // Update section
-            section = node.parent().id();
+            childrenData.add(childData);
         }
 
-        return children;
+        // Flatten map
+        for (Map.Entry<String, List<List<Map<String, String>>>> parentAndChildrenData : childrenDataByParent.entrySet()) {
+            // Add empty data for parent group
+            finalChildren.add(new ArrayList<Map<String, String>>());
+
+            // Add groups
+            finalChildren.addAll(parentAndChildrenData.getValue());
+        }
+
+        return finalChildren;
     }
 
     @Override
