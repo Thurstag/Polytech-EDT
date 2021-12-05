@@ -54,7 +54,7 @@ public class AboutListAdapter extends SimpleAdapter {
                 {App.context.getString(R.string.git_repo), "https://github.com"},
                 {App.context.getString(R.string.git_revision), BuildConfig.GIT_COMMIT_SHA},
                 {App.context.getString(R.string.devs), "Thomas Capodano & Sasha Berthout"},
-                {App.context.getString(R.string.license), "GNU General Public License v3.0"},
+                {App.context.getString(R.string.license), "Apache License 2.0"},
                 {App.context.getString(R.string.contact), AppConfig.get(AppProperty.REPORT_MAIL)}
         };
 
