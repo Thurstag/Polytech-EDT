@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 Polytech-EDT
+ * Copyright 2018-2022 Polytech-EDT
  * Licensed under Apache License 2.0 or any later version
  * Refer to the LICENSE.md file included.
  */
